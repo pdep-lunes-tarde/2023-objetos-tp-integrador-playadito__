@@ -13,8 +13,6 @@ object tablero {
 
 class FilaDeCombate {
 
-	const alto
-	const ancho
 	const cartas = new List()
 	var puntaje = 0
 
@@ -28,6 +26,40 @@ class FilaDeCombate {
 	// add a lista
 	// mostar cambios 
 	// actualizarPuntaje 
+	}
+
+}
+
+object filaCartasJugables {
+
+	const cartas = new List()
+
+	method position() {
+	}
+
+	method image() {
+	}
+
+	method mostrarCartas() {
+	// display de cartas (wollok game display)
+	}
+
+	method manoInicial(nuevasCartas) {
+	// comienzo de partida (10)
+	// nueva ronda (5)
+	}
+
+	method agregarCarta(carta) {
+	// metodo para cartas especiales
+	}
+
+	method siguiente() {
+	// mover el selector
+	}
+
+	method seleccionar() {
+	// se elimina la carta de la lista
+	// mostrarCartas() -> muestra de nuevo la lista actualizada
 	}
 
 }

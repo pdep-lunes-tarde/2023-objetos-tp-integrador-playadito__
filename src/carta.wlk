@@ -6,6 +6,11 @@ class CartaDeUnidad {
 	var puntaje = valor // puntaje modificable
 	const especialidad // objeto de especialidad
 
+	method puntaje() = puntaje
+
+	method jugar() {
+	}
+
 }
 
 class CartaHeroe {
@@ -13,6 +18,45 @@ class CartaHeroe {
 }
 
 class CartaEspecial {
+
+}
+
+class CartaLider {
+
+}
+
+const cartaUno = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "infanteria", valor = 5, especialidad = espia)
+
+const cartaDos = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "arqueria", valor = 8, especialidad = nulo)
+
+const cartaTres = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "asedio", valor = 6, especialidad = medico)
+
+// Especialidades
+object medico {
+
+	method aplicar() {
+	}
+
+}
+
+object espia {
+
+	method aplicar() {
+	}
+
+}
+
+object lazoEstrecho {
+
+	method aplicar() {
+	}
+
+}
+
+object nulo {
+
+	method aplicar() {
+	}
 
 }
 
