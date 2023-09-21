@@ -1,10 +1,14 @@
 # Grupo
 
-Nombre: **COMPLETAR ACA**
+Nombre: **Playadito**
 
-Integrantes: **COMPLETAR ACA**
+Integrantes: **Abril Dominguez Nimo, Jiun Ming Hsu, Thomas Denholm**
 
-Nombre de Juego: **Nombre**
+# Juego
+
+Nombre de Juego: **GWENT Casero**
+
+Descripción: [descripción general del juego](https://docs.google.com/document/d/1Phfu0lWlJHHktwRmt6e1YLkAWTW_Dvv88BtQW1gipIc/edit?usp=sharing)
 
 # Consigna TP Integrador
 
