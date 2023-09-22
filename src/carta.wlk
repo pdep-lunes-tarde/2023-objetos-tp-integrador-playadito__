@@ -1,10 +1,22 @@
+import wollok.game.*
+
 class CartaDeUnidad {
 
+	// 80px
+	// 110px
 	const baraja // objeto
 	const claseDeCombate // cadena, ej "infanteria"
 	const valor // puntaje inicial u original (valor numerico)
 	var puntaje = valor // puntaje modificable
 	const especialidad // objeto de especialidad
+
+	method position() {
+		return game.at(4, 5)
+	}
+
+	method image() {
+		return "assets/C-01.png"
+	}
 
 	method puntaje() = puntaje
 

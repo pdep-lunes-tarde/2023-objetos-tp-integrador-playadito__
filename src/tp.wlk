@@ -14,10 +14,11 @@ object ventana {
 
 	method init() {
 		game.width(85)
-		game.height(48)
+		game.height(50)
 		game.cellSize(20)
-//		game.addVisual(tablero)
-		game.ground("assets/BG-001.png")
+		game.addVisual(cartaUno)
+		game.addVisual(filaAsedio)
+		game.ground("assets/test_img.png")
 		game.start()
 	}
 
