@@ -21,6 +21,15 @@ class CartaDeUnidad {
 		pos_y = y
 	}
 
+//cambiar si encontramos algo mejor
+	method getPosicionX() {
+		return pos_x
+	}
+
+	method getPosicionY() {
+		return pos_y
+	}
+
 	method image() {
 		return "assets/C-01.png"
 	}

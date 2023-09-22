@@ -26,6 +26,7 @@ object ventana {
 		game.addVisual(puntajeTotalJugador)
 		game.ground("assets/BG-003.png")
 		cartasJugables.cartasPrimeraRonda()
+			// esto es temporal
 		game.start()
 	}
 
