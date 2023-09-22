@@ -9,9 +9,16 @@ class CartaDeUnidad {
 	const valor // puntaje inicial u original (valor numerico)
 	var puntaje = valor // puntaje modificable
 	const especialidad // objeto de especialidad
+	var pos_x = 0
+	var pos_y = 0
 
 	method position() {
-		return game.at(4, 5)
+		return game.at(pos_x, pos_y)
+	}
+
+	method setPosicion(x, y) {
+		pos_x = x
+		pos_y = y
 	}
 
 	method image() {
@@ -75,6 +82,16 @@ object nulo {
 // BARAJAS
 // razon: porque la definicion los metodos del efecto de cada baraja son diferentes
 object reinosDelNorte {
+
+	const mazo = [ cartaUno, cartaDos, cartaTres ]
+
+	method mazo() {
+		return mazo
+	}
+
+	method setCartas() {
+		mazo.clear()
+	}
 
 	method efectoFinDeRonda() {
 	}

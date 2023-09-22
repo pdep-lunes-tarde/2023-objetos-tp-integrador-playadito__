@@ -1,4 +1,5 @@
 import wollok.game.*
+import carta.*
 
 object tablero {
 
@@ -25,7 +26,7 @@ class FilaDeCombate {
 	}
 
 	method image() {
-		return "assets/FC-001.png"
+		return "assets/FC-002.png"
 	}
 
 	method puntajeFila() = puntaje
@@ -42,26 +43,82 @@ class FilaDeCombate {
 
 }
 
+//3 en realidad deberia ser 10
+object cartasJugables {
+
+	const manoInicial = new List()
+	const barajaElegida = reinosDelNorte.mazo()
+	var cartaAleatoria
+
+	method cartasPrimeraRonda() {
+		if (manoInicial.size() < 3) {
+			cartaAleatoria = barajaElegida.anyOne()
+			barajaElegida.remove(cartaAleatoria)
+			manoInicial.add(cartaAleatoria)
+			self.cartasPrimeraRonda()
+		}
+		filaCartasJugables.manoInicial(manoInicial)
+	}
+
+	method cartasRondaNueva(cartasSobrantes) {
+	// hacer
+	}
+
+}
+
+object seleccionador {
+
+	var indice
+
+	method obtenerCartas() {
+	}
+
+	method moverIzquierda() {
+	}
+
+	method moverDerecha() {
+	}
+
+	method seleccionar() {
+	}
+
+}
+
 object filaCartasJugables {
 
-	const cartas = new List()
+	var cartas = new List()
+	var indice = 0
+	var cantCartas
+	var carta
+	var pos_x = 29
+	var pos_y = 2
 
 	method position() {
+		return game.at(28, 2)
 	}
 
 	method image() {
+		return "assets/FJ-002.png"
 	}
 
 	method mostrarCartas() {
-	// display de cartas (wollok game display)
+		if (indice < cantCartas) {
+			carta = cartas.get(indice)
+			carta.setPosicion(pos_x, pos_y)
+			game.addVisual(carta)
+			pos_x = pos_x + 5
+			indice = indice + 1
+		}
+	// 5 deberia ser 4, chequear
 	}
 
 	method manoInicial(nuevasCartas) {
-	// comienzo de partida (10)
-	// nueva ronda (5)
+		cartas = nuevasCartas
+		cantCartas = cartas.size()
+		self.mostrarCartas()
 	}
 
-	method agregarCarta(carta) {
+	method agregarCarta(unaCarta) {
 	// metodo para cartas especiales
 	}
 
@@ -76,15 +133,21 @@ object filaCartasJugables {
 
 }
 
-const filaAsedio = new FilaDeCombate(pos_y = 8)
+const filaAsedioJugador = new FilaDeCombate(pos_y = 9)
 
-const filaArquero = new FilaDeCombate(pos_y = 16)
+const filaArqueroJugador = new FilaDeCombate(pos_y = 15)
 
-const filaInfante = new FilaDeCombate(pos_y = 22)
+const filaInfanteJugador = new FilaDeCombate(pos_y = 21)
+
+const filaAsedioRival = new FilaDeCombate(pos_y = 28)
+
+const filaArqueroRival = new FilaDeCombate(pos_y = 34)
+
+const filaInfanteRival = new FilaDeCombate(pos_y = 40)
 
 object puntajeTotalJugador {
 
-	const filasDeCombate = [ filaAsedio, filaArquero, filaInfante ]
+	const filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ]
 	var puntajeTotal = 0
 
 	method actualizarPuntajeTotal() {
@@ -93,10 +156,16 @@ object puntajeTotalJugador {
 
 	method puntajeTotal() = puntajeTotal
 
+	method text() {
+		return puntajeTotal.toString()
+	}
+
 	method image() {
+		return "assets/PJ-01.png"
 	}
 
 	method position() {
+		return game.at(17, 14)
 	}
 
 }
