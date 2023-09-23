@@ -25,7 +25,7 @@ object ventana {
 		game.addVisual(filaCartasJugables)
 		game.addVisual(puntajeTotalJugador)
 		game.addVisual(puntajeTotalRival)
-		game.ground("assets/BG-003.png")
+		game.ground("assets/BG-002.png")
 		cartasJugables.cartasPrimeraRonda()
 		filaAsedioJugador.puntajeDeFila()
 		filaArqueroJugador.puntajeDeFila()

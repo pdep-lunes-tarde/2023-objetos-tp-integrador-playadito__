@@ -32,7 +32,7 @@ class FilaDeCombate {
 	}
 
 	method image() {
-		return "assets/FJ-002.png"
+		return "assets/FC-002.png"
 	}
 
 	method puntajeFila() = puntaje
@@ -177,7 +177,7 @@ object filaCartasJugables {
 	}
 
 	method image() {
-		return "assets/FJ-002.png"
+		return "assets/FC-002.png"
 	}
 
 	method mostrarCartas() {

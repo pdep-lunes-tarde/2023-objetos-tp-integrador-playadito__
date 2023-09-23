@@ -34,6 +34,14 @@ class CartaDeUnidad {
 		return "assets/C-01.png"
 	}
 
+	method text() {
+		return puntaje.toString()
+	}
+
+	method textColor() {
+		return "000000FF"
+	}
+
 	method puntaje() = puntaje
 
 	method jugar() {
