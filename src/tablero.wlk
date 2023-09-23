@@ -18,15 +18,21 @@ class FilaDeCombate {
 	// 120px (6)
 	const cartas = new List()
 	var puntaje = 0
-	const pos_x = 28
+	const pos_x = 24
 	const pos_y
+	const imagen
+	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 2, imagen = imagen)
+
+	method puntajeDeFila() {
+		game.addVisual(puntajeFila)
+	}
 
 	method position() {
 		return game.at(pos_x, pos_y)
 	}
 
 	method image() {
-		return "assets/FC-002.png"
+		return "assets/FJ-002.png"
 	}
 
 	method puntajeFila() = puntaje
@@ -39,6 +45,52 @@ class FilaDeCombate {
 	// add a lista
 	// mostar cambios 
 	// actualizarPuntaje 
+	}
+
+	method listaCartas() = cartas
+
+}
+
+const filaAsedioJugador = new FilaDeCombate(pos_y = 9, imagen = "assets/PJ-01.png")
+
+const filaArqueroJugador = new FilaDeCombate(pos_y = 15, imagen = "assets/PJ-01.png")
+
+const filaInfanteJugador = new FilaDeCombate(pos_y = 21, imagen = "assets/PJ-01.png")
+
+const filaAsedioRival = new FilaDeCombate(pos_y = 28, imagen = "assets/PR-01.png")
+
+const filaArqueroRival = new FilaDeCombate(pos_y = 34, imagen = "assets/PR-01.png")
+
+const filaInfanteRival = new FilaDeCombate(pos_y = 40, imagen = "assets/PR-01.png")
+
+class PuntajeFila {
+
+	var cartasFila
+	var puntajeTotalFila = 0
+	const pos_x = 22
+	var pos_y
+	const imagen
+
+	method actualizarPuntajeTotal() {
+		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
+	}
+
+	method puntajeTotalFila() = puntajeTotalFila
+
+	method text() {
+		return puntajeTotalFila.toString()
+	}
+
+	method textColor() {
+		return "000000FF"
+	}
+
+	method image() {
+		return imagen
+	}
+
+	method position() {
+		return game.at(pos_x, pos_y)
 	}
 
 }
@@ -73,7 +125,7 @@ class Seleccionador {
 	const cartasDisponibles = filaCartasJugables.listaDeCartas()
 	const maximo = cartasDisponibles.size()
 	var carta = cartasDisponibles.get(indice)
-	var pos_x = 29
+	var pos_x = 25
 	var pos_y = 2
 
 	// ver manera de no hardcodear
@@ -82,7 +134,7 @@ class Seleccionador {
 	}
 
 	method image() {
-		return "assets/S-01.png"
+		return "assets/S-02.png"
 	}
 
 	method moverIzquierda() {
@@ -116,12 +168,12 @@ object filaCartasJugables {
 	var indice = 0
 	var cantCartas
 	var carta
-	var pos_x = 29
+	var pos_x = 25
 	var pos_y = 2
 	var seleccionador
 
 	method position() {
-		return game.at(28, 2)
+		return game.at(24, 2)
 	}
 
 	method image() {
@@ -170,22 +222,13 @@ object filaCartasJugables {
 
 }
 
-const filaAsedioJugador = new FilaDeCombate(pos_y = 9)
+class PuntajeTotal {
 
-const filaArqueroJugador = new FilaDeCombate(pos_y = 15)
-
-const filaInfanteJugador = new FilaDeCombate(pos_y = 21)
-
-const filaAsedioRival = new FilaDeCombate(pos_y = 28)
-
-const filaArqueroRival = new FilaDeCombate(pos_y = 34)
-
-const filaInfanteRival = new FilaDeCombate(pos_y = 40)
-
-object puntajeTotalJugador {
-
-	const filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ]
+	const filasDeCombate
 	var puntajeTotal = 0
+	const pos_x = 16
+	var pos_y
+	const imagen
 
 	method actualizarPuntajeTotal() {
 		puntajeTotal = filasDeCombate.map({ fila => fila.puntajeFila() }).sum()
@@ -197,15 +240,23 @@ object puntajeTotalJugador {
 		return puntajeTotal.toString()
 	}
 
+	method textColor() {
+		return "000000FF"
+	}
+
 	method image() {
-		return "assets/PJ-01.png"
+		return imagen
 	}
 
 	method position() {
-		return game.at(17, 14)
+		return game.at(pos_x, pos_y)
 	}
 
 }
+
+const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 14, imagen = "assets/PJ-02.png")
+
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 35, imagen = "assets/PR-02.png")
 
 // ver si hacer objeto rival o hacer clase
 // cambiar nombre despues
