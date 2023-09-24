@@ -1,8 +1,8 @@
 import wollok.game.*
 import tablero.*
 import carta.*
-import temp.*
 
+//import temp.*
 object tpIntegrador {
 
 	method jugar() {
@@ -35,6 +35,7 @@ object ventana {
 		filaInfanteRival.puntajeDeFila()
 		filaAsedioRival.puntajeDeFila()
 			// esto es temporal
+//		match.start()
 		game.start()
 	}
 
@@ -95,6 +96,7 @@ class Selector {
 	}
 
 	method select() {
+		catcher.takeSelection(index)
 	}
 
 }

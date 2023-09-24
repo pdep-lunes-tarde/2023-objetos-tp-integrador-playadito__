@@ -171,9 +171,12 @@ object filaCartasJugables {
 	// mover el selector
 	}
 
-	method seleccionar() {
+	method takeSelection(index) {
 	// se elimina la carta de la lista
 	// mostrarCartas() -> muestra de nuevo la lista actualizada
+	}
+
+	method seleccionar() {
 	}
 
 }
@@ -229,4 +232,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}  
+//}    

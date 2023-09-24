@@ -18,14 +18,60 @@ import tp.* // para el selector
 ///////////////////////////// PARTIDA /////////////////////////////
 object match {
 
+	var playerDeck
+	var round = 1
+
 	// hacer que contanga toda la info??
 	// o que contenga referencias de players (va a ser mas complicado de trabajar)
 	// var player
 	// var computer
 	// info minima: debe tener los puntajes y las barajas
 	method start() {
-	// detectar baraja elegida
-	// asignar baraja para la computadora
+		// detectar baraja elegida
+		playerDeck = northernRealms
+			// asignar baraja para la computadora
+		self.startRound()
+	}
+
+	method startRound() {
+		// seleccionar cartas random segun ronda (primera ronda = 10 cartas)
+		if (round == 1) {
+			remainingCardsRow.setHand(playerDeck.selectRandom(10))
+		}
+		board_.init()
+	}
+
+}
+
+///////////////////////////// BARAJA /////////////////////////////
+object northernRealms {
+
+	// ver mejor forma de organizar esto
+	const deck = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+
+	method deck() {
+		return deck
+	}
+
+	method endOfRoundEffect() {
+	}
+
+//	method firstHand(randomCards, num) {
+//		if (randomCards.size() < num) {
+//			const card = deck.anyOne()
+//			randomCards.add(card)
+//			deck.remove(card)
+//			self.firstHand(randomCards, num)
+//		}
+//	}
+//		if (manoInicial.size() < 3) {
+//			cartaAleatoria = barajaElegida.anyOne()
+//			barajaElegida.remove(cartaAleatoria)
+//			manoInicial.add(cartaAleatoria)
+//			self.firstHand()
+//		}
+	method selectRandom(num) {
+		return deck
 	}
 
 }
@@ -107,7 +153,15 @@ const philippaEilhart = new Card_(combatClass = "siege", strengthPoints = 8, abi
 ///////////////////////////// TABLERO /////////////////////////////
 object board_ {
 
+	const playerField = new Dictionary()
+
+	// setear tambien opponentField
 	method init() {
+		// ver si se puede instanciar aca
+		playerField.put("closeCombat", playerCloseCombat)
+		playerField.put("ranged", playerRanged)
+		playerField.put("siege", playerSiege)
+		self.display()
 	}
 
 	method position() {
@@ -116,10 +170,24 @@ object board_ {
 	method image() {
 	}
 
+	method playerPlay(card) {
+		playerField.get(card.combatClass()).addCard(card)
+	}
+
 	// Por el momento parece que no es necesario el objeto tablero
 	// el method display se usaria para hacer llamada de los displays
 	// de cada seccion. (cosa que se podria hacer en otro lado)
 	method display() {
+		// filas de combate
+		game.addVisual(playerSiege)
+		game.addVisual(playerRanged)
+		game.addVisual(playerCloseCombat)
+		game.addVisual(opponentSiege)
+		game.addVisual(opponentRanged)
+		game.addVisual(opponentCloseCombat)
+			// fila de cartas restantes
+		game.addVisual(remainingCardsRow)
+		remainingCardsRow.displayCards()
 	}
 
 }
@@ -241,20 +309,54 @@ class RowScore_ {
 
 // Instancias de CombatRow, las instancias existen siempre,
 // pero las visuales deben ser disparadas en algun momento concreto
-const mySiege = new CombatRow_(combatClass = "siege", pos_y = 9)
+const playerSiege = new CombatRow_(combatClass = "siege", pos_y = 9)
 
-const myRanged = new CombatRow_(combatClass = "ranged", pos_y = 15)
+const playerRanged = new CombatRow_(combatClass = "ranged", pos_y = 15)
 
-const myCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 21)
+const playerCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 21)
 
-const opSiege = new CombatRow_(combatClass = "siege", pos_y = 28)
+const opponentSiege = new CombatRow_(combatClass = "siege", pos_y = 28)
 
-const opRanged = new CombatRow_(combatClass = "ranged", pos_y = 34)
+const opponentRanged = new CombatRow_(combatClass = "ranged", pos_y = 34)
 
-const opCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 40)
+const opponentCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 40)
 
 ///////////////////////////// CARTAS DISPONIBLES /////////////////////////////
-object remainCardsRow {
+object remainingCardsRow {
+
+	var remainingCards = new List()
+	var selector
+	const pos_x = 25
+	const pos_y = 2
+
+	method image() = "assets/FC-002.png"
+
+	method position() = game.at(24, 2)
+
+	method setHand(cards) {
+		remainingCards = cards
+	}
+
+	method remainingCards() = remainingCards
+
+	// muestra / actualiza las cartas
+	method displayCards() {
+		counter.reset()
+		remainingCards.forEach({ card => card.setPosition(self.setCard_X(pos_x), pos_y)})
+		remainingCards.forEach({ card => card.display()})
+		selector = new Selector(items = self.remainingCards(), image = "assets/S-02.png", catcher = self)
+		selector.setSelector()
+	}
+
+	// metodo repetido, -_-
+	method setCard_X(row_x) = (row_x - 3) + counter.count(4)
+
+	method takeSelection(index) {
+		const selectedCard = remainingCards.get(index)
+		board_.playerPlay(selectedCard)
+		remainingCards.remove(selectedCard)
+		self.displayCards()
+	}
 
 }
 
