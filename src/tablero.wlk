@@ -1,5 +1,6 @@
 import wollok.game.*
 import carta.*
+import tp.*
 
 object tablero {
 
@@ -118,50 +119,6 @@ object cartasJugables {
 
 }
 
-//ya que luego de haber seleccionado, el objeto debe eliminarse para evitar la seleccion en momentos incorrectos
-class Seleccionador {
-
-	var indice = 0
-	const cartasDisponibles = filaCartasJugables.listaDeCartas()
-	const maximo = cartasDisponibles.size()
-	var carta = cartasDisponibles.get(indice)
-	var pos_x = 25
-	var pos_y = 2
-
-	// ver manera de no hardcodear
-	method position() {
-		return game.at(pos_x, pos_y)
-	}
-
-	method image() {
-		return "assets/S-02.png"
-	}
-
-	method moverIzquierda() {
-		if (indice > 0) {
-			indice = indice - 1
-			carta = cartasDisponibles.get(indice)
-			pos_x = carta.getPosicionX()
-			pos_y = carta.getPosicionY()
-			game.at(pos_x, pos_y)
-		}
-	}
-
-	method moverDerecha() {
-		if (indice < maximo) {
-			indice = indice + 1
-			carta = cartasDisponibles.get(indice)
-			pos_x = carta.getPosicionX()
-			pos_y = carta.getPosicionY()
-			game.at(pos_x, pos_y)
-		}
-	}
-
-	method seleccionar() {
-	}
-
-}
-
 object filaCartasJugables {
 
 	var cartas = new List()
@@ -190,10 +147,9 @@ object filaCartasJugables {
 		}
 			// 5 deberia ser 4, chequear
 			// esta haciendo muchas cosas
-		seleccionador = new Seleccionador()
-		game.addVisual(seleccionador)
-		keyboard.left().onPressDo{ seleccionador.moverIzquierda()}
-		keyboard.right().onPressDo{ seleccionador.moverDerecha()}
+			// se instancia adentro del metodo porque para cada actalizacion, se hace un nuevo selector
+		seleccionador = new Selector(items = self.listaDeCartas(), image = "assets/S-02.png", catcher = self)
+		seleccionador.setSelector()
 	// esto es temporal
 	}
 

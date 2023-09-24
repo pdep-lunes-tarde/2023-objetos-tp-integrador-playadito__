@@ -39,6 +39,81 @@ object ventana {
 
 }
 
+// * los listener de las keys son manejados por la instancia
+// * falta implementar la devolucion del seleccionado
+// * ver si hay un lugar mas apropiado para meter esta clase (para q no quede en el archivo "tp")
+class Selector {
+
+	const items
+	const image
+	const catcher // objeto al que le voy a devolver lo seleccionado (referencia o index)
+	var index = 0
+
+	// wollok game req
+	method image() = image
+
+	// comenzar 
+	method setSelector() {
+		self.displayOn(self.getItemPosition(index))
+		self.addListener()
+	}
+
+	// posicion segun el objeto a seleccionar
+	method getItemPosition(itemIndex) {
+		const item = items.get(itemIndex)
+		return game.at(item.getPosicionX(), item.getPosicionY())
+	}
+
+	// mostrar / actualizar
+	method displayOn(position) {
+		if (game.hasVisual(self)) {
+			game.removeVisual(self)
+		}
+		game.addVisualIn(self, position)
+	}
+
+	// listener y efectos
+	method addListener() {
+		keyboard.left().onPressDo{ self.moveLeft()}
+		keyboard.right().onPressDo{ self.moveRight()}
+		keyboard.enter().onPressDo{ self.select()}
+	}
+
+	method moveLeft() {
+		if (index > 0) {
+			index--
+			self.displayOn(self.getItemPosition(index))
+		}
+	}
+
+	method moveRight() {
+		if (index < items.size() - 1) {
+			index++
+			self.displayOn(self.getItemPosition(index))
+		}
+	}
+
+	method select() {
+	}
+
+}
+
+// podria ser una instancia de la clase selector
+object menuSelector {
+
+}
+
+object menu {
+
+	// Display
+	method position() {
+	}
+
+	method image() {
+	}
+
+}
+
 object jugador {
 
 	method elegirBaraja() {
