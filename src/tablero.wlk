@@ -126,7 +126,7 @@ object filaCartasJugables {
 	var cantCartas
 	var carta
 	var pos_x = 25
-	var pos_y = 2
+	const pos_y = 2
 	var seleccionador
 
 	method position() {
@@ -229,4 +229,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}
+//}  

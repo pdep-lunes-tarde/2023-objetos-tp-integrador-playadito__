@@ -4,48 +4,36 @@ class CartaDeUnidad {
 
 	// 80px
 	// 110px
-	const baraja // objeto
+	// const baraja // objeto
 	const claseDeCombate // cadena, ej "infanteria"
 	const valor // puntaje inicial u original (valor numerico)
-	var puntaje = valor // puntaje modificable
+	const puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const especialidad // objeto de especialidad
 	var pos_x = 0
 	var pos_y = 0
 
-	method position() {
-		return game.at(pos_x, pos_y)
-	}
+	method image() = "assets/C-01.png"
+
+	method position() = game.at(pos_x, pos_y)
 
 	method setPosicion(x, y) {
 		pos_x = x
 		pos_y = y
 	}
 
-//cambiar si encontramos algo mejor
-	method getPosicionX() {
-		return pos_x
-	}
+	method getPosicionX() = pos_x
 
-	method getPosicionY() {
-		return pos_y
-	}
+	method getPosicionY() = pos_y
 
-	method image() {
-		return "assets/C-01.png"
-	}
+	method text() = puntaje.toString()
 
-	method text() {
-		return puntaje.toString()
-	}
-
-	method textColor() {
-		return "000000FF"
-	}
+	method textColor() = "000000FF"
 
 	method puntaje() = puntaje
 
-	method jugar() {
-	}
+	method claseDeCombate() = claseDeCombate
+
+	method especialidad() = especialidad
 
 }
 
@@ -61,11 +49,11 @@ class CartaLider {
 
 }
 
-const cartaUno = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "infanteria", valor = 5, especialidad = espia)
+const cartaUno = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 5, especialidad = espia)
 
-const cartaDos = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "arqueria", valor = 8, especialidad = nulo)
+const cartaDos = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 8, especialidad = nulo)
 
-const cartaTres = new CartaDeUnidad(baraja = reinosDelNorte, claseDeCombate = "asedio", valor = 6, especialidad = medico)
+const cartaTres = new CartaDeUnidad(claseDeCombate = "asedio", valor = 6, especialidad = medico)
 
 // Especialidades
 object medico {

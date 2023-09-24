@@ -1,6 +1,7 @@
 import wollok.game.*
 import tablero.*
 import carta.*
+import temp.*
 
 object tpIntegrador {
 
@@ -116,12 +117,10 @@ object menu {
 
 object jugador {
 
+	// En principio el objeto jugador deberia ser unicamente para contener informacion
 	method elegirBaraja() {
 	// primera interfaz con tres cartas identificando a las tres barajas
 	// cartasJugables.cartasPrimeraRonda(barajaElegida.mazo())
-	}
-
-	method jugarCarta() {
 	}
 
 }
