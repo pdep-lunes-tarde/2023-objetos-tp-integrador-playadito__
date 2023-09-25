@@ -17,23 +17,11 @@ object ventana {
 		game.width(85)
 		game.height(48)
 		game.cellSize(20)
-//		game.addVisual(filaAsedioJugador)
-//		game.addVisual(filaArqueroJugador)
-//		game.addVisual(filaInfanteJugador)
-//		game.addVisual(filaAsedioRival)
-//		game.addVisual(filaArqueroRival)
-//		game.addVisual(filaInfanteRival)
 //		game.addVisual(filaCartasJugables)
 //		game.addVisual(puntajeTotalJugador)
 //		game.addVisual(puntajeTotalRival)
 		game.ground("assets/BG-002.png")
 //		cartasJugables.cartasPrimeraRonda()
-//		filaAsedioJugador.puntajeDeFila()
-//		filaArqueroJugador.puntajeDeFila()
-//		filaInfanteJugador.puntajeDeFila()
-//		filaArqueroRival.puntajeDeFila()
-//		filaInfanteRival.puntajeDeFila()
-//		filaAsedioRival.puntajeDeFila()
 			// esto es temporal
 		match.start()
 		game.start()
@@ -98,9 +86,12 @@ class Selector {
 
 	method select() {
 		game.removeVisual(self)
+		items.remove(catcher.remainingCards().get(index))
 		catcher.takeSelection(index)
+	//
 	}
 
+//sacar elemento de la lista del selector
 }
 
 // podria ser una instancia de la clase selector
@@ -115,6 +106,28 @@ object menu {
 	}
 
 	method image() {
+	}
+
+}
+
+object partida {
+
+	var barajaJugador
+	// var barajaRival
+	var ronda = 1
+
+	method iniciarJuego() {
+//		barajaJugador = reinosDelNorte
+		self.comenzarRonda()
+	}
+
+	method comenzarRonda() {
+		if (ronda == 1) {
+//			const list = new List()
+//			filaCartasJugables.establecerManoCartas(barajaJugador.selectRandom(10))
+//			playerDeck.firstHand(list, 10)
+		}
+		board_.init()
 	}
 
 }

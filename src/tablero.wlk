@@ -4,11 +4,40 @@ import tp.*
 
 object tablero {
 
-	method position() {
-		return game.origin().up(10)
+	const filasJugador = new Dictionary()
+	const filasRival = new Dictionary()
+
+	method inicializarTablero() {
+		filasJugador.put("infanteria", filaInfanteJugador)
+		filasJugador.put("arqueria", filaArqueroJugador)
+		filasJugador.put("asedio", filaAsedioJugador)
+		self.mostar()
 	}
 
-	method image() {
+	method mostar() {
+		game.addVisual(filaAsedioJugador)
+		game.addVisual(filaArqueroJugador)
+		game.addVisual(filaInfanteJugador)
+		game.addVisual(filaAsedioRival)
+		game.addVisual(filaArqueroRival)
+		game.addVisual(filaInfanteRival)
+			// mostar fila cartas jugables
+		game.addVisual(filaCartasJugables)
+			// filaCartasJugables.mostrar()
+			// mostar filas
+		filaAsedioJugador.mostrar()
+		filaArqueroJugador.mostrar()
+		filaInfanteJugador.mostrar()
+		filaAsedioRival.mostrar()
+		filaArqueroRival.mostrar()
+		filaInfanteRival.mostrar()
+	}
+
+	method cartaJugadaJugador(laCarta) {
+		filasJugador.get(laCarta.claseDeCombate().insertarCarta(laCarta))
+	}
+
+	method cartaJugadaRival(unaCarta) {
 	}
 
 }
@@ -18,11 +47,10 @@ class FilaDeCombate {
 	// 700px (35 celdas)
 	// 120px (6)
 	const cartas = new List()
-	var puntaje = 0
 	const pos_x = 24
 	const pos_y
-	const imagen
-	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 2, imagen = imagen)
+	const imagenPuntajeFila
+	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 2, imagen = imagenPuntajeFila)
 
 	method puntajeDeFila() {
 		game.addVisual(puntajeFila)
@@ -36,33 +64,78 @@ class FilaDeCombate {
 		return "assets/FC-002.png"
 	}
 
-	method puntajeFila() = puntaje
-
-	method actualizarPuntaje() {
-		puntaje = cartas.map({ carta => carta.puntaje() }).sum()
-	}
-
+//	method actualizarPuntaje() {
+//		puntaje = cartas.map({ carta => carta.puntaje() }).sum()
+//	}
 	method insertarCarta(unaCarta) {
-	// add a lista
-	// mostar cambios 
-	// actualizarPuntaje 
+		cartas.add(unaCarta)
+		puntajeFila.sum(unaCarta.puntaje())
+		self.mostrar()
 	}
 
 	method listaCartas() = cartas
 
+	method mostrar() {
+		if (!cartas.isEmpty()) {
+			contador.setear()
+			cartas.forEach({ carta => carta.setPosition(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+			cartas.forEach({ carta => carta.mostrar()})
+		}
+		puntajeFila.mostrar()
+	}
+
+	method calcularPosicionEnXCarta(fila_x) = (fila_x - 3) + contador.contar(4)
+
+	// inserta una carta en la linea (cuando se juega una carta)
+	method agregarCarta(unaCarta) {
+		cartas.add(unaCarta)
+		puntajeFila.sum(unaCarta.puntaje())
+		self.mostrar()
+	}
+
+	// para mas adelante (efecto de algunas cartas especiales)
+	method removerCarta() {
+		// ...
+		self.mostrar()
+	}
+
+	// limpia la fila (para fin de ronda)
+	method vaciarFila() {
+		cartas.clear()
+		self.mostrar()
+	}
+
 }
 
-const filaAsedioJugador = new FilaDeCombate(pos_y = 9, imagen = "assets/PJ-01.png")
+//usar times
+// ES MALO ESTO, PENSAR OTRA FORMA
+// es para el display formateado
+object contador {
 
-const filaArqueroJugador = new FilaDeCombate(pos_y = 15, imagen = "assets/PJ-01.png")
+	var contador = 0
 
-const filaInfanteJugador = new FilaDeCombate(pos_y = 21, imagen = "assets/PJ-01.png")
+	method contar(aumento) {
+		contador = contador + aumento
+		return contador
+	}
 
-const filaAsedioRival = new FilaDeCombate(pos_y = 28, imagen = "assets/PR-01.png")
+	method setear() {
+		contador = 0
+	}
 
-const filaArqueroRival = new FilaDeCombate(pos_y = 34, imagen = "assets/PR-01.png")
+}
 
-const filaInfanteRival = new FilaDeCombate(pos_y = 40, imagen = "assets/PR-01.png")
+const filaAsedioJugador = new FilaDeCombate(pos_y = 9, imagenPuntajeFila = "assets/PJ-01.png")
+
+const filaArqueroJugador = new FilaDeCombate(pos_y = 15, imagenPuntajeFila = "assets/PJ-01.png")
+
+const filaInfanteJugador = new FilaDeCombate(pos_y = 21, imagenPuntajeFila = "assets/PJ-01.png")
+
+const filaAsedioRival = new FilaDeCombate(pos_y = 28, imagenPuntajeFila = "assets/PR-01.png")
+
+const filaArqueroRival = new FilaDeCombate(pos_y = 34, imagenPuntajeFila = "assets/PR-01.png")
+
+const filaInfanteRival = new FilaDeCombate(pos_y = 40, imagenPuntajeFila = "assets/PR-01.png")
 
 class PuntajeFila {
 
@@ -76,22 +149,22 @@ class PuntajeFila {
 		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
 	}
 
+	method position() = game.at(pos_x, pos_y)
+
 	method puntajeTotalFila() = puntajeTotalFila
 
-	method text() {
-		return puntajeTotalFila.toString()
+	method text() = puntajeTotalFila.toString()
+
+	method textColor() = "000000FF"
+
+	method image() = imagen
+
+	method sumar(puntajeCartaNueva) {
+		puntajeTotalFila = puntajeTotalFila + puntajeCartaNueva
 	}
 
-	method textColor() {
-		return "000000FF"
-	}
-
-	method image() {
-		return imagen
-	}
-
-	method position() {
-		return game.at(pos_x, pos_y)
+	method restar(puntajeCartaEliminada) {
+		puntajeTotalFila = puntajeTotalFila - puntajeCartaEliminada
 	}
 
 }
@@ -148,9 +221,13 @@ object filaCartasJugables {
 			// 5 deberia ser 4, chequear
 			// esta haciendo muchas cosas
 			// se instancia adentro del metodo porque para cada actalizacion, se hace un nuevo selector
-		seleccionador = new Selector(items = self.listaDeCartas(), image = "assets/S-02.png", catcher = self)
-		seleccionador.setSelector()
+		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
+		seleccionador.setSelector(self.listaDeCartas())
 	// esto es temporal
+	}
+
+	method establecerManoCartas(lasCartas) {
+		cartas = lasCartas
 	}
 
 	method manoInicial(nuevasCartas) {
@@ -172,11 +249,12 @@ object filaCartasJugables {
 	}
 
 	method takeSelection(index) {
+//		const selectedCard = cartas.get(index)
+//		board_.playerPlay(selectedCard)
+//		remainingCards.remove(selectedCard)
+//		self.displayCards()
 	// se elimina la carta de la lista
 	// mostrarCartas() -> muestra de nuevo la lista actualizada
-	}
-
-	method seleccionar() {
 	}
 
 }
@@ -232,4 +310,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}    
+//}                

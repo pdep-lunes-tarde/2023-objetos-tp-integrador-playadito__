@@ -22,7 +22,9 @@ object match {
 	method startRound() {
 		// seleccionar cartas random segun ronda (primera ronda = 10 cartas)
 		if (round == 1) {
+//			const list = new List()
 			remainingCardsRow.setHand(playerDeck.selectRandom(10))
+//			playerDeck.firstHand(list, 10)
 		}
 		board_.init()
 	}
@@ -42,14 +44,15 @@ object northernRealms {
 	method endOfRoundEffect() {
 	}
 
-//	method firstHand(randomCards, num) {
-//		if (randomCards.size() < num) {
-//			const card = deck.anyOne()
-//			randomCards.add(card)
-//			deck.remove(card)
-//			self.firstHand(randomCards, num)
-//		}
-//	}
+	method firstHand(randomCards, num) {
+		if (randomCards.size() < num) {
+			const card = deck.anyOne()
+			randomCards.add(card)
+			deck.remove(card)
+			self.firstHand(randomCards, num)
+		}
+	}
+
 //		if (manoInicial.size() < 3) {
 //			cartaAleatoria = barajaElegida.anyOne()
 //			barajaElegida.remove(cartaAleatoria)
@@ -345,7 +348,7 @@ object remainingCardsRow {
 	method takeSelection(index) {
 		const selectedCard = remainingCards.get(index)
 		board_.playerPlay(selectedCard)
-		remainingCards.remove(selectedCard)
+		self.remainingCards().remove(selectedCard)
 		self.displayCards()
 	}
 

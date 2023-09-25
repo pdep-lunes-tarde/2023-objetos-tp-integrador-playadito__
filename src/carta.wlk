@@ -35,6 +35,10 @@ class CartaDeUnidad {
 
 	method especialidad() = especialidad
 
+	method mostrar() {
+		game.addVisual(self)
+	}
+
 }
 
 class CartaHeroe {
