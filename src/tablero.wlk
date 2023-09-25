@@ -149,6 +149,10 @@ class PuntajeFila {
 		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
 	}
 
+	method display() {
+		game.addVisual(self)
+	}
+
 	method position() = game.at(pos_x, pos_y)
 
 	method puntajeTotalFila() = puntajeTotalFila
@@ -169,92 +173,71 @@ class PuntajeFila {
 
 }
 
-//3 en realidad deberia ser 10
-object cartasJugables {
-
-	const manoInicial = new List()
-	const barajaElegida = reinosDelNorte.mazo()
-	var cartaAleatoria
-
-	method cartasPrimeraRonda() {
-		if (manoInicial.size() < 3) {
-			cartaAleatoria = barajaElegida.anyOne()
-			barajaElegida.remove(cartaAleatoria)
-			manoInicial.add(cartaAleatoria)
-			self.cartasPrimeraRonda()
-		}
-		filaCartasJugables.manoInicial(manoInicial)
-	}
-
-	method cartasRondaNueva(cartasSobrantes) {
-	// hacer
-	}
-
-}
-
+////////Opcion fuera de los tipos de barajas////////////////
+//object cartasJugables {
+//
+//	const manoCartas = new List()
+//	var cartaAleatoria
+//
+//	method obtenerCartaRandom(barajaElegida) {
+//		const unaCarta = barajaElegida.anyOne()
+//		manoCartas.add(unaCarta)
+//		barajaElegida.remove(unaCarta)
+//	}
+//
+//	method setCartas(barajaElegida, cantidadCartas) {
+//		cantidadCartas.times({ i => self.obtenerCartaRandom(barajaElegida)})
+//		return manoCartas
+//	}
+//
+//}
 object filaCartasJugables {
 
 	var cartas = new List()
-	var indice = 0
-	var cantCartas
-	var carta
 	var pos_x = 25
 	const pos_y = 2
 	var seleccionador
 
-	method position() {
-		return game.at(24, 2)
-	}
+	method position() = game.at(24, 2)
 
-	method image() {
-		return "assets/FC-002.png"
-	}
+	method image() = "assets/FC-002.png"
 
-	method mostrarCartas() {
-		if (indice < cantCartas) {
-			carta = cartas.get(indice)
-			carta.setPosicion(pos_x, pos_y)
-			game.addVisual(carta)
-			pos_x = pos_x + 5
-			indice = indice + 1
-		}
-			// 5 deberia ser 4, chequear
-			// esta haciendo muchas cosas
-			// se instancia adentro del metodo porque para cada actalizacion, se hace un nuevo selector
+//	method mostrarCartas() {
+//		if (indice < cantCartas) {
+//			carta = cartas.get(indice)
+//			carta.setPosicion(pos_x, pos_y)
+//			game.addVisual(carta)
+//			pos_x = pos_x + 5
+//			indice = indice + 1
+//		}
+//			// 5 deberia ser 4, chequear
+//			// esta haciendo muchas cosas
+//			// se instancia adentro del metodo porque para cada actalizacion, se hace un nuevo selector
+//		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
+//		seleccionador.setSelector(self.listaDeCartas())
+//	// esto es temporal
+//	}
+
+	// muestra / actualiza las cartas
+	method mostrar() {
+		contador.setear()
+		cartas.forEach({ carta => carta.setPosition(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+		cartas.forEach({ carta => carta.mostrar()})
 		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
 		seleccionador.setSelector(self.listaDeCartas())
-	// esto es temporal
 	}
+
+	// metodo repetido,
+	method calcularPosicionEnXCarta(fila_x) = (fila_x - 3) + contador.contar(4)
 
 	method establecerManoCartas(lasCartas) {
 		cartas = lasCartas
 	}
 
-	method manoInicial(nuevasCartas) {
-		cartas = nuevasCartas
-		cantCartas = cartas.size()
-		self.mostrarCartas()
-	}
-
-	method listaDeCartas() {
-		return cartas
-	}
+	method listaDeCartas() = cartas
 
 	method agregarCarta(unaCarta) {
 	// metodo para cartas especiales
-	}
-
-	method siguiente() {
-	// mover el selector
-	}
-
-	method takeSelection(index) {
-//		const selectedCard = cartas.get(index)
-//		board_.playerPlay(selectedCard)
-//		remainingCards.remove(selectedCard)
-//		self.displayCards()
-	// se elimina la carta de la lista
-	// mostrarCartas() -> muestra de nuevo la lista actualizada
 	}
 
 }
@@ -310,4 +293,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}                
+//}                       

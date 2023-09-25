@@ -1,8 +1,8 @@
 import wollok.game.*
-//import tablero.*
-//import carta.*
-import temp.*
+import tablero.*
+import carta.*
 
+//import temp.*
 object tpIntegrador {
 
 	method jugar() {
@@ -17,13 +17,11 @@ object ventana {
 		game.width(85)
 		game.height(48)
 		game.cellSize(20)
-//		game.addVisual(filaCartasJugables)
-//		game.addVisual(puntajeTotalJugador)
-//		game.addVisual(puntajeTotalRival)
+		game.addVisual(filaCartasJugables)
+		game.addVisual(puntajeTotalJugador)
+		game.addVisual(puntajeTotalRival)
 		game.ground("assets/BG-002.png")
-//		cartasJugables.cartasPrimeraRonda()
-			// esto es temporal
-		match.start()
+		partida.start()
 		game.start()
 	}
 
@@ -113,21 +111,21 @@ object menu {
 object partida {
 
 	var barajaJugador
-	// var barajaRival
+	var barajaRival
 	var ronda = 1
 
-	method iniciarJuego() {
-//		barajaJugador = reinosDelNorte
+	method start() {
+		barajaJugador = reinosDelNorte
 		self.comenzarRonda()
 	}
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-//			const list = new List()
-//			filaCartasJugables.establecerManoCartas(barajaJugador.selectRandom(10))
-//			playerDeck.firstHand(list, 10)
+			const listaCartas = new List()
+			filaCartasJugables.establecerManoCartas(barajaJugador.selectRandom(10))
+			barajaJugador.setCartas(10)
 		}
-		board_.init()
+		tablero.inicializarTablero()
 	}
 
 }

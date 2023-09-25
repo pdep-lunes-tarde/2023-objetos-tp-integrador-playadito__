@@ -5,14 +5,16 @@ class CartaDeUnidad {
 	// 80px
 	// 110px
 	// const baraja // objeto
+	// inicializar con (claseDeCombate, valor, especialidad, imagen)
 	const claseDeCombate // cadena, ej "infanteria"
 	const valor // puntaje inicial u original (valor numerico)
 	const puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const especialidad // objeto de especialidad
+	const imagen // = "assets/C-01.png"
 	var pos_x = 0
 	var pos_y = 0
 
-	method image() = "assets/C-01.png"
+	method image() = imagen
 
 	method position() = game.at(pos_x, pos_y)
 
@@ -39,6 +41,13 @@ class CartaDeUnidad {
 		game.addVisual(self)
 	}
 
+	method esconder() {
+		game.removeVisual(self)
+	}
+
+	method modificarPuntaje() {
+	}
+
 }
 
 class CartaHeroe {
@@ -53,11 +62,15 @@ class CartaLider {
 
 }
 
-const cartaUno = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 5, especialidad = espia)
+const ciri = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 10, especialidad = sinHabilidad, imagen = "assets/C-01.png")
 
-const cartaDos = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 8, especialidad = nulo)
+const geraltOfRivia = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 8, especialidad = sinHabilidad, imagen = "assets/C-01.png")
 
-const cartaTres = new CartaDeUnidad(claseDeCombate = "asedio", valor = 6, especialidad = medico)
+const yenneferOfVengerberg = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 15, especialidad = sinHabilidad, imagen = "assets/C-01.png")
+
+const trissMerigold = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 12, especialidad = sinHabilidad, imagen = "assets/C-01.png")
+
+const philippaEilhart = new CartaDeUnidad(claseDeCombate = "asedio", valor = 8, especialidad = sinHabilidad, imagen = "assets/C-01.png")
 
 // Especialidades
 object medico {
@@ -81,7 +94,7 @@ object lazoEstrecho {
 
 }
 
-object nulo {
+object sinHabilidad {
 
 	method aplicar() {
 	}
@@ -92,14 +105,21 @@ object nulo {
 // razon: porque la definicion los metodos del efecto de cada baraja son diferentes
 object reinosDelNorte {
 
-	const mazo = [ cartaUno, cartaDos, cartaTres ]
+	const mazo = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+	const manoCartas = new List()
 
-	method mazo() {
-		return mazo
+	// ver que se vacie
+	method mazo() = mazo
+
+	method obtenerCartaRandom() {
+		const unaCarta = mazo.anyOne()
+		manoCartas.add(unaCarta)
+		mazo.remove(unaCarta)
 	}
 
-	method setCartas() {
-		mazo.clear()
+	method setCartas(cantidadCartas) {
+		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		return manoCartas
 	}
 
 	method efectoFinDeRonda() {
