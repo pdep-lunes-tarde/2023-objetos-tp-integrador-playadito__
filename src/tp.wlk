@@ -1,8 +1,8 @@
 import wollok.game.*
-import tablero.*
-import carta.*
+//import tablero.*
+//import carta.*
+import temp.*
 
-//import temp.*
 object tpIntegrador {
 
 	method jugar() {
@@ -17,25 +17,25 @@ object ventana {
 		game.width(85)
 		game.height(48)
 		game.cellSize(20)
-		game.addVisual(filaAsedioJugador)
-		game.addVisual(filaArqueroJugador)
-		game.addVisual(filaInfanteJugador)
-		game.addVisual(filaAsedioRival)
-		game.addVisual(filaArqueroRival)
-		game.addVisual(filaInfanteRival)
-		game.addVisual(filaCartasJugables)
-		game.addVisual(puntajeTotalJugador)
-		game.addVisual(puntajeTotalRival)
+//		game.addVisual(filaAsedioJugador)
+//		game.addVisual(filaArqueroJugador)
+//		game.addVisual(filaInfanteJugador)
+//		game.addVisual(filaAsedioRival)
+//		game.addVisual(filaArqueroRival)
+//		game.addVisual(filaInfanteRival)
+//		game.addVisual(filaCartasJugables)
+//		game.addVisual(puntajeTotalJugador)
+//		game.addVisual(puntajeTotalRival)
 		game.ground("assets/BG-002.png")
-		cartasJugables.cartasPrimeraRonda()
-		filaAsedioJugador.puntajeDeFila()
-		filaArqueroJugador.puntajeDeFila()
-		filaInfanteJugador.puntajeDeFila()
-		filaArqueroRival.puntajeDeFila()
-		filaInfanteRival.puntajeDeFila()
-		filaAsedioRival.puntajeDeFila()
+//		cartasJugables.cartasPrimeraRonda()
+//		filaAsedioJugador.puntajeDeFila()
+//		filaArqueroJugador.puntajeDeFila()
+//		filaInfanteJugador.puntajeDeFila()
+//		filaArqueroRival.puntajeDeFila()
+//		filaInfanteRival.puntajeDeFila()
+//		filaAsedioRival.puntajeDeFila()
 			// esto es temporal
-//		match.start()
+		match.start()
 		game.start()
 	}
 
@@ -46,7 +46,7 @@ object ventana {
 // * ver si hay un lugar mas apropiado para meter esta clase (para q no quede en el archivo "tp")
 class Selector {
 
-	const items
+	var items = new List()
 	const image
 	const catcher // objeto al que le voy a devolver lo seleccionado (referencia o index)
 	var index = 0
@@ -55,7 +55,8 @@ class Selector {
 	method image() = image
 
 	// comenzar 
-	method setSelector() {
+	method setSelector(itemsList) {
+		items = items + itemsList
 		self.displayOn(self.getItemPosition(index))
 		self.addListener()
 	}
@@ -96,6 +97,7 @@ class Selector {
 	}
 
 	method select() {
+		game.removeVisual(self)
 		catcher.takeSelection(index)
 	}
 
@@ -113,16 +115,6 @@ object menu {
 	}
 
 	method image() {
-	}
-
-}
-
-object jugador {
-
-	// En principio el objeto jugador deberia ser unicamente para contener informacion
-	method elegirBaraja() {
-	// primera interfaz con tres cartas identificando a las tres barajas
-	// cartasJugables.cartasPrimeraRonda(barajaElegida.mazo())
 	}
 
 }

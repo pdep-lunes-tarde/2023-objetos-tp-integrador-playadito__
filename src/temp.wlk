@@ -1,20 +1,6 @@
 import wollok.game.*
 import tp.* // para el selector
 
-/*
- * IMPORTANTE
- * QUEDA POR HACER (EN ESTA IMPLEMENTACION):
- * 
- * FILA CARTAS RESTANTES
- * LOGICA DE DAR LAS PRIMERAS CARTAS RANDOM
- * PUNTAJE TOTAL
- * 
- * 
- * 
- * 
- * 
- * 
- */
 ///////////////////////////// PARTIDA /////////////////////////////
 object match {
 
@@ -188,9 +174,30 @@ object board_ {
 			// fila de cartas restantes
 		game.addVisual(remainingCardsRow)
 		remainingCardsRow.displayCards()
+			// esto es para que se muestren en el tablero, pero igual habria q buscar otra forma
+		playerSiege.display()
+		playerRanged.display()
+		playerCloseCombat.display()
+		opponentSiege.display()
+		opponentRanged.display()
+		opponentCloseCombat.display()
 	}
 
 }
+
+// Instancias de CombatRow, las instancias existen siempre,
+// pero las visuales deben ser disparadas en algun momento concreto
+const playerSiege = new CombatRow_(pos_y = 9)
+
+const playerRanged = new CombatRow_(pos_y = 15)
+
+const playerCloseCombat = new CombatRow_(pos_y = 21)
+
+const opponentSiege = new CombatRow_(pos_y = 28)
+
+const opponentRanged = new CombatRow_(pos_y = 34)
+
+const opponentCloseCombat = new CombatRow_(pos_y = 40)
 
 ///////////////////////////// FILA COMBATE /////////////////////////////
 class CombatRow_ {
@@ -198,7 +205,6 @@ class CombatRow_ {
 	// 700px (35 celdas)
 	// 120px (6)
 	const cards = new List()
-	const combatClass // string de clase de combate
 	const pos_x = 24
 	const pos_y
 	const rowScore = new RowScore_(pos_y = pos_y + 2)
@@ -247,8 +253,6 @@ class CombatRow_ {
 		self.display()
 	}
 
-	method combatClass() = combatClass
-
 }
 
 // ES MALO ESTO, PENSAR OTRA FORMA
@@ -271,7 +275,7 @@ object counter {
 class RowScore_ {
 
 	const pos_x = 22
-	var pos_y
+	const pos_y
 	var score = 0
 
 	// la imagen es la misma para todas las instancias??
@@ -307,20 +311,6 @@ class RowScore_ {
 
 }
 
-// Instancias de CombatRow, las instancias existen siempre,
-// pero las visuales deben ser disparadas en algun momento concreto
-const playerSiege = new CombatRow_(combatClass = "siege", pos_y = 9)
-
-const playerRanged = new CombatRow_(combatClass = "ranged", pos_y = 15)
-
-const playerCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 21)
-
-const opponentSiege = new CombatRow_(combatClass = "siege", pos_y = 28)
-
-const opponentRanged = new CombatRow_(combatClass = "ranged", pos_y = 34)
-
-const opponentCloseCombat = new CombatRow_(combatClass = "closeCombat", pos_y = 40)
-
 ///////////////////////////// CARTAS DISPONIBLES /////////////////////////////
 object remainingCardsRow {
 
@@ -344,13 +334,14 @@ object remainingCardsRow {
 		counter.reset()
 		remainingCards.forEach({ card => card.setPosition(self.setCard_X(pos_x), pos_y)})
 		remainingCards.forEach({ card => card.display()})
-		selector = new Selector(items = self.remainingCards(), image = "assets/S-02.png", catcher = self)
-		selector.setSelector()
+		selector = new Selector(image = "assets/S-02.png", catcher = self)
+		selector.setSelector(remainingCards)
 	}
 
 	// metodo repetido, -_-
 	method setCard_X(row_x) = (row_x - 3) + counter.count(4)
 
+	// por mas de que se le esta pasando al tablero, no se desreferencia de las cartas restantes
 	method takeSelection(index) {
 		const selectedCard = remainingCards.get(index)
 		board_.playerPlay(selectedCard)
