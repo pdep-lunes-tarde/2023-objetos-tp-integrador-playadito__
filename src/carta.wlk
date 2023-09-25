@@ -117,9 +117,11 @@ object reinosDelNorte {
 		mazo.remove(unaCarta)
 	}
 
+//por alguna razon no funciona, por anyOne
 	method setCartas(cantidadCartas) {
-		cantidadCartas.times({ i => self.obtenerCartaRandom()})
-		return manoCartas
+		// cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		// return manoCartas
+		return mazo
 	}
 
 	method efectoFinDeRonda() {

@@ -23,8 +23,10 @@ object tablero {
 		game.addVisual(filaInfanteRival)
 			// mostar fila cartas jugables
 		game.addVisual(filaCartasJugables)
-			// filaCartasJugables.mostrar()
+		filaCartasJugables.mostrar()
 			// mostar filas
+		game.addVisual(puntajeTotalJugador)
+		game.addVisual(puntajeTotalRival)
 		filaAsedioJugador.mostrar()
 		filaArqueroJugador.mostrar()
 		filaInfanteJugador.mostrar()
@@ -34,7 +36,7 @@ object tablero {
 	}
 
 	method cartaJugadaJugador(laCarta) {
-		filasJugador.get(laCarta.claseDeCombate().insertarCarta(laCarta))
+		filasJugador.get(laCarta.claseDeCombate()).insertarCarta(laCarta)
 	}
 
 	method cartaJugadaRival(unaCarta) {
@@ -69,7 +71,7 @@ class FilaDeCombate {
 //	}
 	method insertarCarta(unaCarta) {
 		cartas.add(unaCarta)
-		puntajeFila.sum(unaCarta.puntaje())
+		puntajeFila.sumar(unaCarta.puntaje())
 		self.mostrar()
 	}
 
@@ -78,20 +80,13 @@ class FilaDeCombate {
 	method mostrar() {
 		if (!cartas.isEmpty()) {
 			contador.setear()
-			cartas.forEach({ carta => carta.setPosition(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+			cartas.forEach({ carta => carta.setPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 			cartas.forEach({ carta => carta.mostrar()})
 		}
 		puntajeFila.mostrar()
 	}
 
 	method calcularPosicionEnXCarta(fila_x) = (fila_x - 3) + contador.contar(4)
-
-	// inserta una carta en la linea (cuando se juega una carta)
-	method agregarCarta(unaCarta) {
-		cartas.add(unaCarta)
-		puntajeFila.sum(unaCarta.puntaje())
-		self.mostrar()
-	}
 
 	// para mas adelante (efecto de algunas cartas especiales)
 	method removerCarta() {
@@ -149,7 +144,7 @@ class PuntajeFila {
 		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
 	}
 
-	method display() {
+	method mostrar() {
 		game.addVisual(self)
 	}
 
@@ -217,11 +212,10 @@ object filaCartasJugables {
 //		seleccionador.setSelector(self.listaDeCartas())
 //	// esto es temporal
 //	}
-
 	// muestra / actualiza las cartas
 	method mostrar() {
 		contador.setear()
-		cartas.forEach({ carta => carta.setPosition(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+		cartas.forEach({ carta => carta.setPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
 		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
 		seleccionador.setSelector(self.listaDeCartas())
@@ -235,6 +229,13 @@ object filaCartasJugables {
 	}
 
 	method listaDeCartas() = cartas
+
+	method tomarSeleccion(index) {
+		const cartaElegida = cartas.get(index)
+		tablero.cartaJugadaJugador(cartaElegida)
+		self.listaDeCartas().remove(cartaElegida)
+		self.mostrar()
+	}
 
 	method agregarCarta(unaCarta) {
 	// metodo para cartas especiales
@@ -293,4 +294,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}                       
+//}                              

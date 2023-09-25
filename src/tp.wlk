@@ -17,9 +17,6 @@ object ventana {
 		game.width(85)
 		game.height(48)
 		game.cellSize(20)
-		game.addVisual(filaCartasJugables)
-		game.addVisual(puntajeTotalJugador)
-		game.addVisual(puntajeTotalRival)
 		game.ground("assets/BG-002.png")
 		partida.start()
 		game.start()
@@ -84,8 +81,8 @@ class Selector {
 
 	method select() {
 		game.removeVisual(self)
-		items.remove(catcher.remainingCards().get(index))
-		catcher.takeSelection(index)
+		items.remove(items.get(index))
+		catcher.tomarSeleccion(index)
 	//
 	}
 
@@ -111,7 +108,7 @@ object menu {
 object partida {
 
 	var barajaJugador
-	var barajaRival
+	// var barajaRival
 	var ronda = 1
 
 	method start() {
@@ -122,8 +119,7 @@ object partida {
 	method comenzarRonda() {
 		if (ronda == 1) {
 			const listaCartas = new List()
-			filaCartasJugables.establecerManoCartas(barajaJugador.selectRandom(10))
-			barajaJugador.setCartas(10)
+			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(10))
 		}
 		tablero.inicializarTablero()
 	}
