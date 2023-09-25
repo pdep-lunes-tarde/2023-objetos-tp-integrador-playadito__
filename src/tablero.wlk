@@ -197,21 +197,6 @@ object filaCartasJugables {
 
 	method image() = "assets/FC-002.png"
 
-//	method mostrarCartas() {
-//		if (indice < cantCartas) {
-//			carta = cartas.get(indice)
-//			carta.setPosicion(pos_x, pos_y)
-//			game.addVisual(carta)
-//			pos_x = pos_x + 5
-//			indice = indice + 1
-//		}
-//			// 5 deberia ser 4, chequear
-//			// esta haciendo muchas cosas
-//			// se instancia adentro del metodo porque para cada actalizacion, se hace un nuevo selector
-//		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
-//		seleccionador.setSelector(self.listaDeCartas())
-//	// esto es temporal
-//	}
 	// muestra / actualiza las cartas
 	method mostrar() {
 		contador.setear()
@@ -234,6 +219,7 @@ object filaCartasJugables {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		self.listaDeCartas().remove(cartaElegida)
+			// seleccionador.vaciarListaItems()
 		self.mostrar()
 	}
 
@@ -294,4 +280,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}                              
+//}                                  

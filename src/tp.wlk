@@ -34,24 +34,27 @@ class Selector {
 	const catcher // objeto al que le voy a devolver lo seleccionado (referencia o index)
 	var index = 0
 
+//	method vaciarListaItems() {
+//		items.clear()
+//	}
 	// wollok game req
 	method image() = image
 
 	// comenzar 
 	method setSelector(itemsList) {
 		items = items + itemsList
-		self.displayOn(self.getItemPosition(index))
-		self.addListener()
+		self.mostrarEn(self.obtenerPosicionItem(index))
+		self.agregarListener()
 	}
 
 	// posicion segun el objeto a seleccionar
-	method getItemPosition(itemIndex) {
+	method obtenerPosicionItem(itemIndex) {
 		const item = items.get(itemIndex)
 		return game.at(item.getPosicionX(), item.getPosicionY())
 	}
 
 	// mostrar / actualizar
-	method displayOn(position) {
+	method mostrarEn(position) {
 		if (game.hasVisual(self)) {
 			game.removeVisual(self)
 		}
@@ -59,7 +62,7 @@ class Selector {
 	}
 
 	// listener y efectos
-	method addListener() {
+	method agregarListener() {
 		keyboard.left().onPressDo{ self.moveLeft()}
 		keyboard.right().onPressDo{ self.moveRight()}
 		keyboard.enter().onPressDo{ self.select()}
@@ -68,22 +71,21 @@ class Selector {
 	method moveLeft() {
 		if (index > 0) {
 			index--
-			self.displayOn(self.getItemPosition(index))
+			self.mostrarEn(self.obtenerPosicionItem(index))
 		}
 	}
 
 	method moveRight() {
 		if (index < items.size() - 1) {
 			index++
-			self.displayOn(self.getItemPosition(index))
+			self.mostrarEn(self.obtenerPosicionItem(index))
 		}
 	}
 
 	method select() {
 		game.removeVisual(self)
-		items.remove(items.get(index))
+			// items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
-	//
 	}
 
 //sacar elemento de la lista del selector
