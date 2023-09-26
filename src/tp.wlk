@@ -3,6 +3,27 @@ import tablero.*
 import carta.*
 
 //import temp.*
+//////////Cosas a Arreglar/////////
+/*Revisar Selector, error por index
+ * Revisar selector, nuevas instancias?
+ * anyOne cuando se quiere obtener la mano de cartas aleatorias
+ * la imagen del tipoDeCombate en la carta, y como asignarla
+ * realizar los tests:
+ * -ver comportamientos de las listas
+ * -cada metodo de los objetos y claes principale
+ * cambiar los contadores por times()
+ * no el addvisual 2 veces/ mover los objetos con game.at() (?
+ * 
+ * ////Opcional////
+ * revistar forma de calcular el total de  puntajeFila
+ * 
+ */
+// ///Proxima entrega////
+/*
+ * el enemigo tenga sus cartas y haga sus cosas
+ * especialidades de las cartas
+ * cartas especiales
+ */
 object tpIntegrador {
 
 	method jugar() {
@@ -83,8 +104,8 @@ class Selector {
 	}
 
 	method select() {
+//		items.remove(items.get(index))
 		game.removeVisual(self)
-			// items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
 	}
 
