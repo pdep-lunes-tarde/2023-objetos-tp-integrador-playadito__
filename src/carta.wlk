@@ -1,5 +1,12 @@
 import wollok.game.*
 
+//ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
+class ImagenTipoDeCombate {
+
+	const imagen
+
+}
+
 class CartaDeUnidad {
 
 	// 80px
@@ -13,6 +20,17 @@ class CartaDeUnidad {
 	const imagen // = "assets/C-01.png"
 	var pos_x = 0
 	var pos_y = 0
+	const imgDeCombate = self.designarImagenes()
+	const laImagenTipoDeCombate = new ImagenTipoDeCombate(imagen = imgDeCombate.get(self.claseDeCombate()))
+
+//ver si conviene, o mejor hacerlo a mano con ifs
+	method designarImagenes() {
+		const imgCombate = new Dictionary()
+		imgCombate.put("infanteria", "assets/arqueria.png")
+		imgCombate.put("arqueria", "assets/infanteria.png")
+		imgCombate.put("asedio", "assets/asedio.png")
+		return imgCombate
+	}
 
 	method image() = imagen
 
@@ -39,6 +57,7 @@ class CartaDeUnidad {
 
 	method mostrar() {
 		game.addVisual(self)
+		game.addVisualIn(laImagenTipoDeCombate, game.at(self.getPosicionX(), self.getPosicionY()))
 	}
 
 	method esconder() {
@@ -46,6 +65,9 @@ class CartaDeUnidad {
 	}
 
 	method modificarPuntaje() {
+	}
+
+	method imagenTipoCombate() {
 	}
 
 }
@@ -105,6 +127,7 @@ object sinHabilidad {
 // razon: porque la definicion los metodos del efecto de cada baraja son diferentes
 object reinosDelNorte {
 
+	// const imagen = "assets/C-02"
 	const mazo = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
 	const manoCartas = new List()
 
@@ -131,6 +154,7 @@ object reinosDelNorte {
 
 object imperioNiffgardiano {
 
+//const imagen = "assets/C-01"
 	method efectoFinDeRonda() {
 	}
 
@@ -138,6 +162,7 @@ object imperioNiffgardiano {
 
 object scoiatael {
 
+//const imagen = "assets/C-04"
 	method efectoFinDeRonda() {
 	}
 

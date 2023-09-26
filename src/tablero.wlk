@@ -11,10 +11,10 @@ object tablero {
 		filasJugador.put("infanteria", filaInfanteJugador)
 		filasJugador.put("arqueria", filaArqueroJugador)
 		filasJugador.put("asedio", filaAsedioJugador)
-		self.mostar()
+		self.mostrar()
 	}
 
-	method mostar() {
+	method mostrar() {
 		game.addVisual(filaAsedioJugador)
 		game.addVisual(filaArqueroJugador)
 		game.addVisual(filaInfanteJugador)
@@ -280,4 +280,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}                                  
+//}                                      
