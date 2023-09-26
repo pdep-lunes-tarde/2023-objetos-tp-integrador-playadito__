@@ -11,10 +11,10 @@ object tablero {
 		filasJugador.put("infanteria", filaInfanteJugador)
 		filasJugador.put("arqueria", filaArqueroJugador)
 		filasJugador.put("asedio", filaAsedioJugador)
-		self.mostar()
+		self.mostrar()
 	}
 
-	method mostar() {
+	method mostrar() {
 		game.addVisual(filaAsedioJugador)
 		game.addVisual(filaArqueroJugador)
 		game.addVisual(filaInfanteJugador)
@@ -27,7 +27,6 @@ object tablero {
 			// mostar filas
 		game.addVisual(puntajeTotalJugador)
 		game.addVisual(puntajeTotalRival)
-			// esto es para que se muestren en el tablero, pero igual habria q buscar otra forma
 		filaAsedioJugador.mostrar()
 		filaArqueroJugador.mostrar()
 		filaInfanteJugador.mostrar()
@@ -281,4 +280,8 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
+<<<<<<< HEAD
 //}                                   
+=======
+//}                                      
+>>>>>>> db9e778c1360dea705e51de10d0cb1ece6ef409d

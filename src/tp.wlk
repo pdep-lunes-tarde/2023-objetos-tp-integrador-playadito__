@@ -6,12 +6,12 @@ import carta.*
 //////////Cosas a Arreglar/////////
 /*Revisar Selector, error por index
  * Revisar selector, nuevas instancias?
- * anyOne cuando se quiere obtener la mano de cartas aleatorias
+ * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)
  * la imagen del tipoDeCombate en la carta, y como asignarla
- * realizar los tests:
+ * realizar los tests:(here)
  * -ver comportamientos de las listas
- * -cada metodo de los objetos y claes principale
- * cambiar los contadores por times()
+ * -cada metodo de los objetos y clases principales
+ * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
  * 
  * ////Opcional////
