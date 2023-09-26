@@ -177,7 +177,6 @@ object board_ {
 			// fila de cartas restantes
 		game.addVisual(remainingCardsRow)
 		remainingCardsRow.displayCards()
-			// esto es para que se muestren en el tablero, pero igual habria q buscar otra forma
 		playerSiege.display()
 		playerRanged.display()
 		playerCloseCombat.display()
@@ -337,20 +336,19 @@ object remainingCardsRow {
 		counter.reset()
 		remainingCards.forEach({ card => card.setPosition(self.setCard_X(pos_x), pos_y)})
 		remainingCards.forEach({ card => card.display()})
-		selector = new Selector(image = "assets/S-02.png", catcher = self)
-		selector.setSelector(remainingCards)
+//		selector = new Selector(image = "assets/S-02.png", catcher = self)
+//		selector.setSelector(remainingCards)
 	}
 
 	// metodo repetido, -_-
 	method setCard_X(row_x) = (row_x - 3) + counter.count(4)
 
-	// por mas de que se le esta pasando al tablero, no se desreferencia de las cartas restantes
-	method takeSelection(index) {
-		const selectedCard = remainingCards.get(index)
-		board_.playerPlay(selectedCard)
-		self.remainingCards().remove(selectedCard)
-		self.displayCards()
-	}
-
+// por mas de que se le esta pasando al tablero, no se desreferencia de las cartas restantes
+//	method takeSelection(index) {
+//		const selectedCard = remainingCards.get(index)
+//		board_.playerPlay(selectedCard)
+//		self.remainingCards().remove(selectedCard)
+//		self.displayCards()
+//	}
 }
 

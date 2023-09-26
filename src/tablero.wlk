@@ -27,6 +27,7 @@ object tablero {
 			// mostar filas
 		game.addVisual(puntajeTotalJugador)
 		game.addVisual(puntajeTotalRival)
+			// esto es para que se muestren en el tablero, pero igual habria q buscar otra forma
 		filaAsedioJugador.mostrar()
 		filaArqueroJugador.mostrar()
 		filaInfanteJugador.mostrar()
@@ -280,4 +281,4 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 //
 //	method puntajeTotal() = puntajeTotal
 //
-//}                                  
+//}                                   

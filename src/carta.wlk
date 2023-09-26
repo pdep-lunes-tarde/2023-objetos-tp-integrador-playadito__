@@ -4,7 +4,6 @@ class CartaDeUnidad {
 
 	// 80px
 	// 110px
-	// const baraja // objeto
 	// inicializar con (claseDeCombate, valor, especialidad, imagen)
 	const claseDeCombate // cadena, ej "infanteria"
 	const valor // puntaje inicial u original (valor numerico)
@@ -38,6 +37,9 @@ class CartaDeUnidad {
 	method especialidad() = especialidad
 
 	method mostrar() {
+		if (game.hasVisual(self)) {
+			self.esconder()
+		}
 		game.addVisual(self)
 	}
 
@@ -108,7 +110,6 @@ object reinosDelNorte {
 	const mazo = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
 	const manoCartas = new List()
 
-	// ver que se vacie
 	method mazo() = mazo
 
 	method obtenerCartaRandom() {
@@ -119,9 +120,9 @@ object reinosDelNorte {
 
 //por alguna razon no funciona, por anyOne
 	method setCartas(cantidadCartas) {
-		// cantidadCartas.times({ i => self.obtenerCartaRandom()})
-		// return manoCartas
-		return mazo
+		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		return manoCartas
+//		return mazo
 	}
 
 	method efectoFinDeRonda() {

@@ -46,7 +46,6 @@ object ventana {
 }
 
 // * los listener de las keys son manejados por la instancia
-// * falta implementar la devolucion del seleccionado
 // * ver si hay un lugar mas apropiado para meter esta clase (para q no quede en el archivo "tp")
 class Selector {
 
@@ -135,13 +134,14 @@ object partida {
 	var ronda = 1
 
 	method start() {
+		// esta asignacion deberia salir del menu
 		barajaJugador = reinosDelNorte
+			// asignar barajaRival
 		self.comenzarRonda()
 	}
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			const listaCartas = new List()
 			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(10))
 		}
 		tablero.inicializarTablero()
