@@ -2,9 +2,9 @@ import wollok.game.*
 import tablero.*
 import carta.*
 
-//import temp.*
-//////////Cosas a Arreglar/////////
-/*Revisar Selector, error por index
+/* ARREGLAR
+ * 
+ * Revisar Selector, error por index
  * Revisar selector, nuevas instancias?
  * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)
  * la imagen del tipoDeCombate en la carta, y como asignarla
@@ -14,12 +14,14 @@ import carta.*
  * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
  * 
- * ////Opcional////
+ */
+/* OPCIONAL
+ * 
  * revistar forma de calcular el total de  puntajeFila
  * 
  */
-// ///Proxima entrega////
-/*
+/* Proxima entrega
+ * 
  * el enemigo tenga sus cartas y haga sus cosas
  * especialidades de las cartas
  * cartas especiales
@@ -54,9 +56,6 @@ class Selector {
 	const catcher // objeto al que le voy a devolver lo seleccionado (referencia o index)
 	var index = 0
 
-//	method vaciarListaItems() {
-//		items.clear()
-//	}
 	// wollok game req
 	method image() = image
 
@@ -108,7 +107,6 @@ class Selector {
 		catcher.tomarSeleccion(index)
 	}
 
-//sacar elemento de la lista del selector
 }
 
 // podria ser una instancia de la clase selector

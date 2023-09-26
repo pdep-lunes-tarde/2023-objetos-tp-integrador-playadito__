@@ -218,7 +218,7 @@ object filaCartasJugables {
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
-		self.listaDeCartas().remove(cartaElegida)
+		cartas.remove(cartaElegida)
 			// seleccionador.vaciarListaItems()
 		self.mostrar()
 	}
@@ -265,23 +265,3 @@ const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugado
 
 const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 35, imagen = "assets/PR-02.png")
 
-// ver si hacer objeto rival o hacer clase
-// cambiar nombre despues
-// IDEA MING
-//object jugador {
-//
-//	const filasDeCombate = [ filaAsedio, filaArquero, filaInfante ]
-//	var puntajeTotal = 0
-//	// objeto jugador info => display
-//
-//	method actualizarPuntajeTotal() {
-//		puntajeTotal = filasDeCombate.map({ fila => fila.puntajeFila() }).sum()
-//	}
-//
-//	method puntajeTotal() = puntajeTotal
-//
-<<<<<<< HEAD
-//}                                   
-=======
-//}                                      
->>>>>>> db9e778c1360dea705e51de10d0cb1ece6ef409d

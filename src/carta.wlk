@@ -143,9 +143,9 @@ object reinosDelNorte {
 
 //por alguna razon no funciona, por anyOne
 	method setCartas(cantidadCartas) {
-		cantidadCartas.times({ i => self.obtenerCartaRandom()})
-		return manoCartas
-//		return mazo
+//		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+//		return manoCartas
+		return mazo
 	}
 
 	method efectoFinDeRonda() {
