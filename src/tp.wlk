@@ -7,7 +7,7 @@ import carta.*
  * Revisar Selector, error por index
  * Revisar selector, nuevas instancias?
  * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)
- * la imagen del tipoDeCombate en la carta, y como asignarla
+ * la imagen del tipoDeCombate en la carta, y como asignarla                         LISTO
  * realizar los tests:(here)
  * -ver comportamientos de las listas
  * -cada metodo de los objetos y clases principales
@@ -37,9 +37,9 @@ object tpIntegrador {
 object ventana {
 
 	method init() {
-		game.width(85)
-		game.height(48)
-		game.cellSize(20)
+		game.width(170)
+		game.height(96)
+		game.cellSize(10)
 		game.ground("assets/BG-002.png")
 		partida.start()
 		game.start()

@@ -1,6 +1,7 @@
 import wollok.game.*
 import carta.*
 import tp.*
+import numeros.*
 
 object tablero {
 
@@ -25,8 +26,8 @@ object tablero {
 		game.addVisual(filaCartasJugables)
 		filaCartasJugables.mostrar()
 			// mostar filas
-		game.addVisual(puntajeTotalJugador)
-		game.addVisual(puntajeTotalRival)
+		puntajeTotalJugador.mostrar()
+		puntajeTotalRival.mostrar()
 		filaAsedioJugador.mostrar()
 		filaArqueroJugador.mostrar()
 		filaInfanteJugador.mostrar()
@@ -49,22 +50,16 @@ class FilaDeCombate {
 	// 700px (35 celdas)
 	// 120px (6)
 	const cartas = new List()
-	const pos_x = 24
+	const pos_x = 48
 	const pos_y
 	const imagenPuntajeFila
-	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 2, imagen = imagenPuntajeFila)
+	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 4, imagen = imagenPuntajeFila)
 
-	method puntajeDeFila() {
-		game.addVisual(puntajeFila)
-	}
+	method puntajeDeFila() = puntajeFila.puntajeTotalFila()
 
-	method position() {
-		return game.at(pos_x, pos_y)
-	}
+	method position() = game.at(pos_x, pos_y)
 
-	method image() {
-		return "assets/FC-002.png"
-	}
+	method image() = "assets/FC-002.png"
 
 //	method actualizarPuntaje() {
 //		puntaje = cartas.map({ carta => carta.puntaje() }).sum()
@@ -72,6 +67,7 @@ class FilaDeCombate {
 	method insertarCarta(unaCarta) {
 		cartas.add(unaCarta)
 		puntajeFila.sumar(unaCarta.puntaje())
+		puntajeTotalJugador.actualizarPuntajeTotal()
 		self.mostrar()
 	}
 
@@ -86,7 +82,7 @@ class FilaDeCombate {
 		puntajeFila.mostrar()
 	}
 
-	method calcularPosicionEnXCarta(fila_x) = (fila_x - 3) + contador.contar(4)
+	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
 
 	// para mas adelante (efecto de algunas cartas especiales)
 	method removerCarta() {
@@ -120,50 +116,48 @@ object contador {
 
 }
 
-const filaAsedioJugador = new FilaDeCombate(pos_y = 9, imagenPuntajeFila = "assets/PJ-01.png")
+const filaAsedioJugador = new FilaDeCombate(pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaArqueroJugador = new FilaDeCombate(pos_y = 15, imagenPuntajeFila = "assets/PJ-01.png")
+const filaArqueroJugador = new FilaDeCombate(pos_y = 30, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaInfanteJugador = new FilaDeCombate(pos_y = 21, imagenPuntajeFila = "assets/PJ-01.png")
+const filaInfanteJugador = new FilaDeCombate(pos_y = 42, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaAsedioRival = new FilaDeCombate(pos_y = 28, imagenPuntajeFila = "assets/PR-01.png")
+const filaAsedioRival = new FilaDeCombate(pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaArqueroRival = new FilaDeCombate(pos_y = 34, imagenPuntajeFila = "assets/PR-01.png")
+const filaArqueroRival = new FilaDeCombate(pos_y = 68, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaInfanteRival = new FilaDeCombate(pos_y = 40, imagenPuntajeFila = "assets/PR-01.png")
+const filaInfanteRival = new FilaDeCombate(pos_y = 80, imagenPuntajeFila = "assets/PR-01.png")
 
 class PuntajeFila {
 
 	var cartasFila
 	var puntajeTotalFila = 0
-	const pos_x = 22
+	const pos_x = 44
 	var pos_y
 	const imagen
-
-	method actualizarPuntajeTotal() {
-		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
-	}
+	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
 
 	method mostrar() {
 		game.addVisual(self)
+		game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
 	}
 
 	method position() = game.at(pos_x, pos_y)
 
 	method puntajeTotalFila() = puntajeTotalFila
 
-	method text() = puntajeTotalFila.toString()
-
-	method textColor() = "000000FF"
-
+	// method text() = "\n" + puntajeTotalFila.toString()
+	// method textColor() = "000000FF"
 	method image() = imagen
 
 	method sumar(puntajeCartaNueva) {
 		puntajeTotalFila = puntajeTotalFila + puntajeCartaNueva
+		numeroPuntaje.modificarNumero(puntajeTotalFila)
 	}
 
 	method restar(puntajeCartaEliminada) {
 		puntajeTotalFila = puntajeTotalFila - puntajeCartaEliminada
+		numeroPuntaje.modificarNumero(puntajeTotalFila)
 	}
 
 }
@@ -189,11 +183,11 @@ class PuntajeFila {
 object filaCartasJugables {
 
 	var cartas = new List()
-	var pos_x = 25
-	const pos_y = 2
+	var pos_x = 50
+	const pos_y = 4
 	var seleccionador
 
-	method position() = game.at(24, 2)
+	method position() = game.at(48, 4)
 
 	method image() = "assets/FC-002.png"
 
@@ -207,7 +201,7 @@ object filaCartasJugables {
 	}
 
 	// metodo repetido,
-	method calcularPosicionEnXCarta(fila_x) = (fila_x - 3) + contador.contar(4)
+	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
 
 	method establecerManoCartas(lasCartas) {
 		cartas = lasCartas
@@ -233,35 +227,32 @@ class PuntajeTotal {
 
 	const filasDeCombate
 	var puntajeTotal = 0
-	const pos_x = 16
+	const pos_x = 32
 	var pos_y
 	const imagen
+	const numeroPuntaje = new Numero(numero = puntajeTotal.toString())
 
 	method actualizarPuntajeTotal() {
-		puntajeTotal = filasDeCombate.map({ fila => fila.puntajeFila() }).sum()
+		puntajeTotal = filasDeCombate.map({ fila => fila.puntajeDeFila() }).sum()
+		numeroPuntaje.modificarNumero(puntajeTotal)
 	}
 
 	method puntajeTotal() = puntajeTotal
 
-	method text() {
-		return puntajeTotal.toString()
-	}
+	// method text() = puntajeTotal.toString()
+	// method textColor() = "000000FF"
+	method image() = imagen
 
-	method textColor() {
-		return "000000FF"
-	}
+	method position() = game.at(pos_x, pos_y)
 
-	method image() {
-		return imagen
-	}
-
-	method position() {
-		return game.at(pos_x, pos_y)
+	method mostrar() {
+		game.addVisual(self)
+		game.addVisualIn(numeroPuntaje, game.at(pos_x, pos_y))
 	}
 
 }
 
-const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 14, imagen = "assets/PJ-02.png")
+const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
 
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 35, imagen = "assets/PR-02.png")
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 70, imagen = "assets/PR-02.png")
 

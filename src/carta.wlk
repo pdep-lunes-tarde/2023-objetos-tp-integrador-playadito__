@@ -1,32 +1,49 @@
 import wollok.game.*
+import numeros.*
 
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class ImagenTipoDeCombate {
 
 	const imagen
+	var posx = 0
+	var posy = 0
+
+	method image() = imagen
+
+	method position() = game.at(posx, posy)
+
+	method setPosicion(x, y) {
+		posx = x
+		posy = y
+	}
+
+	method esconder() {
+		game.removeVisual(self)
+	}
 
 }
 
 class CartaDeUnidad {
 
-	// 80px
-	// 110px
+	// 80px (8 celdas)
+	// 110px(11 celdas)
 	// inicializar con (claseDeCombate, valor, especialidad, imagen)
 	const claseDeCombate // cadena, ej "infanteria"
 	const valor // puntaje inicial u original (valor numerico)
-	const puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
+	var puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const especialidad // objeto de especialidad
 	const imagen // = "assets/C-01.png"
 	var pos_x = 0
 	var pos_y = 0
 	const imgDeCombate = self.designarImagenes()
 	const laImagenTipoDeCombate = new ImagenTipoDeCombate(imagen = imgDeCombate.get(self.claseDeCombate()))
+	const numeroPuntaje = new Numero(numero = self.puntaje())
 
 //ver si conviene, o mejor hacerlo a mano con ifs
 	method designarImagenes() {
 		const imgCombate = new Dictionary()
-		imgCombate.put("infanteria", "assets/arqueria.png")
-		imgCombate.put("arqueria", "assets/infanteria.png")
+		imgCombate.put("infanteria", "assets/infanteria.png")
+		imgCombate.put("arqueria", "assets/arqueria.png")
 		imgCombate.put("asedio", "assets/asedio.png")
 		return imgCombate
 	}
@@ -38,16 +55,16 @@ class CartaDeUnidad {
 	method setPosicion(x, y) {
 		pos_x = x
 		pos_y = y
+		laImagenTipoDeCombate.setPosicion(x + 1, y + 1)
+		numeroPuntaje.setPosicion(x - 1, y + 6)
 	}
 
 	method getPosicionX() = pos_x
 
 	method getPosicionY() = pos_y
 
-	method text() = puntaje.toString()
-
-	method textColor() = "000000FF"
-
+	// method text() = "      " + puntaje.toString() + "\n"
+	// method textColor() = "000000FF"
 	method puntaje() = puntaje
 
 	method claseDeCombate() = claseDeCombate
@@ -57,16 +74,21 @@ class CartaDeUnidad {
 	method mostrar() {
 		if (game.hasVisual(self)) {
 			self.esconder()
+			laImagenTipoDeCombate.esconder()
+			numeroPuntaje.esconder()
 		}
 		game.addVisual(self)
-		game.addVisualIn(laImagenTipoDeCombate, game.at(self.getPosicionX(), self.getPosicionY()))
+		game.addVisual(laImagenTipoDeCombate)
+		game.addVisual(numeroPuntaje)
 	}
 
 	method esconder() {
 		game.removeVisual(self)
 	}
 
-	method modificarPuntaje() {
+	method modificarPuntaje(num) {
+		puntaje = valor + num
+		numeroPuntaje.modificarNumero(puntaje)
 	}
 
 	method imagenTipoCombate() {
