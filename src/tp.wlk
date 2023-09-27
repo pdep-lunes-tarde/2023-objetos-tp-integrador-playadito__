@@ -138,7 +138,7 @@ object partida {
 	method start() {
 		// esta asignacion deberia salir del menu
 		barajaJugador = reinosDelNorte
-		barajaRival = reinosDelNorte
+		barajaRival = scoiatael
 		self.comenzarRonda()
 	}
 
@@ -146,13 +146,13 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(10))
-			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(10))
+			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(4))
+			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(4))
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaDeCartas()
 			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(3) + cartasSobrantesRondaAnterior)
-			cartasSobrantesRondaAnterior = filaCartasRival.listaDeCartas()
-			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(3) + cartasSobrantesRondaAnterior)
+		// cartasSobrantesRondaAnterior = filaCartasRival.listaDeCartas()
+		// filaCartasJugables.establecerManoCartas(barajaRival.setCartas(3) + cartasSobrantesRondaAnterior)
 		}
 		tablero.inicializarTablero()
 	}

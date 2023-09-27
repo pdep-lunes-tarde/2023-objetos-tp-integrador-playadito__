@@ -55,8 +55,10 @@ const reinosDelNorte = new Baraja(imagen = "assets/C-reinosDelNorte.png", mazo =
 
 const imperioNiffgardiano = new Baraja(imagen = "assets/C-imperioNiffgardiano.png", mazo = mazoReinosDelNorte)
 
-const scoiatael = new Baraja(imagen = "assets/C-scoiatael.png", mazo = mazoReinosDelNorte)
+const scoiatael = new Baraja(imagen = "assets/C-scoiatael.png", mazo = mazoScoiatael)
 
 ////////////MAZOS//////////////
-const mazoReinosDelNorte = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10 ]
+const mazoReinosDelNorte = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+
+const mazoScoiatael = [ extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10 ]
 
