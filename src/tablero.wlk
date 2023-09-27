@@ -13,6 +13,9 @@ object tablero {
 		filasJugador.put("infanteria", filaInfanteJugador)
 		filasJugador.put("arqueria", filaArqueroJugador)
 		filasJugador.put("asedio", filaAsedioJugador)
+		filasRival.put("infanteria", filaInfanteRival)
+		filasRival.put("arqueria", filaArqueroRival)
+		filasRival.put("asedio", filaAsedioRival)
 		self.mostrar()
 	}
 
@@ -42,10 +45,12 @@ object tablero {
 	}
 
 	method cartaJugadaRival(unaCarta) {
+		filasRival.get(unaCarta.claseDeCombate()).insertarCarta(unaCarta)
 	}
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class FilaDeCombate {
 
 	// 700px (35 celdas)
@@ -62,9 +67,6 @@ class FilaDeCombate {
 
 	method image() = "assets/FC-002.png"
 
-//	method actualizarPuntaje() {
-//		puntaje = cartas.map({ carta => carta.puntaje() }).sum()
-//	}
 	method insertarCarta(unaCarta) {
 		cartas.add(unaCarta)
 		puntajeFila.sumar(unaCarta.puntaje())
@@ -99,62 +101,11 @@ class FilaDeCombate {
 
 }
 
-//usar times
-// ES MALO ESTO, PENSAR OTRA FORMA
-// es para el display formateado
-object contador {
-
-	var contador = 0
-
-	method contar(aumento) {
-		contador = contador + aumento
-		return contador
-	}
-
-	method setear() {
-		contador = 0
-	}
-
-}
-
-class PuntajeFila {
-
-	var cartasFila
-	var puntajeTotalFila = 0
-	const pos_x = 44
-	var pos_y
-	const imagen
-	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
-
-	method mostrar() {
-		game.addVisual(self)
-		game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
-	}
-
-	method position() = game.at(pos_x, pos_y)
-
-	method puntajeTotalFila() = puntajeTotalFila
-
-	// method text() = "\n" + puntajeTotalFila.toString()
-	// method textColor() = "000000FF"
-	method image() = imagen
-
-	method sumar(puntajeCartaNueva) {
-		puntajeTotalFila = puntajeTotalFila + puntajeCartaNueva
-		numeroPuntaje.modificarNumero(puntajeTotalFila)
-	}
-
-	method restar(puntajeCartaEliminada) {
-		puntajeTotalFila = puntajeTotalFila - puntajeCartaEliminada
-		numeroPuntaje.modificarNumero(puntajeTotalFila)
-	}
-
-}
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 object filaCartasJugables {
 
 	var cartas = new List()
-	var pos_x = 50
+	const pos_x = 50
 	const pos_y = 4
 	var seleccionador
 
@@ -184,8 +135,8 @@ object filaCartasJugables {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
-			// seleccionador.vaciarListaItems()
-		self.mostrar()
+	// seleccionador.vaciarListaItems()
+	// self.mostrar()
 	}
 
 	method agregarCarta(unaCarta) {
@@ -194,6 +145,59 @@ object filaCartasJugables {
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//usar times
+// ES MALO ESTO, PENSAR OTRA FORMA
+// es para el display formateado
+object contador {
+
+	var contador = 0
+
+	method contar(aumento) {
+		contador = contador + aumento
+		return contador
+	}
+
+	method setear() {
+		contador = 0
+	}
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class PuntajeFila {
+
+	var cartasFila
+	var puntajeTotalFila = 0
+	const pos_x = 44
+	var pos_y
+	const imagen
+	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
+
+	method mostrar() {
+		game.addVisual(self)
+		game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
+	}
+
+	method position() = game.at(pos_x, pos_y)
+
+	method puntajeTotalFila() = puntajeTotalFila
+
+	method image() = imagen
+
+	method sumar(puntajeCartaNueva) {
+		puntajeTotalFila = puntajeTotalFila + puntajeCartaNueva
+		numeroPuntaje.modificarNumero(puntajeTotalFila)
+	}
+
+	method restar(puntajeCartaEliminada) {
+		puntajeTotalFila = puntajeTotalFila - puntajeCartaEliminada
+		numeroPuntaje.modificarNumero(puntajeTotalFila)
+	}
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PuntajeTotal {
 
 	const filasDeCombate
@@ -210,8 +214,6 @@ class PuntajeTotal {
 
 	method puntajeTotal() = puntajeTotal
 
-	// method text() = puntajeTotal.toString()
-	// method textColor() = "000000FF"
 	method image() = imagen
 
 	method position() = game.at(pos_x, pos_y)
@@ -219,6 +221,33 @@ class PuntajeTotal {
 	method mostrar() {
 		game.addVisual(self)
 		game.addVisualIn(numeroPuntaje, game.at(pos_x, pos_y))
+	}
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+object filaCartasRival {
+
+	var cartas = new List()
+	var cartaElegida
+
+	method establecerManoCartas(lasCartas) {
+		cartas = lasCartas
+	}
+
+	method listaDeCartas() = cartas
+
+	method obtenerCartaRandom() {
+		cartaElegida = cartas.anyOne()
+	}
+
+	method tomarSeleccion(index) {
+		tablero.cartaJugadaRival(cartaElegida)
+		cartas.remove(cartaElegida)
+	}
+
+	method agregarCarta(unaCarta) {
+	// metodo para cartas especiales
 	}
 
 }

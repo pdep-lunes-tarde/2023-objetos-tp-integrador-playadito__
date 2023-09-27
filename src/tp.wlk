@@ -7,7 +7,7 @@ import constantes.*
  * 
  * Revisar Selector, error por index
  * Revisar selector, nuevas instancias?
- * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)               LISTO
+ * anyOne cuando se quiere obtener la mano de cartas aleatorias                      LISTO
  * la imagen del tipoDeCombate en la carta, y como asignarla                         LISTO
  * realizar los tests:(here)
  * -ver comportamientos de las listas
@@ -132,13 +132,13 @@ object menu {
 object partida {
 
 	var barajaJugador
-	// var barajaRival
+	var barajaRival
 	var ronda = 1
 
 	method start() {
 		// esta asignacion deberia salir del menu
 		barajaJugador = reinosDelNorte
-			// asignar barajaRival
+		barajaRival = reinosDelNorte
 		self.comenzarRonda()
 	}
 
@@ -147,7 +147,12 @@ object partida {
 	method comenzarRonda() {
 		if (ronda == 1) {
 			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(10))
-		// filaCartasJugables.establecerManoCartas(obtenerCartas.setCartas(barajaJugador, 10))
+			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(10))
+		} else {
+			var cartasSobrantesRondaAnterior = filaCartasJugables.listaDeCartas()
+			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(3) + cartasSobrantesRondaAnterior)
+			cartasSobrantesRondaAnterior = filaCartasRival.listaDeCartas()
+			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(3) + cartasSobrantesRondaAnterior)
 		}
 		tablero.inicializarTablero()
 	}

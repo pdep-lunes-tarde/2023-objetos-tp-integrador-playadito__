@@ -66,8 +66,6 @@ class CartaDeUnidad {
 
 	method getPosicionY() = pos_y
 
-	// method text() = "      " + puntaje.toString() + "\n"
-	// method textColor() = "000000FF"
 	method puntaje() = puntaje
 
 	method claseDeCombate() = claseDeCombate
@@ -159,22 +157,21 @@ object sinHabilidad {
 
 }
 
-// BARAJAS
-// razon: porque la definicion los metodos del efecto de cada baraja son diferentes
 class Baraja {
 
 	const imagen
 	const mazo
 	const manoCartas = new List()
 
+	// const efectoFinDeRonda
 	method obtenerImagen() = imagen
 
 	method mazo() = mazo
 
 	method obtenerCartaRandom() {
-		const unaCarta = self.mazo().anyOne()
+		const unaCarta = mazo.anyOne()
 		manoCartas.add(unaCarta)
-		self.mazo().remove(unaCarta)
+		mazo.remove(unaCarta)
 	}
 
 	method setCartas(cantidadCartas) {
@@ -183,6 +180,7 @@ class Baraja {
 	}
 
 	method efectoFinDeRonda() {
+	// efectoFinDeRonda
 	}
 
 }
