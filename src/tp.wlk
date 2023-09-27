@@ -1,12 +1,13 @@
 import wollok.game.*
 import tablero.*
 import carta.*
+import constantes.*
 
 /* ARREGLAR
  * 
  * Revisar Selector, error por index
  * Revisar selector, nuevas instancias?
- * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)
+ * anyOne cuando se quiere obtener la mano de cartas aleatorias (here)               LISTO
  * la imagen del tipoDeCombate en la carta, y como asignarla                         LISTO
  * realizar los tests:(here)
  * -ver comportamientos de las listas
@@ -14,7 +15,7 @@ import carta.*
  * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
  * numero de las cosas como objeto                                                   LISTO
- * 
+ * barajas como clases                                                               LISTO
  */
 /* OPCIONAL
  * 
@@ -141,9 +142,12 @@ object partida {
 		self.comenzarRonda()
 	}
 
+	method baraja() = barajaJugador
+
 	method comenzarRonda() {
 		if (ronda == 1) {
 			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(10))
+		// filaCartasJugables.establecerManoCartas(obtenerCartas.setCartas(barajaJugador, 10))
 		}
 		tablero.inicializarTablero()
 	}

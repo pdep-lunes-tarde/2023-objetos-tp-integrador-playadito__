@@ -1,5 +1,6 @@
 import wollok.game.*
 import numeros.*
+import constantes.*
 
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
@@ -112,16 +113,6 @@ class CartaLider {
 
 }
 
-const ciri = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 10, especialidad = lazoEstrecho, baraja = reinosDelNorte)
-
-const geraltOfRivia = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
-
-const yenneferOfVengerberg = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 15, especialidad = medico, baraja = reinosDelNorte)
-
-const trissMerigold = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 12, especialidad = espia, baraja = reinosDelNorte)
-
-const philippaEilhart = new CartaDeUnidad(claseDeCombate = "asedio", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
-
 // Especialidades
 object medico {
 
@@ -170,10 +161,10 @@ object sinHabilidad {
 
 // BARAJAS
 // razon: porque la definicion los metodos del efecto de cada baraja son diferentes
-object reinosDelNorte {
+class Baraja {
 
-	const imagen = "assets/C-reinosDelNorte.png"
-	const mazo = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+	const imagen
+	const mazo
 	const manoCartas = new List()
 
 	method obtenerImagen() = imagen
@@ -181,38 +172,77 @@ object reinosDelNorte {
 	method mazo() = mazo
 
 	method obtenerCartaRandom() {
-		const unaCarta = mazo.anyOne()
+		const unaCarta = self.mazo().anyOne()
 		manoCartas.add(unaCarta)
-		mazo.remove(unaCarta)
+		self.mazo().remove(unaCarta)
 	}
 
-//por alguna razon no funciona, por anyOne
 	method setCartas(cantidadCartas) {
+		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		return manoCartas
+	}
+
+	method efectoFinDeRonda() {
+	}
+
+}
+
+//object reinosDelNorte {
+//
+//	const imagen = "assets/C-reinosDelNorte.png"
+//	const mazo
+//	const manoCartas = new List()
+//
+//	method obtenerImagen() = imagen
+//
+//	method mazo() = mazoReinosDelNorte
+//
+//	method obtenerCartaRandom() {
+//		const unaCarta = self.mazo().anyOne()
+//		manoCartas.add(unaCarta)
+//		self.mazo().remove(unaCarta)
+//	}
+//
+//	method setCartas(cantidadCartas) {
 //		cantidadCartas.times({ i => self.obtenerCartaRandom()})
 //		return manoCartas
-		return mazo
-	}
-
-	method efectoFinDeRonda() {
-	}
-
-}
-
-object imperioNiffgardiano {
-
-	const imagen = "assets/C-imperioNiffgardiano.png"
-
-	method efectoFinDeRonda() {
-	}
-
-}
-
-object scoiatael {
-
-	const imagen = "assets/C-scoiatael.png"
-
-	method efectoFinDeRonda() {
-	}
-
-}
-
+//		return self.mazo()
+//	}
+//
+//	method efectoFinDeRonda() {
+//	}
+//
+//}
+//object imperioNiffgardiano {
+//
+//	const imagen = "assets/C-imperioNiffgardiano.png"
+//
+//	method efectoFinDeRonda() {
+//	}
+//
+//}
+//
+//object scoiatael {
+//
+//	const imagen = "assets/C-scoiatael.png"
+//
+//	method efectoFinDeRonda() {
+//	}
+//
+//}
+//object obtenerCartas {
+//
+//	const manoCartas = new List()
+//
+//	method obtenerCartaRandom(barajaElegida) {
+//		const unaCarta = barajaElegida.mazo().anyOne()
+//		manoCartas.add(unaCarta)
+//		barajaElegida.mazo().remove(unaCarta)
+//	}
+//
+//	method setCartas(barajaElegida, cantidadCartas) {
+//		cantidadCartas.times({ i => self.obtenerCartaRandom(barajaElegida)})
+//		return manoCartas
+//	}
+//
+//}

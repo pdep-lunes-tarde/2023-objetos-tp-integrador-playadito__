@@ -2,6 +2,7 @@ import wollok.game.*
 import carta.*
 import tp.*
 import numeros.*
+import constantes.*
 
 object tablero {
 
@@ -116,18 +117,6 @@ object contador {
 
 }
 
-const filaAsedioJugador = new FilaDeCombate(pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")
-
-const filaArqueroJugador = new FilaDeCombate(pos_y = 30, imagenPuntajeFila = "assets/PJ-01.png")
-
-const filaInfanteJugador = new FilaDeCombate(pos_y = 42, imagenPuntajeFila = "assets/PJ-01.png")
-
-const filaAsedioRival = new FilaDeCombate(pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
-
-const filaArqueroRival = new FilaDeCombate(pos_y = 68, imagenPuntajeFila = "assets/PR-01.png")
-
-const filaInfanteRival = new FilaDeCombate(pos_y = 80, imagenPuntajeFila = "assets/PR-01.png")
-
 class PuntajeFila {
 
 	var cartasFila
@@ -162,24 +151,6 @@ class PuntajeFila {
 
 }
 
-////////Opcion fuera de los tipos de barajas////////////////
-//object cartasJugables {
-//
-//	const manoCartas = new List()
-//	var cartaAleatoria
-//
-//	method obtenerCartaRandom(barajaElegida) {
-//		const unaCarta = barajaElegida.anyOne()
-//		manoCartas.add(unaCarta)
-//		barajaElegida.remove(unaCarta)
-//	}
-//
-//	method setCartas(barajaElegida, cantidadCartas) {
-//		cantidadCartas.times({ i => self.obtenerCartaRandom(barajaElegida)})
-//		return manoCartas
-//	}
-//
-//}
 object filaCartasJugables {
 
 	var cartas = new List()
@@ -251,8 +222,4 @@ class PuntajeTotal {
 	}
 
 }
-
-const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
-
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 70, imagen = "assets/PR-02.png")
 
