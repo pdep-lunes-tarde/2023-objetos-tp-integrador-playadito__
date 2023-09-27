@@ -13,6 +13,7 @@ import carta.*
  * -cada metodo de los objetos y clases principales
  * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
+ * numero de las cosas como objeto                                                   LISTO
  * 
  */
 /* OPCIONAL
@@ -23,7 +24,9 @@ import carta.*
 /* Proxima entrega
  * 
  * el enemigo tenga sus cartas y haga sus cosas
- * especialidades de las cartas
+ * especialidades de las cartas 
+ * -imagenes                                                                       LISTO
+ * -aplicar metodos
  * cartas especiales
  */
 object tpIntegrador {
