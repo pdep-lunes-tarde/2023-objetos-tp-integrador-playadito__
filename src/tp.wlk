@@ -24,6 +24,9 @@ import constantes.*
  */
 /* Proxima entrega
  * 
+ * implementar el pasarDeRonda
+ * numeros de cartas restantes de ambos jugadores
+ * mazo de cartas en mesa
  * el enemigo tenga sus cartas y haga sus cosas									   LISTO
  * especialidades de las cartas 
  * -imagenes                                                                       LISTO

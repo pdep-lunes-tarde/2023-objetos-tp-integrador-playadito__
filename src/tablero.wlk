@@ -38,6 +38,8 @@ object tablero {
 		filaAsedioRival.mostrar()
 		filaArqueroRival.mostrar()
 		filaInfanteRival.mostrar()
+			// pasar de ronda, ver si va aca, y asi o con addVisual de una
+		pasarDeRonda.mostrar()
 	}
 
 	method cartaJugadaJugador(laCarta) {
@@ -246,6 +248,20 @@ object filaCartasRival {
 
 	method agregarCarta(unaCarta) {
 	// metodo para cartas especiales
+	}
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+object pasarDeRonda {
+
+	const imagen = "assets/C-pasarDeRonda.png"
+
+	// method position() = 
+	method image() = imagen
+
+	method mostrar() {
+		game.addVisualIn(self, game.at(38, 4))
 	}
 
 }
