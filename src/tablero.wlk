@@ -134,9 +134,9 @@ object filaCartasJugables {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
-		filaCartasRival.tomarSeleccion()
-	// seleccionador.vaciarListaItems()
-	// self.mostrar()
+		game.schedule(1000, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
+		// seleccionador.vaciarListaItems()
+		// self.mostrar()//si descomento esto, el error que tira es terrible
 	}
 
 	method agregarCarta(unaCarta) {
