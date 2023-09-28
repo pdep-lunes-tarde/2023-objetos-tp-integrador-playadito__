@@ -70,16 +70,16 @@ class FilaDeCombate {
 	method insertarCarta(unaCarta) {
 		cartas.add(unaCarta)
 		puntajeFila.sumar(unaCarta.puntaje())
+		puntajeTotalRival.actualizarPuntajeTotal()
 		puntajeTotalJugador.actualizarPuntajeTotal()
 		self.mostrar()
 	}
 
-	method listaCartas() = cartas
-
+	// method listaCartas() = cartas
 	method mostrar() {
 		if (!cartas.isEmpty()) {
 			contador.setear()
-			cartas.forEach({ carta => carta.setPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 			cartas.forEach({ carta => carta.mostrar()})
 		}
 		puntajeFila.mostrar()
@@ -116,10 +116,10 @@ object filaCartasJugables {
 	// muestra / actualiza las cartas
 	method mostrar() {
 		contador.setear()
-		cartas.forEach({ carta => carta.setPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
+		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
 		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
-		seleccionador.setSelector(self.listaDeCartas())
+		seleccionador.setSelector(cartas) // aca iba self.listaDeCartas()
 	}
 
 	// metodo repetido,
@@ -129,12 +129,12 @@ object filaCartasJugables {
 		cartas = lasCartas
 	}
 
-	method listaDeCartas() = cartas
-
+	// method listaDeCartas() = cartas
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
+		filaCartasRival.tomarSeleccion()
 	// seleccionador.vaciarListaItems()
 	// self.mostrar()
 	}
@@ -175,8 +175,11 @@ class PuntajeFila {
 	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
 
 	method mostrar() {
-		game.addVisual(self)
-		game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
+		if (game.hasVisual(self)) {
+		} else {
+			game.addVisual(self)
+			game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
+		}
 	}
 
 	method position() = game.at(pos_x, pos_y)
@@ -229,19 +232,14 @@ class PuntajeTotal {
 object filaCartasRival {
 
 	var cartas = new List()
-	var cartaElegida
 
 	method establecerManoCartas(lasCartas) {
 		cartas = lasCartas
 	}
 
-	method listaDeCartas() = cartas
-
-	method obtenerCartaRandom() {
-		cartaElegida = cartas.anyOne()
-	}
-
-	method tomarSeleccion(index) {
+	// method listaDeCartas() = cartas
+	method tomarSeleccion() {
+		const cartaElegida = cartas.anyOne()
 		tablero.cartaJugadaRival(cartaElegida)
 		cartas.remove(cartaElegida)
 	}

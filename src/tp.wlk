@@ -24,7 +24,7 @@ import constantes.*
  */
 /* Proxima entrega
  * 
- * el enemigo tenga sus cartas y haga sus cosas
+ * el enemigo tenga sus cartas y haga sus cosas									   LISTO
  * especialidades de las cartas 
  * -imagenes                                                                       LISTO
  * -aplicar metodos
@@ -146,13 +146,13 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(4))
-			filaCartasJugables.establecerManoCartas(barajaRival.setCartas(4))
+			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(4))
+			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(4))
 		} else {
-			var cartasSobrantesRondaAnterior = filaCartasJugables.listaDeCartas()
-			filaCartasJugables.establecerManoCartas(barajaJugador.setCartas(3) + cartasSobrantesRondaAnterior)
+		// var cartasSobrantesRondaAnterior = filaCartasJugables.listaDeCartas()
+		// filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(3) + cartasSobrantesRondaAnterior)
 		// cartasSobrantesRondaAnterior = filaCartasRival.listaDeCartas()
-		// filaCartasJugables.establecerManoCartas(barajaRival.setCartas(3) + cartasSobrantesRondaAnterior)
+		// filaCartasJugables.establecerManoCartas(barajaRival.obtenerCartas(3) + cartasSobrantesRondaAnterior)
 		}
 		tablero.inicializarTablero()
 	}

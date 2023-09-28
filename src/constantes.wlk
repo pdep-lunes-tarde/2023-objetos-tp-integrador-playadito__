@@ -12,25 +12,25 @@ const trissMerigold = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 12,
 
 const philippaEilhart = new CartaDeUnidad(claseDeCombate = "asedio", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
 
-const extra1 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 1, especialidad = lazoEstrecho, baraja = reinosDelNorte)
+const extra1 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 1, especialidad = lazoEstrecho, baraja = scoiatael)
 
-const extra2 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 2, especialidad = sinHabilidad, baraja = reinosDelNorte)
+const extra2 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 2, especialidad = sinHabilidad, baraja = scoiatael)
 
-const extra3 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 3, especialidad = medico, baraja = reinosDelNorte)
+const extra3 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 3, especialidad = medico, baraja = scoiatael)
 
-const extra4 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 4, especialidad = espia, baraja = reinosDelNorte)
+const extra4 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 4, especialidad = espia, baraja = scoiatael)
 
-const extra5 = new CartaDeUnidad(claseDeCombate = "asedio", valor = 5, especialidad = sinHabilidad, baraja = reinosDelNorte)
+const extra5 = new CartaDeUnidad(claseDeCombate = "asedio", valor = 5, especialidad = sinHabilidad, baraja = scoiatael)
 
-const extra6 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 6, especialidad = lazoEstrecho, baraja = reinosDelNorte)
+const extra6 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 6, especialidad = lazoEstrecho, baraja = scoiatael)
 
-const extra7 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 7, especialidad = sinHabilidad, baraja = reinosDelNorte)
+const extra7 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 7, especialidad = sinHabilidad, baraja = scoiatael)
 
-const extra8 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 8, especialidad = medico, baraja = reinosDelNorte)
+const extra8 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 8, especialidad = medico, baraja = scoiatael)
 
-const extra9 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 9, especialidad = espia, baraja = reinosDelNorte)
+const extra9 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 9, especialidad = espia, baraja = scoiatael)
 
-const extra10 = new CartaDeUnidad(claseDeCombate = "asedio", valor = 10, especialidad = sinHabilidad, baraja = reinosDelNorte)
+const extra10 = new CartaDeUnidad(claseDeCombate = "asedio", valor = 10, especialidad = sinHabilidad, baraja = scoiatael)
 
 ///////FILAS////////
 const filaAsedioJugador = new FilaDeCombate(pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")

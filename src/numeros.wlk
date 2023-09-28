@@ -16,7 +16,7 @@ class Numero {
 
 	method position() = game.at(posX, posY)
 
-	method setPosicion(x, y) {
+	method actualizarPosicion(x, y) {
 		posX = x
 		posY = y
 	}

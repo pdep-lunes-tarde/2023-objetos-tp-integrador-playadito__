@@ -13,7 +13,7 @@ class Imagenes {
 
 	method position() = game.at(posx, posy)
 
-	method setPosicion(x, y) {
+	method actualizarPosicion(x, y) {
 		posx = x
 		posy = y
 	}
@@ -54,12 +54,12 @@ class CartaDeUnidad {
 
 	method position() = game.at(pos_x, pos_y)
 
-	method setPosicion(x, y) {
+	method actualizarPosicion(x, y) {
 		pos_x = x
 		pos_y = y
-		imagenTipoDeCombate.setPosicion(x + 5, y + 1)
-		numeroPuntaje.setPosicion(x - 1, y + 6)
-		imagenEspecialidad.setPosicion(x + 2, y + 1)
+		imagenTipoDeCombate.actualizarPosicion(x + 5, y + 1)
+		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
+		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
 	}
 
 	method getPosicionX() = pos_x
@@ -174,7 +174,7 @@ class Baraja {
 		mazo.remove(unaCarta)
 	}
 
-	method setCartas(cantidadCartas) {
+	method obtenerCartas(cantidadCartas) {
 		cantidadCartas.times({ i => self.obtenerCartaRandom()})
 		return manoCartas
 	}
