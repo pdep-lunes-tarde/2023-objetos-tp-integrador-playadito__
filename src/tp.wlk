@@ -68,7 +68,7 @@ class Selector {
 
 	// comenzar 
 	method setSelector(itemsList) {
-		items = items + itemsList
+		items = itemsList
 		self.mostrarEn(self.obtenerPosicionItem(index))
 		self.agregarListener()
 	}
@@ -152,10 +152,10 @@ object partida {
 			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(4))
 			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(4))
 		} else {
-		// var cartasSobrantesRondaAnterior = filaCartasJugables.listaDeCartas()
-		// filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(3) + cartasSobrantesRondaAnterior)
-		// cartasSobrantesRondaAnterior = filaCartasRival.listaDeCartas()
-		// filaCartasJugables.establecerManoCartas(barajaRival.obtenerCartas(3) + cartasSobrantesRondaAnterior)
+			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
+			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(3) + cartasSobrantesRondaAnterior)
+			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
+			filaCartasJugables.establecerManoCartas(barajaRival.obtenerCartas(3) + cartasSobrantesRondaAnterior)
 		}
 		tablero.inicializarTablero()
 	}

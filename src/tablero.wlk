@@ -77,7 +77,11 @@ class FilaDeCombate {
 		self.mostrar()
 	}
 
-	// method listaCartas() = cartas
+	method listaCartas() {
+		const listaCartas = cartas
+		return listaCartas
+	}
+
 	method mostrar() {
 		if (!cartas.isEmpty()) {
 			contador.setear()
@@ -121,7 +125,7 @@ object filaCartasJugables {
 		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
 		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
-		seleccionador.setSelector(cartas) // aca iba self.listaDeCartas()
+		seleccionador.setSelector(cartas)
 	}
 
 	// metodo repetido,
@@ -131,7 +135,11 @@ object filaCartasJugables {
 		cartas = lasCartas
 	}
 
-	// method listaDeCartas() = cartas
+	method listaCartas() {
+		const listaCartas = cartas
+		return listaCartas
+	}
+
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
@@ -248,6 +256,11 @@ object filaCartasRival {
 
 	method agregarCarta(unaCarta) {
 	// metodo para cartas especiales
+	}
+
+	method listaCartas() {
+		const listaCartas = cartas
+		return listaCartas
 	}
 
 }
