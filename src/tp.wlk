@@ -110,6 +110,7 @@ class Selector {
 
 	method select() {
 //		items.remove(items.get(index))
+		self.mostrarEn(self.obtenerPosicionItem(index))
 		game.removeVisual(self)
 		catcher.tomarSeleccion(index)
 	}
