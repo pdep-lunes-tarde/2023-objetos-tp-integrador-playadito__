@@ -111,7 +111,7 @@ object filaCartasJugables {
 	var cartas = new List()
 	const pos_x = 50
 	const pos_y = 4
-	const seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
+	const seleccionador = new Selector(image = "assets/S-05.png", catcher = self)
 
 	method position() = game.at(48, 4)
 
