@@ -195,7 +195,7 @@ class Baraja {
 	method actualizarPosicion(x, y) {
 		pos_x = x
 		pos_y = y
-		numeroPuntaje.actualizarPosicion(x, y)
+		numeroPuntaje.actualizarPosicion(x + 1, y - 1)
 	}
 
 	method actualizarCantidadEnMazo() {

@@ -24,11 +24,13 @@ import constantes.*
  */
 /* Proxima entrega
  * 
+ * error del selector despues de pasarDeRonda
+ * implementar efectoFinDeRonda
  * bug cuando elige cartas
  * cambiar el tema de mostrar tablero, y los puntajes de cada fila
- * implementar el pasarDeRonda
- * numeros de cartas restantes de ambos jugadores
- * mazo de cartas en mesa
+ * implementar el pasarDeRonda													   LISTO
+ * numeros de cartas restantes de ambos jugadores								   LISTO
+ * mazo de cartas en mesa														   LISTO
  * el enemigo tenga sus cartas y haga sus cosas									   LISTO
  * especialidades de las cartas 
  * -imagenes                                                                       LISTO
