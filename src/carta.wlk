@@ -176,7 +176,6 @@ class Baraja {
 		const unaCarta = mazo.anyOne()
 		manoCartas.add(unaCarta)
 		mazo.remove(unaCarta)
-		self.actualizarCantidadEnMazo()
 	}
 
 	method obtenerCartas(cantidadCartas) {
