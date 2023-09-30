@@ -113,7 +113,7 @@ object filaCartasJugables {
 	var cartas = new List()
 	const pos_x = 50
 	const pos_y = 4
-	var seleccionador
+	const seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
 
 	method position() = game.at(48, 4)
 
@@ -124,7 +124,6 @@ object filaCartasJugables {
 		contador.setear()
 		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
-		seleccionador = new Selector(image = "assets/S-02.png", catcher = self)
 		seleccionador.setSelector(cartas)
 	}
 

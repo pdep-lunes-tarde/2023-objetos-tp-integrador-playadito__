@@ -5,8 +5,8 @@ import constantes.*
 
 /* ARREGLAR
  * 
- * Revisar Selector, error por index
- * Revisar selector, nuevas instancias?
+ * Revisar Selector, error por index                                                 LISTO
+ * Revisar selector, nuevas instancias?												 LISTO
  * anyOne cuando se quiere obtener la mano de cartas aleatorias                      LISTO
  * la imagen del tipoDeCombate en la carta, y como asignarla                         LISTO
  * realizar los tests:(here)
@@ -111,7 +111,8 @@ class Selector {
 	method select() {
 		game.removeVisual(self)
 		catcher.tomarSeleccion(index)
-		self.mostrarEn(self.obtenerPosicionItem(0))
+		index = 0
+		self.mostrarEn(self.obtenerPosicionItem(index))
 	}
 
 }
