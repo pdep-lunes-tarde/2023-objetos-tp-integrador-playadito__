@@ -12,6 +12,16 @@ const trissMerigold = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 12,
 
 const philippaEilhart = new CartaDeUnidad(claseDeCombate = "asedio", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
 
+const ciri2 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 10, especialidad = lazoEstrecho, baraja = reinosDelNorte)
+
+const geraltOfRivia2 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
+
+const yenneferOfVengerberg2 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 15, especialidad = medico, baraja = reinosDelNorte)
+
+const trissMerigold2 = new CartaDeUnidad(claseDeCombate = "arqueria", valor = 12, especialidad = espia, baraja = reinosDelNorte)
+
+const philippaEilhart2 = new CartaDeUnidad(claseDeCombate = "asedio", valor = 8, especialidad = sinHabilidad, baraja = reinosDelNorte)
+
 const extra1 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 1, especialidad = lazoEstrecho, baraja = scoiatael)
 
 const extra2 = new CartaDeUnidad(claseDeCombate = "infanteria", valor = 2, especialidad = sinHabilidad, baraja = scoiatael)
@@ -58,7 +68,7 @@ const imperioNiffgardiano = new Baraja(imagen = "assets/C-imperioNiffgardiano.pn
 const scoiatael = new Baraja(imagen = "assets/C-scoiatael.png", mazo = mazoScoiatael)
 
 ////////////MAZOS//////////////
-const mazoReinosDelNorte = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+const mazoReinosDelNorte = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart, ciri2, geraltOfRivia2, yenneferOfVengerberg2, trissMerigold2, philippaEilhart2 ]
 
 const mazoScoiatael = [ extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10 ]
 

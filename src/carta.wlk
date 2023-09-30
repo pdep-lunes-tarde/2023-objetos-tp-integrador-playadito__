@@ -166,10 +166,7 @@ class Baraja {
 	// const efectoFinDeRonda
 	method obtenerImagen() = imagen
 
-	method mazo() {
-		const mazoCartas = mazo
-		return mazoCartas
-	}
+	method mazo() = mazo.copy()
 
 	method obtenerCartaRandom() {
 		const unaCarta = mazo.anyOne()

@@ -77,10 +77,7 @@ class FilaDeCombate {
 		self.mostrar()
 	}
 
-	method listaCartas() {
-		const listaCartas = cartas
-		return listaCartas
-	}
+	method listaCartas() = cartas.copy()
 
 	method mostrar() {
 		if (!cartas.isEmpty()) {
@@ -124,7 +121,7 @@ object filaCartasJugables {
 		contador.setear()
 		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
-		seleccionador.setSelector(cartas)
+		seleccionador.setSelector(pasarDeRonda + cartas)
 	}
 
 	// metodo repetido,
@@ -134,18 +131,18 @@ object filaCartasJugables {
 		cartas = lasCartas
 	}
 
-	method listaCartas() {
-		const listaCartas = cartas
-		return listaCartas
-	}
+	method listaCartas() = cartas.copy()
 
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
-		tablero.cartaJugadaJugador(cartaElegida)
-		cartas.remove(cartaElegida)
-		game.schedule(1000, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
-		// seleccionador.vaciarListaItems()
-		// self.mostrar()//si descomento esto, el error que tira es terrible
+		if (cartaElegida === pasarDeRonda) {
+			game.schedule(1000, {=> filaCartasRival.tomarSeleccion()})
+			partida.finalizarRonda()
+		} else {
+			tablero.cartaJugadaJugador(cartaElegida)
+			cartas.remove(cartaElegida)
+			game.schedule(1000, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
+		}
 	}
 
 	method agregarCarta(unaCarta) {
@@ -257,10 +254,7 @@ object filaCartasRival {
 	// metodo para cartas especiales
 	}
 
-	method listaCartas() {
-		const listaCartas = cartas
-		return listaCartas
-	}
+	method listaCartas() = cartas.copy()
 
 }
 
@@ -268,13 +262,19 @@ object filaCartasRival {
 object pasarDeRonda {
 
 	const imagen = "assets/C-pasarDeRonda.png"
+	const pos_x = 38
+	const pos_y = 4
 
 	// method position() = 
 	method image() = imagen
 
 	method mostrar() {
-		game.addVisualIn(self, game.at(38, 4))
+		game.addVisualIn(self, game.at(pos_x, pos_y))
 	}
+
+	method getPosicionX() = pos_x
+
+	method getPosicionY() = pos_y
 
 }
 

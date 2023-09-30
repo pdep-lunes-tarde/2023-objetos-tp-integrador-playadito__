@@ -150,15 +150,19 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(4))
-			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(4))
+			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(10))
+			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(10))
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
-			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(3) + cartasSobrantesRondaAnterior)
+			filaCartasJugables.establecerManoCartas(cartasSobrantesRondaAnterior)
 			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-			filaCartasJugables.establecerManoCartas(barajaRival.obtenerCartas(3) + cartasSobrantesRondaAnterior)
+			filaCartasJugables.establecerManoCartas(cartasSobrantesRondaAnterior)
 		}
 		tablero.inicializarTablero()
+	}
+
+	method finalizarRonda() {
+		ronda++
 	}
 
 }
