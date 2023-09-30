@@ -201,7 +201,8 @@ class PuntajeFila {
 	}
 
 	method resetearPuntaje() {
-		numeroPuntaje.modificarNumero(0)
+		puntajeTotalFila = 0
+		numeroPuntaje.modificarNumero(puntajeTotalFila)
 	}
 
 }
@@ -261,12 +262,15 @@ object filaCartasRival {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 object pasarDeRonda {
 
-	const imagen = "assets/C-pasarDeRonda.png"
-	const pos_x = 38
-	const pos_y = 4
+	// const imagen = "assets/C-pasarDeRonda.png"
+	const pos_x = 129
+	const pos_y = -1
 
 	// method position() = 
-	method image() = imagen
+	// method image() = imagen
+	method text() = "Pasar de ronda (r)"
+
+	method textColor() = "F2F2D9FF"
 
 	method mostrarYagregarListener() {
 		game.addVisualIn(self, game.at(pos_x, pos_y))
