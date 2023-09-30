@@ -24,19 +24,22 @@ object tablero {
 		filasRival.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
 	}
 
-	method mostrar() {
+	method mostrar(barajaJugador, barajaRival) {
 		filasJugador.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
 		filasRival.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
-			// mostar fila cartas jugables
+			// mostar fila cartas jugables/////
 		game.addVisual(filaCartasJugables)
 		filaCartasJugables.mostrar()
-			// mostar filas
+			// /// mostar filas////
 		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
 		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
 		pasarDeRonda.mostrarYagregarListener()
+			// //
+		barajaJugador.mostrar()
+		barajaRival.mostrar()
 	}
 
 	method cartaJugadaJugador(laCarta) {

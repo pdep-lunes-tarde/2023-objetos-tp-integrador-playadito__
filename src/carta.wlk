@@ -38,7 +38,7 @@ class CartaDeUnidad {
 	var pos_y = 0
 	const imgDeCombate = self.designarImagenesTipoCombate()
 	const imagenTipoDeCombate = new Imagenes(imagen = imgDeCombate.get(self.claseDeCombate()))
-	const numeroPuntaje = new Numero(numero = self.puntaje())
+	const numeroPuntaje = new Numero(numero = puntaje)
 	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
 
 //ver si conviene, o mejor hacerlo a mano con ifs
@@ -162,6 +162,10 @@ class Baraja {
 	const imagen
 	const mazo
 	const manoCartas = new List()
+	var pos_x = 0
+	var pos_y = 0
+	var cantidadEnMazo = 40
+	const numeroPuntaje = new Numero(numero = cantidadEnMazo)
 
 	// const efectoFinDeRonda
 	method obtenerImagen() = imagen
@@ -172,15 +176,37 @@ class Baraja {
 		const unaCarta = mazo.anyOne()
 		manoCartas.add(unaCarta)
 		mazo.remove(unaCarta)
+		self.actualizarCantidadEnMazo()
 	}
 
 	method obtenerCartas(cantidadCartas) {
 		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		self.actualizarCantidadEnMazo()
 		return manoCartas
 	}
 
 	method efectoFinDeRonda() {
 	// efectoFinDeRonda
+	}
+
+	method image() = imagen
+
+	method position() = game.at(pos_x, pos_y)
+
+	method actualizarPosicion(x, y) {
+		pos_x = x
+		pos_y = y
+		numeroPuntaje.actualizarPosicion(x, y)
+	}
+
+	method actualizarCantidadEnMazo() {
+		cantidadEnMazo = mazo.size()
+		numeroPuntaje.modificarNumero(cantidadEnMazo)
+	}
+
+	method mostrar() {
+		game.addVisual(self)
+		game.addVisual(numeroPuntaje)
 	}
 
 }

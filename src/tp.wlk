@@ -144,7 +144,9 @@ object partida {
 	method start() {
 		// esta asignacion deberia salir del menu
 		barajaJugador = self.asignarBarajaRandom()
+		barajaJugador.actualizarPosicion(150, 18)
 		barajaRival = self.asignarBarajaRandom()
+		barajaRival.actualizarPosicion(150, 80)
 		self.comenzarRonda()
 	}
 
@@ -161,7 +163,7 @@ object partida {
 			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(10))
 			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(10))
 			tablero.establecerRelacionCombateFila()
-			tablero.mostrar()
+			tablero.mostrar(barajaJugador, barajaRival)
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
 			filaCartasJugables.establecerManoCartas(cartasSobrantesRondaAnterior)
