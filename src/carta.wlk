@@ -185,49 +185,6 @@ class Baraja {
 
 }
 
-//object reinosDelNorte {
-//
-//	const imagen = "assets/C-reinosDelNorte.png"
-//	const mazo
-//	const manoCartas = new List()
-//
-//	method obtenerImagen() = imagen
-//
-//	method mazo() = mazoReinosDelNorte
-//
-//	method obtenerCartaRandom() {
-//		const unaCarta = self.mazo().anyOne()
-//		manoCartas.add(unaCarta)
-//		self.mazo().remove(unaCarta)
-//	}
-//
-//	method setCartas(cantidadCartas) {
-//		cantidadCartas.times({ i => self.obtenerCartaRandom()})
-//		return manoCartas
-//		return self.mazo()
-//	}
-//
-//	method efectoFinDeRonda() {
-//	}
-//
-//}
-//object imperioNiffgardiano {
-//
-//	const imagen = "assets/C-imperioNiffgardiano.png"
-//
-//	method efectoFinDeRonda() {
-//	}
-//
-//}
-//
-//object scoiatael {
-//
-//	const imagen = "assets/C-scoiatael.png"
-//
-//	method efectoFinDeRonda() {
-//	}
-//
-//}
 //object obtenerCartas {
 //
 //	const manoCartas = new List()

@@ -141,9 +141,15 @@ object partida {
 
 	method start() {
 		// esta asignacion deberia salir del menu
-		barajaJugador = reinosDelNorte
-		barajaRival = scoiatael
+		barajaJugador = self.asignarBarajaRandom()
+		barajaRival = self.asignarBarajaRandom()
 		self.comenzarRonda()
+	}
+
+	method asignarBarajaRandom() {
+		const unaBaraja = barajasDisponibles.anyOne()
+		barajasDisponibles.remove(unaBaraja)
+		return unaBaraja
 	}
 
 	method baraja() = barajaJugador
@@ -163,6 +169,11 @@ object partida {
 
 	method finalizarRonda() {
 		ronda++
+		if (ronda <= 4) {
+			self.comenzarRonda()
+		} else {
+		// implementar finDePartida()
+		}
 	}
 
 }
