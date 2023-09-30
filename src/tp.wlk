@@ -24,6 +24,8 @@ import constantes.*
  */
 /* Proxima entrega
  * 
+ * bug cuando elige cartas
+ * cambiar el tema de mostrar tablero, y los puntajes de cada fila
  * implementar el pasarDeRonda
  * numeros de cartas restantes de ambos jugadores
  * mazo de cartas en mesa
@@ -158,13 +160,15 @@ object partida {
 		if (ronda == 1) {
 			filaCartasJugables.establecerManoCartas(barajaJugador.obtenerCartas(10))
 			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(10))
+			tablero.establecerRelacionCombateFila()
+			tablero.mostrar()
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
 			filaCartasJugables.establecerManoCartas(cartasSobrantesRondaAnterior)
 			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-			filaCartasJugables.establecerManoCartas(cartasSobrantesRondaAnterior)
+			filaCartasRival.establecerManoCartas(cartasSobrantesRondaAnterior)
 		}
-		tablero.inicializarTablero()
+		tablero.resetearTablero()
 	}
 
 	method finalizarRonda() {

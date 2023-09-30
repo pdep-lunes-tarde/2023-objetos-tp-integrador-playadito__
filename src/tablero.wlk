@@ -9,37 +9,34 @@ object tablero {
 	const filasJugador = new Dictionary()
 	const filasRival = new Dictionary()
 
-	method inicializarTablero() {
+//establecer en const
+	method establecerRelacionCombateFila() {
 		filasJugador.put("infanteria", filaInfanteJugador)
 		filasJugador.put("arqueria", filaArqueroJugador)
 		filasJugador.put("asedio", filaAsedioJugador)
 		filasRival.put("infanteria", filaInfanteRival)
 		filasRival.put("arqueria", filaArqueroRival)
 		filasRival.put("asedio", filaAsedioRival)
-		self.mostrar()
+	}
+
+	method resetearTablero() {
+		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
+		filasRival.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
 	}
 
 	method mostrar() {
-		game.addVisual(filaAsedioJugador)
-		game.addVisual(filaArqueroJugador)
-		game.addVisual(filaInfanteJugador)
-		game.addVisual(filaAsedioRival)
-		game.addVisual(filaArqueroRival)
-		game.addVisual(filaInfanteRival)
+		filasJugador.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
+		filasRival.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
 			// mostar fila cartas jugables
 		game.addVisual(filaCartasJugables)
 		filaCartasJugables.mostrar()
 			// mostar filas
+		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
+		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
-		filaAsedioJugador.mostrar()
-		filaArqueroJugador.mostrar()
-		filaInfanteJugador.mostrar()
-		filaAsedioRival.mostrar()
-		filaArqueroRival.mostrar()
-		filaInfanteRival.mostrar()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
-		pasarDeRonda.mostrar()
+		pasarDeRonda.mostrarYagregarListener()
 	}
 
 	method cartaJugadaJugador(laCarta) {
@@ -74,12 +71,12 @@ class FilaDeCombate {
 		puntajeFila.sumar(unaCarta.puntaje())
 		puntajeTotalRival.actualizarPuntajeTotal()
 		puntajeTotalJugador.actualizarPuntajeTotal()
-		self.mostrar()
+		self.mostrarCartasyPuntaje()
 	}
 
 	method listaCartas() = cartas.copy()
 
-	method mostrar() {
+	method mostrarCartasyPuntaje() {
 		if (!cartas.isEmpty()) {
 			contador.setear()
 			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
@@ -93,13 +90,13 @@ class FilaDeCombate {
 	// para mas adelante (efecto de algunas cartas especiales)
 	method removerCarta() {
 		// ...
-		self.mostrar()
+		self.mostrarCartasyPuntaje()
 	}
 
 	// limpia la fila (para fin de ronda)
 	method vaciarFila() {
 		cartas.clear()
-		self.mostrar()
+		self.mostrarCartasyPuntaje()
 	}
 
 }
@@ -121,7 +118,7 @@ object filaCartasJugables {
 		contador.setear()
 		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
 		cartas.forEach({ carta => carta.mostrar()})
-		seleccionador.setSelector(pasarDeRonda + cartas)
+		seleccionador.setSelector(cartas)
 	}
 
 	// metodo repetido,
@@ -135,14 +132,10 @@ object filaCartasJugables {
 
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
-		if (cartaElegida === pasarDeRonda) {
-			game.schedule(1000, {=> filaCartasRival.tomarSeleccion()})
-			partida.finalizarRonda()
-		} else {
-			tablero.cartaJugadaJugador(cartaElegida)
-			cartas.remove(cartaElegida)
-			game.schedule(1000, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
-		}
+		tablero.cartaJugadaJugador(cartaElegida)
+		cartas.remove(cartaElegida)
+		game.schedule(500, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
+		self.mostrar()
 	}
 
 	method agregarCarta(unaCarta) {
@@ -181,8 +174,7 @@ class PuntajeFila {
 	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
 
 	method mostrar() {
-		if (game.hasVisual(self)) {
-		} else {
+		if (!game.hasVisual(self)) {
 			game.addVisual(self)
 			game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
 		}
@@ -268,13 +260,15 @@ object pasarDeRonda {
 	// method position() = 
 	method image() = imagen
 
-	method mostrar() {
+	method mostrarYagregarListener() {
 		game.addVisualIn(self, game.at(pos_x, pos_y))
+		keyboard.p().onPressDo{ self.pasarRonda()}
 	}
 
-	method getPosicionX() = pos_x
-
-	method getPosicionY() = pos_y
+	method pasarRonda() {
+		game.schedule(500, {=> filaCartasRival.tomarSeleccion()})
+		partida.finalizarRonda()
+	}
 
 }
 

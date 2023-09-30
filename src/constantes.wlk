@@ -83,7 +83,7 @@ const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, f
 ////////BARAJAS/////////////////
 const reinosDelNorte = new Baraja(imagen = "assets/C-reinosDelNorte.png", mazo = mazoReinosDelNorte)
 
-const imperioNiffgardiano = new Baraja(imagen = "assets/C-imperioNiffgardiano.png", mazo = mazoReinosDelNorte)
+const imperioNiffgardiano = new Baraja(imagen = "assets/C-imperioNiffgardiano.png", mazo = mazoimperioNiffgardiano)
 
 const scoiatael = new Baraja(imagen = "assets/C-scoiatael.png", mazo = mazoScoiatael)
 
