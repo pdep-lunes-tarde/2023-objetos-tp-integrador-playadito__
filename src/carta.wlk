@@ -75,9 +75,6 @@ class CartaDeUnidad {
 	method mostrar() {
 		if (game.hasVisual(self)) {
 			self.esconder()
-			imagenTipoDeCombate.esconder()
-			numeroPuntaje.esconder()
-			imagenEspecialidad.esconder()
 		}
 		game.addVisual(self)
 		game.addVisual(imagenTipoDeCombate)
@@ -87,6 +84,9 @@ class CartaDeUnidad {
 
 	method esconder() {
 		game.removeVisual(self)
+		imagenTipoDeCombate.esconder()
+		numeroPuntaje.esconder()
+		imagenEspecialidad.esconder()
 	}
 
 	method modificarPuntaje(num) {

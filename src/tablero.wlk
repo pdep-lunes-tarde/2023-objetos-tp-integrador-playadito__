@@ -95,8 +95,12 @@ class FilaDeCombate {
 
 	// limpia la fila (para fin de ronda)
 	method vaciarFila() {
+		cartas.forEach({ carta => carta.esconder()})
 		cartas.clear()
-		self.mostrarCartasyPuntaje()
+		puntajeFila.resetearPuntaje()
+		puntajeTotalJugador.actualizarPuntajeTotal()
+		puntajeTotalRival.actualizarPuntajeTotal()
+	// self.mostrarCartasyPuntaje()
 	}
 
 }
@@ -134,8 +138,8 @@ object filaCartasJugables {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
-		game.schedule(500, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
-		self.mostrar()
+		game.schedule(700, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
+		// self.mostrar()
 	}
 
 	method agregarCarta(unaCarta) {
@@ -194,6 +198,10 @@ class PuntajeFila {
 	method restar(puntajeCartaEliminada) {
 		puntajeTotalFila = puntajeTotalFila - puntajeCartaEliminada
 		numeroPuntaje.modificarNumero(puntajeTotalFila)
+	}
+
+	method resetearPuntaje() {
+		numeroPuntaje.modificarNumero(0)
 	}
 
 }
@@ -262,12 +270,12 @@ object pasarDeRonda {
 
 	method mostrarYagregarListener() {
 		game.addVisualIn(self, game.at(pos_x, pos_y))
-		keyboard.p().onPressDo{ self.pasarRonda()}
+		keyboard.r().onPressDo{ self.pasarRonda()}
 	}
 
 	method pasarRonda() {
-		game.schedule(500, {=> filaCartasRival.tomarSeleccion()})
-		partida.finalizarRonda()
+		game.schedule(700, {=> filaCartasRival.tomarSeleccion()})
+		game.schedule(2000, {=> partida.finalizarRonda()})
 	}
 
 }
