@@ -46,6 +46,7 @@ import constantes.*
  * actualizarPuntajeTotal en otro lado
  * tests
  * herencia con cartas y numeros
+ * numero de las cartas restantes jugables
  * 
  */
 object tpIntegrador {
