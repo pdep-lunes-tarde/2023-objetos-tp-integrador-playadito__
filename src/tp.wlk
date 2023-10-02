@@ -24,7 +24,7 @@ import constantes.*
  */
 /* Proxima entrega
  * 
- * error del selector despues de pasarDeRonda
+ * error del selector despues de pasarDeRonda									   LISTO
  * implementar efectoFinDeRonda
  * bug cuando elige cartas
  * cambiar el tema de mostrar tablero, y los puntajes de cada fila
@@ -72,7 +72,7 @@ class Selector {
 
 	// comenzar 
 	method setSelector(itemsList) {
-		items = itemsList
+		items = itemsList.copy()
 		self.mostrarEn(self.obtenerPosicionItem(index))
 		self.agregarListener()
 	}
@@ -114,6 +114,7 @@ class Selector {
 
 	method select() {
 		game.removeVisual(self)
+		items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
 		index = 0
 		self.mostrarEn(self.obtenerPosicionItem(index))
