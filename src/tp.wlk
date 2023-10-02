@@ -22,7 +22,7 @@ import constantes.*
  * revistar forma de calcular el total de  puntajeFila
  * 
  */
-/* Proxima entrega
+/*entrega 2/10
  * 
  * error del selector despues de pasarDeRonda									   LISTO
  * implementar efectoFinDeRonda
@@ -36,6 +36,17 @@ import constantes.*
  * -imagenes                                                                       LISTO
  * -aplicar metodos
  * cartas especiales
+ * 
+ * entrega 9/10
+ * fin de partida
+ * cartel de ganador de ronda
+ * pantalla inicial para elegir baraja
+ * cuando alguien se queda sin cartas
+ * limpiar fila con removerCarta 
+ * actualizarPuntajeTotal en otro lado
+ * tests
+ * herencia con cartas y numeros
+ * 
  */
 object tpIntegrador {
 
@@ -74,7 +85,7 @@ class Selector {
 	method setSelector(itemsList) {
 		items = itemsList.copy()
 		self.mostrarEn(self.obtenerPosicionItem(index))
-		self.agregarListener()
+//		self.agregarListener()
 	}
 
 	// posicion segun el objeto a seleccionar
@@ -92,7 +103,7 @@ class Selector {
 	}
 
 	// listener y efectos
-	method agregarListener() {
+	method initialize() {
 		keyboard.left().onPressDo{ self.moveLeft()}
 		keyboard.right().onPressDo{ self.moveRight()}
 		keyboard.enter().onPressDo{ self.select()}

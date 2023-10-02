@@ -142,7 +142,7 @@ object filaCartasJugables {
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
 		game.schedule(700, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
-//		self.mostrar()
+		self.mostrar()
 	}
 
 	method agregarCarta(unaCarta) {

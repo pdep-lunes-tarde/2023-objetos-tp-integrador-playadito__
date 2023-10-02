@@ -37,7 +37,7 @@ class CartaDeUnidad {
 	var pos_x = 0
 	var pos_y = 0
 	const imgDeCombate = self.designarImagenesTipoCombate()
-	const imagenTipoDeCombate = new Imagenes(imagen = imgDeCombate.get(self.claseDeCombate()))
+	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
 	const numeroPuntaje = new Numero(numero = puntaje)
 	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
 
