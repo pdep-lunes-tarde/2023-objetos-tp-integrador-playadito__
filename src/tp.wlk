@@ -197,5 +197,13 @@ object partida {
 		}
 	}
 
+	method ganadorRonda() {
+		if (puntajeTotalJugador.puntajeTotal() > puntajeTotalRival.puntajeTotal()) {
+		// return jugador // ver que poner
+		} else {
+		// return rival
+		}
+	}
+
 }
 
