@@ -147,6 +147,7 @@ object partida {
 	}
 
 	method finalizarRonda() {
+		self.ganadorRonda()
 		ronda++
 		if (ronda <= 4) {
 			self.comenzarRonda()
