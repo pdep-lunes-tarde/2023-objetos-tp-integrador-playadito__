@@ -1,5 +1,26 @@
 import tp.*
+import tablero.*
+import carta.*
+import numeros.*
+import constantes.*
 
-test "Test de ejemplo" {
-		assert.equals(4, 2 + 2)
+object listaSeleccionable {
+
+	const listaDeElementos = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+
+	method tomarSeleccion(index) {
+	}
+
 }
+
+describe "selector sobre la Fila de Cartas Jugables" {
+
+	test "cada vez que se selecciona, el selector vuelve a la primera posicion de la lista" {
+		filaCartasJugables.establecerManoCartas([ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ])
+	}
+
+	test "segundo caso" {
+	}
+
+}
+

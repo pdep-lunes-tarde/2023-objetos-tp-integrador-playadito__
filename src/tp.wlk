@@ -4,50 +4,12 @@ import carta.*
 import constantes.*
 
 /* ARREGLAR
- * 
- * Revisar Selector, error por index                                                 LISTO
- * Revisar selector, nuevas instancias?												 LISTO
- * anyOne cuando se quiere obtener la mano de cartas aleatorias                      LISTO
- * la imagen del tipoDeCombate en la carta, y como asignarla                         LISTO
  * realizar los tests:(here)
- * -ver comportamientos de las listas
- * -cada metodo de los objetos y clases principales
  * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
- * numero de las cosas como objeto                                                   LISTO
- * barajas como clases                                                               LISTO
  */
-/* OPCIONAL
- * 
- * revistar forma de calcular el total de  puntajeFila
- * 
- */
-/*entrega 2/10
- * 
- * error del selector despues de pasarDeRonda									   LISTO
- * implementar efectoFinDeRonda
- * bug cuando elige cartas
+/*
  * cambiar el tema de mostrar tablero, y los puntajes de cada fila
- * implementar el pasarDeRonda													   LISTO
- * numeros de cartas restantes de ambos jugadores								   LISTO
- * mazo de cartas en mesa														   LISTO
- * el enemigo tenga sus cartas y haga sus cosas									   LISTO
- * especialidades de las cartas 
- * -imagenes                                                                       LISTO
- * -aplicar metodos
- * cartas especiales
- * 
- * entrega 9/10
- * fin de partida
- * cartel de ganador de ronda
- * pantalla inicial para elegir baraja
- * cuando alguien se queda sin cartas
- * limpiar fila con removerCarta 
- * actualizarPuntajeTotal en otro lado
- * tests
- * herencia con cartas y numeros
- * numero de las cartas restantes jugables
- * 
  */
 object tpIntegrador {
 
@@ -70,23 +32,20 @@ object ventana {
 
 }
 
-// * los listener de las keys son manejados por la instancia
-// * ver si hay un lugar mas apropiado para meter esta clase (para q no quede en el archivo "tp")
 class Selector {
 
 	var items = new List()
 	const image
-	const catcher // objeto al que le voy a devolver lo seleccionado (referencia o index)
+	const catcher // objeto al que le voy a devolver lo seleccionado
 	var index = 0
 
 	// wollok game req
 	method image() = image
 
-	// comenzar 
+	// comenzar
 	method setSelector(itemsList) {
 		items = itemsList.copy()
 		self.mostrarEn(self.obtenerPosicionItem(index))
-//		self.agregarListener()
 	}
 
 	// posicion segun el objeto a seleccionar

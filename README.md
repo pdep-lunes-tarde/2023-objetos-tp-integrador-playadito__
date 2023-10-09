@@ -41,3 +41,19 @@ b) Tomar alguna clase definida en su programa y justificar por qué es una clase
 
 c) De haber algún objeto definido con `object`, justificar por qué.
 
+## Todo
+
+### 09/10 (en lo posible)
+
+- [] Fin de Ronda
+- [] Cuando alguien se queda sin cartas
+- [] Cartel de Ganador de Ronda
+- [] Fin de Partida
+- [] Pantalla Inicial para Elegir Baraja
+- [x] limpiar fila con removerCarta
+- [] actualizarPuntajeTotal en otro lado
+- [] tests
+- [] herencia con cartas y numeros
+- [] numero de las cartas restantes jugables
+- [] Especialidades de las Cartas
+- [] Cartas especiales

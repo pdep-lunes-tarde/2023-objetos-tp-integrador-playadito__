@@ -91,16 +91,21 @@ class FilaDeCombate {
 	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
 
 	// para mas adelante (efecto de algunas cartas especiales)
-	method removerCarta() {
-		// ...
+	method removerCarta(unaCarta) {
+		unaCarta.esconder()
+		cartas.remove(unaCarta)
+		puntajeFila.restar(unaCarta.puntaje())
+		puntajeTotalRival.actualizarPuntajeTotal()
+		puntajeTotalJugador.actualizarPuntajeTotal()
 		self.mostrarCartasyPuntaje()
 	}
 
 	// limpia la fila (para fin de ronda)
 	method vaciarFila() {
-		cartas.forEach({ carta => carta.esconder()})
-		cartas.clear()
-		puntajeFila.resetearPuntaje()
+//		cartas.forEach({ carta => carta.esconder()})
+//		cartas.clear()
+//		puntajeFila.resetearPuntaje()
+		cartas.forEach({ carta => self.removerCarta(carta)})
 		puntajeTotalJugador.actualizarPuntajeTotal()
 		puntajeTotalRival.actualizarPuntajeTotal()
 	// self.mostrarCartasyPuntaje()
