@@ -60,16 +60,9 @@ class Carta {
 
 }
 
-class CartaTipoCombate inherits Carta {
+class CartaCombativa inherits Carta {
 
 	const claseDeCombate // cadena, ej "infanteria"
-
-	method claseDeCombate() = claseDeCombate
-
-}
-
-class CartaCombativa inherits CartaTipoCombate {
-
 	const puntajeInicial // puntaje original (valor numerico)
 	var puntaje = puntajeInicial // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
@@ -98,6 +91,8 @@ class CartaCombativa inherits CartaTipoCombate {
 	method puntaje() = puntaje
 
 	method puntajeInicial() = puntajeInicial
+
+	method claseDeCombate() = claseDeCombate
 
 }
 
@@ -134,26 +129,26 @@ class CartaDeUnidad inherits CartaCombativa {
 class CartaHeroe inherits CartaCombativa {
 
 	override method modificarPuntaje(num) {
-		puntaje = puntajeInicial // no se puede modificar el puntaje del heroe
-	}
+	} // solo para q entienda el msj
 
 }
 
-class CartaClima inherits CartaTipoCombate {
+class CartaClima inherits Carta {
 
 //esto de la imagen solo funciona si hay una de cada clima unicamente
-	const imagenTipoClima = new Imagenes(imagen = "assets/" + self.toString() + ".png")
-	const filasJugador = tablero.filasJugador()
-	const filasRival = tablero.filasRival()
+	const filaJugador
+	const filaRival
+	const tipoClima
+	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoClima + ".png")
 
 	method puntajeCartasAUno() {
-		filasJugador.get(self.claseDeCombate()).modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
-		filasRival.get(self.claseDeCombate()).modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
+		filaJugador.modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
+		filaRival.modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
 	}
 
 	override method actualizarPosicion(x, y) {
 		super(x, y)
-		imagenTipoClima.actualizarPosicion(x - 1, y + 6)
+		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
 	}
 
 	override method mostrar() {
@@ -173,6 +168,14 @@ class CartaLider {
 }
 
 // Especialidades
+//class especialidad {
+//	const imagen 
+//
+//	method obtenerImagen() = imagen
+//
+//	method aplicar() {
+//	}
+//}
 object medico {
 
 	const imagen = "assets/medico.png"

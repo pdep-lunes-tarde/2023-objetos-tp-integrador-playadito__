@@ -4,23 +4,24 @@ import carta.*
 import numeros.*
 import constantes.*
 
-object listaSeleccionable {
-
-	const listaDeElementos = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
-
-	method tomarSeleccion(index) {
-	}
-
-}
-
-describe "selector sobre la Fila de Cartas Jugables" {
-
-	test "cada vez que se selecciona, el selector vuelve a la primera posicion de la lista" {
-		filaCartasJugables.establecerManoCartas([ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ])
-	}
-
-	test "segundo caso" {
-	}
-
-}
+//object listaSeleccionable {
+//
+//	const listaDeElementos = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ]
+//
+//	method tomarSeleccion(index) {
+//	}
+//
+//}
+//
+//describe "selector sobre la Fila de Cartas Jugables" {
+//
+//	test "cada vez que se selecciona, el selector vuelve a la primera posicion de la lista" {
+//		filaCartasJugables.establecerManoCartas([ ciri, geraltOfRivia, yenneferOfVengerberg, trissMerigold, philippaEilhart ])
+//		assert.equals()
+//	}
+//
+//	test "segundo caso" {
+//	}
+//
+//}
 

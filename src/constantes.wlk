@@ -92,11 +92,11 @@ const EXTRA14 = new CartaDeUnidad(claseDeCombate = "arqueria", puntajeInicial = 
 
 const EXTRA15 = new CartaDeUnidad(claseDeCombate = "asedio", puntajeInicial = 10, especialidad = sinHabilidad, baraja = imperioNiffgardiano)
 
-const escarchaHeladora = new CartaClima(claseDeCombate = "infanteria", baraja = imperioNiffgardiano)
+const escarchaHeladora = new CartaClima(tipoClima = "escarchaHeladora", filaJugador = filaInfanteJugador, filaRival = filaInfanteRival, baraja = imperioNiffgardiano)
 
-const nieblaImpenetrable = new CartaClima(claseDeCombate = "arqueria", baraja = imperioNiffgardiano)
+const nieblaImpenetrable = new CartaClima(tipoClima = "nieblaEmpenetrable", filaJugador = filaArqueroJugador, filaRival = filaArqueroRival, baraja = imperioNiffgardiano)
 
-const lluviaTorrencial = new CartaClima(claseDeCombate = "asedio", baraja = imperioNiffgardiano)
+const lluviaTorrencial = new CartaClima(tipoClima = "lluviaTorrencial", filaJugador = filaAsedioJugador, filaRival = filaAsedioRival, baraja = imperioNiffgardiano)
 
 ///////FILAS////////
 const filaAsedioJugador = new FilaDeCombate(pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")
