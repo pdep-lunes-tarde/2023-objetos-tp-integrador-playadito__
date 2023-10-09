@@ -19,6 +19,17 @@ object tablero {
 		filasRival.put("asedio", filaAsedioRival)
 	}
 
+	// ver que onda esto, una manera mejor de usarlo para CartaClima
+	method filasJugador() {
+		self.establecerRelacionCombateFila()
+		return filasJugador
+	}
+
+	method filasRival() {
+		self.establecerRelacionCombateFila()
+		return filasRival
+	} // /////
+
 	method resetearTablero() {
 		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
 		filasRival.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
@@ -109,6 +120,11 @@ class FilaDeCombate {
 		puntajeTotalJugador.actualizarPuntajeTotal()
 		puntajeTotalRival.actualizarPuntajeTotal()
 	// self.mostrarCartasyPuntaje()
+	}
+
+	// ver si se necesita para otra cosa que clima, o la modificamos
+	method modificarPuntajeCartas(bloque) {
+		cartas.forEach(bloque)
 	}
 
 }

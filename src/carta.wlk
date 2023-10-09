@@ -1,6 +1,7 @@
 import wollok.game.*
 import numeros.*
 import constantes.*
+import tablero.*
 
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
@@ -24,31 +25,14 @@ class Imagenes {
 
 }
 
-class CartaDeUnidad {
+class Carta {
 
 	// 80px (8 celdas)
 	// 110px(11 celdas)
 	// inicializar con (claseDeCombate, valor, especialidad, baraja)
 	const baraja
-	const claseDeCombate // cadena, ej "infanteria"
-	const valor // puntaje inicial u original (valor numerico)
-	var puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
-	const especialidad // objeto de especialidad
 	var pos_x = 0
 	var pos_y = 0
-	const imgDeCombate = self.designarImagenesTipoCombate()
-	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
-	const numeroPuntaje = new Numero(numero = puntaje)
-	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
-
-//ver si conviene, o mejor hacerlo a mano con ifs
-	method designarImagenesTipoCombate() {
-		const imgCombate = new Dictionary()
-		imgCombate.put("infanteria", "assets/infanteria.png")
-		imgCombate.put("arqueria", "assets/arqueria.png")
-		imgCombate.put("asedio", "assets/asedio.png")
-		return imgCombate
-	}
 
 	method image() = baraja.obtenerImagen()
 
@@ -57,53 +41,130 @@ class CartaDeUnidad {
 	method actualizarPosicion(x, y) {
 		pos_x = x
 		pos_y = y
-		imagenTipoDeCombate.actualizarPosicion(x + 5, y + 1)
-		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
-		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
 	}
 
 	method getPosicionX() = pos_x
 
 	method getPosicionY() = pos_y
 
-	method puntaje() = puntaje
-
-	method claseDeCombate() = claseDeCombate
-
-	method especialidad() = especialidad
-
 	method mostrar() {
 		if (game.hasVisual(self)) {
 			self.esconder()
 		}
 		game.addVisual(self)
-		game.addVisual(imagenTipoDeCombate)
-		game.addVisual(numeroPuntaje)
-		game.addVisual(imagenEspecialidad)
 	}
 
 	method esconder() {
 		game.removeVisual(self)
+	}
+
+}
+
+class CartaTipoCombate inherits Carta {
+
+	const claseDeCombate // cadena, ej "infanteria"
+
+	method claseDeCombate() = claseDeCombate
+
+}
+
+class CartaCombativa inherits CartaTipoCombate {
+
+	const puntajeInicial // puntaje original (valor numerico)
+	var puntaje = puntajeInicial // puntaje modificable (constante por el momento porque no se implemento la modificacion)
+	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
+	const numeroPuntaje = new Numero(numero = puntajeInicial)
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenTipoDeCombate.actualizarPosicion(x + 5, y + 1)
+		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
+	}
+
+	override method mostrar() {
+		super()
+		game.addVisual(imagenTipoDeCombate)
+		game.addVisual(numeroPuntaje)
+	}
+
+	override method esconder() {
+		super()
 		imagenTipoDeCombate.esconder()
 		numeroPuntaje.esconder()
+	}
+
+	method modificarPuntaje(num)
+
+	method puntaje() = puntaje
+
+	method puntajeInicial() = puntajeInicial
+
+}
+
+class CartaDeUnidad inherits CartaCombativa {
+
+	// inicializar con (claseDeCombate, valor, especialidad, baraja)
+	const especialidad // objeto de especialidad
+	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
+	}
+
+	method especialidad() = especialidad
+
+	override method mostrar() {
+		super()
+		game.addVisual(imagenEspecialidad)
+	}
+
+	override method esconder() {
+		super()
 		imagenEspecialidad.esconder()
 	}
 
-	method modificarPuntaje(num) {
-		puntaje = valor + num
+	override method modificarPuntaje(num) {
+		puntaje = num
 		numeroPuntaje.modificarNumero(puntaje)
 	}
 
-	method imagenTipoCombate() {
+}
+
+class CartaHeroe inherits CartaCombativa {
+
+	override method modificarPuntaje(num) {
+		puntaje = puntajeInicial // no se puede modificar el puntaje del heroe
 	}
 
 }
 
-class CartaHeroe {
+class CartaClima inherits CartaTipoCombate {
 
-}
+//esto de la imagen solo funciona si hay una de cada clima unicamente
+	const imagenTipoClima = new Imagenes(imagen = "assets/" + self.toString() + ".png")
+	const filasJugador = tablero.filasJugador()
+	const filasRival = tablero.filasRival()
 
-class CartaEspecial {
+	method puntajeCartasAUno() {
+		filasJugador.get(self.claseDeCombate()).modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
+		filasRival.get(self.claseDeCombate()).modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
+	}
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenTipoClima.actualizarPosicion(x - 1, y + 6)
+	}
+
+	override method mostrar() {
+		super()
+		game.addVisual(imagenTipoClima)
+	}
+
+	override method esconder() {
+		super()
+		imagenTipoClima.esconder()
+	}
 
 }
 

@@ -7,9 +7,8 @@ import constantes.*
  * realizar los tests:(here)
  * cambiar los contadores por times() (here)
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
- */
-/*
- * cambiar el tema de mostrar tablero, y los puntajes de cada fila
+ * 
+ * preguntar si se puede ingresar un operador como parametro y utilizar para operar
  */
 object tpIntegrador {
 
