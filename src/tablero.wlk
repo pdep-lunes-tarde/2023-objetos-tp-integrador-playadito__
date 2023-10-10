@@ -10,26 +10,14 @@ object tablero {
 	const filasJugador = new Dictionary()
 	const filasRival = new Dictionary()
 
-//establecer en const
 	method establecerRelacionCombateFila() {
+		filasRival.put("asedio", filaAsedioRival)
+		filasRival.put("arqueria", filaArqueroRival)
+		filasRival.put("infanteria", filaInfanteRival)
 		filasJugador.put("infanteria", filaInfanteJugador)
 		filasJugador.put("arqueria", filaArqueroJugador)
 		filasJugador.put("asedio", filaAsedioJugador)
-		filasRival.put("infanteria", filaInfanteRival)
-		filasRival.put("arqueria", filaArqueroRival)
-		filasRival.put("asedio", filaAsedioRival)
 	}
-
-	// ver que onda esto, una manera mejor de usarlo para CartaClima
-	method filasJugador() {
-		self.establecerRelacionCombateFila()
-		return filasJugador
-	}
-
-	method filasRival() {
-		self.establecerRelacionCombateFila()
-		return filasRival
-	} // /////
 
 	method resetearTablero() {
 		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
@@ -43,8 +31,8 @@ object tablero {
 		game.addVisual(filaCartasJugables)
 		filaCartasJugables.mostrar()
 			// /// mostar filas////
-		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
-		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrarCartasyPuntaje()})
+		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
+		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
@@ -65,62 +53,79 @@ object tablero {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class FilaDeCombate {
+class Fila {
 
-	// 700px (35 celdas)
-	// 120px (6)
 	const cartas = new List()
-	const pos_x = 48
-	const pos_y
-	const imagenPuntajeFila
-	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 4, imagen = imagenPuntajeFila)
-
-	method puntajeDeFila() = puntajeFila.puntajeTotalFila()
+	const centroFila = 70 / 2
+	var property pos_x = 48
+	var property pos_y
 
 	method position() = game.at(pos_x, pos_y)
 
-	method image() = "assets/FC-002.png"
-
-	method insertarCarta(unaCarta) {
-		cartas.add(unaCarta)
-		puntajeFila.sumar(unaCarta.puntaje())
-		puntajeTotalRival.actualizarPuntajeTotal()
-		puntajeTotalJugador.actualizarPuntajeTotal()
-		self.mostrarCartasyPuntaje()
+	// mostar centrado
+	method mostrar() {
+		if (!cartas.isEmpty()) {
+			const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
+			contador.contador(posicionPrimeraCarta)
+			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(pos_x), pos_y)})
+			cartas.forEach({ carta => carta.mostrar()})
+		}
 	}
 
 	method listaCartas() = cartas.copy()
 
-	method mostrarCartasyPuntaje() {
-		if (!cartas.isEmpty()) {
-			contador.setear()
-			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
-			cartas.forEach({ carta => carta.mostrar()})
-		}
-		puntajeFila.mostrar()
+	method insertarCarta(unaCarta) {
+		cartas.add(unaCarta)
+		self.mostrar()
 	}
 
-	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
-
-	// para mas adelante (efecto de algunas cartas especiales)
 	method removerCarta(unaCarta) {
 		unaCarta.esconder()
 		cartas.remove(unaCarta)
+	}
+
+	method vaciarFila() {
+		cartas.forEach({ carta => self.removerCarta(carta)})
+	}
+
+	method calcularAbscisaDeCarta(fila_x) = (fila_x - 6) + contador.contar(8)
+
+}
+
+class FilaDeCombate inherits Fila {
+
+	// 700px (70 celdas)
+	// 120px (6)
+	const imagenPuntajeFila
+	const puntajeFila = new PuntajeFila(cartasFila = cartas, pos_y = pos_y + 4, imagen = imagenPuntajeFila)
+
+	method image() = "assets/FC-002.png"
+
+	method puntajeDeFila() = puntajeFila.puntajeTotalFila()
+
+	override method mostrar() {
+		super()
+		puntajeFila.mostrar()
+	}
+
+	override method insertarCarta(unaCarta) {
+		puntajeFila.sumar(unaCarta.puntaje())
+		puntajeTotalRival.actualizarPuntajeTotal()
+		puntajeTotalJugador.actualizarPuntajeTotal()
+		super(unaCarta)
+	}
+
+	override method removerCarta(unaCarta) {
 		puntajeFila.restar(unaCarta.puntaje())
 		puntajeTotalRival.actualizarPuntajeTotal()
 		puntajeTotalJugador.actualizarPuntajeTotal()
-		self.mostrarCartasyPuntaje()
+		super(unaCarta)
 	}
 
-	// limpia la fila (para fin de ronda)
-	method vaciarFila() {
-//		cartas.forEach({ carta => carta.esconder()})
-//		cartas.clear()
-//		puntajeFila.resetearPuntaje()
-		cartas.forEach({ carta => self.removerCarta(carta)})
+	override method vaciarFila() {
+		super()
 		puntajeTotalJugador.actualizarPuntajeTotal()
 		puntajeTotalRival.actualizarPuntajeTotal()
-	// self.mostrarCartasyPuntaje()
 	}
 
 	// ver si se necesita para otra cosa que clima, o la modificamos
@@ -130,65 +135,47 @@ class FilaDeCombate {
 
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-object filaCartasJugables {
+// da error cuando es object
+// porque pide inicializar valor de pos_y pero no c como se hace
+class FilaCartasJugables inherits Fila {
 
-	var cartas = new List()
-	const pos_x = 50
-	const pos_y = 4
-	var seleccionador
-
-	method position() = game.at(48, 4)
+	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
 
 	method image() = "assets/FC-002.png"
 
-	// muestra / actualiza las cartas
-	method mostrar() {
-		contador.setear()
-		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularPosicionEnXCarta(pos_x), pos_y)})
-		cartas.forEach({ carta => carta.mostrar()})
-		seleccionador.setSelector(cartas)
-	}
-
-	// metodo repetido,
-	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
-
 	method establecerfilaCartasJugables(lasCartas) {
-		cartas = lasCartas
-		seleccionador = new Selector(imagen = "assets/S-05.png", catcher = self)
+		// cambio de forma de asignacion porque en la superclase se usa const
+		lasCartas.forEach({ carta => cartas.add(carta)})
 	}
 
-	method listaCartas() = cartas.copy()
+	override method mostrar() {
+		super()
+		selector.setSelector(cartas)
+	}
 
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida)
+			// self.removerCarta(cartaElegida)
 		game.schedule(700, {=> filaCartasRival.tomarSeleccion()}) // jugadaAutomaticaDelRival al segundo
 		self.mostrar()
 	}
 
-	method agregarCarta(unaCarta) {
-	// metodo para cartas especiales
-	}
-
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const filaCartasJugables = new FilaCartasJugables(pos_y = 4)
+
 //usar times
 // ES MALO ESTO, PENSAR OTRA FORMA
 // es para el display formateado
 object contador {
 
-	var contador = 0
+	var property contador = 0
 
 	method contar(aumento) {
 		contador = contador + aumento
 		return contador
-	}
-
-	method setear() {
-		contador = 0
 	}
 
 }

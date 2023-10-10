@@ -94,7 +94,7 @@ const EXTRA15 = new CartaDeUnidad(claseDeCombate = "asedio", puntajeInicial = 10
 
 const escarchaHeladora = new CartaClima(tipoClima = "escarchaHeladora", filaJugador = filaInfanteJugador, filaRival = filaInfanteRival, baraja = imperioNiffgardiano)
 
-const nieblaImpenetrable = new CartaClima(tipoClima = "nieblaEmpenetrable", filaJugador = filaArqueroJugador, filaRival = filaArqueroRival, baraja = imperioNiffgardiano)
+const nieblaImpenetrable = new CartaClima(tipoClima = "nieblaImpenetrable", filaJugador = filaArqueroJugador, filaRival = filaArqueroRival, baraja = imperioNiffgardiano)
 
 const lluviaTorrencial = new CartaClima(tipoClima = "lluviaTorrencial", filaJugador = filaAsedioJugador, filaRival = filaAsedioRival, baraja = imperioNiffgardiano)
 
@@ -105,11 +105,11 @@ const filaArqueroJugador = new FilaDeCombate(pos_y = 30, imagenPuntajeFila = "as
 
 const filaInfanteJugador = new FilaDeCombate(pos_y = 42, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaAsedioRival = new FilaDeCombate(pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
+const filaAsedioRival = new FilaDeCombate(pos_y = 80, imagenPuntajeFila = "assets/PR-01.png")
 
 const filaArqueroRival = new FilaDeCombate(pos_y = 68, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaInfanteRival = new FilaDeCombate(pos_y = 80, imagenPuntajeFila = "assets/PR-01.png")
+const filaInfanteRival = new FilaDeCombate(pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
 
 //////////PUNTAJES///////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
@@ -130,5 +130,5 @@ const mazoReinosDelNorte = [ ciri, geraltOfRivia, yenneferOfVengerberg, trissMer
 
 const mazoScoiatael = [ extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extra11, extra12, extra13, extra14, extra15 ]
 
-const mazoimperioNiffgardiano = [ EXTRA1, EXTRA2, EXTRA3, EXTRA4, EXTRA5, EXTRA6, EXTRA7, EXTRA8, EXTRA9, EXTRA10, EXTRA11, EXTRA12, EXTRA13, EXTRA14, EXTRA15 ]
+const mazoimperioNiffgardiano = [ lluviaTorrencial, nieblaImpenetrable, EXTRA1, EXTRA2, EXTRA3, EXTRA4, EXTRA5, EXTRA6, EXTRA7, EXTRA8, EXTRA9, EXTRA10, EXTRA11, EXTRA12, EXTRA13, EXTRA14, EXTRA15 ]
 

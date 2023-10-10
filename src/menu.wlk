@@ -38,7 +38,7 @@ object menu {
 
 	method esconder() {
 		game.removeVisual(self)
-		selector.esconder()
+		selector.esconder() // solucion temporal
 		cartasMenu.forEach({ baraja => game.removeVisual(baraja)})
 	}
 

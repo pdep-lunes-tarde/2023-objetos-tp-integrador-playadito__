@@ -19,7 +19,7 @@ class Selector {
 	// posicion segun el objeto a seleccionar
 	method obtenerPosicionItem(itemIndex) {
 		const item = items.get(itemIndex)
-		return game.at(item.getPosicionX(), item.getPosicionY())
+		return game.at(item.pos_x(), item.pos_y())
 	}
 
 	// mostrar / actualizar
@@ -37,12 +37,6 @@ class Selector {
 			game.removeVisual(self)
 		}
 		items.clear()
-		keyboard.left().onPressDo{
-		}
-		keyboard.right().onPressDo{
-		}
-		keyboard.enter().onPressDo{
-		}
 	}
 
 	// listener y efectos

@@ -42,10 +42,6 @@ class Carta {
 		self.pos_y(y)
 	}
 
-	method getPosicionX() = pos_x
-
-	method getPosicionY() = pos_y
-
 	method mostrar() {
 		if (game.hasVisual(self)) {
 			self.esconder()

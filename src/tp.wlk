@@ -27,7 +27,8 @@ object ventana {
 		game.height(96)
 		game.cellSize(10)
 		game.ground("assets/BG-002.png")
-		menu.mostrarMenu()
+//		menu.mostrarMenu()
+		partida.start(reinosDelNorte)
 		game.start()
 	}
 
@@ -42,7 +43,7 @@ object partida {
 	method start(barajaSeleccionado) {
 		self.barajaJugador(barajaSeleccionado)
 		self.barajaRival(self.asignarBarajaRandom())
-		barajaJugador.actualizarPosicion(150, 18)
+		barajaJugador.actualizarPosicion(150, 18) // deberia ir aca???
 		barajaRival.actualizarPosicion(150, 80)
 		self.comenzarRonda()
 	}
