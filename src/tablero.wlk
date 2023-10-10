@@ -130,6 +130,7 @@ class FilaDeCombate inherits Fila {
 	}
 
 	override method removerCarta(unaCarta) {
+		// para una fila de combate, remover deberia ser "descartar" y no simplemente eliminarlo de la fila
 		super(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
@@ -191,8 +192,8 @@ class PuntajeFila {
 		}
 	}
 
-	method actualizarPuntaje(cartasFila) {
-		puntajeTotalFila = cartasFila.map({ carta => carta.puntaje() }).sum()
+	method actualizarPuntaje(filaDeCartas) {
+		puntajeTotalFila = filaDeCartas.map({ carta => carta.puntaje() }).sum()
 		numeroPuntaje.modificarNumero(puntajeTotalFila)
 		puntajeTotalRival.actualizarPuntajeTotal()
 		puntajeTotalJugador.actualizarPuntajeTotal()

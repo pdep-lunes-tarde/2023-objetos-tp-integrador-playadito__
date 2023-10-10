@@ -262,19 +262,3 @@ class Baraja {
 
 }
 
-//object obtenerCartas {
-//
-//	const manoCartas = new List()
-//
-//	method obtenerCartaRandom(barajaElegida) {
-//		const unaCarta = barajaElegida.mazo().anyOne()
-//		manoCartas.add(unaCarta)
-//		barajaElegida.mazo().remove(unaCarta)
-//	}
-//
-//	method setCartas(barajaElegida, cantidadCartas) {
-//		cantidadCartas.times({ i => self.obtenerCartaRandom(barajaElegida)})
-//		return manoCartas
-//	}
-//
-//}
