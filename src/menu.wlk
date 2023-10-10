@@ -28,7 +28,7 @@ object menu {
 
 	method position() = game.at(0, 0)
 
-	method image() = "assets/menu-bg.gif"
+	method image() = "assets/menu-bg.png"
 
 	method mostrarMenu() {
 		game.addVisual(self)
