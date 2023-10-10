@@ -1,5 +1,5 @@
 import wollok.game.*
-import tp.*
+import juego.*
 import selector.*
 import carta.*
 import constantes.*

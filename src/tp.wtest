@@ -1,4 +1,4 @@
-import tp.*
+import juego.*
 import tablero.*
 import carta.*
 import numeros.*
@@ -24,4 +24,3 @@ import constantes.*
 //	}
 //
 //}
-

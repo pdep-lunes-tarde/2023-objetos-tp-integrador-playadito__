@@ -11,18 +11,9 @@ import constantes.*
  * 
  * preguntar si se puede ingresar un operador como parametro y utilizar para operar
  */
-object tpIntegrador {
+object juego {
 
 	method jugar() {
-		ventana.init()
-	}
-
-}
-
-// se podria prescindir de ventana.init() y ejecutar directo
-object ventana {
-
-	method init() {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
@@ -57,15 +48,15 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugables.establecerfilaCartasJugables(barajaJugador.obtenerCartas(10))
-			filaCartasRival.establecerManoCartas(barajaRival.obtenerCartas(10))
+			filaCartasJugables.establecerManoDeCartas(barajaJugador.obtenerCartas(10))
+			filaCartasRival.establecerManoDeCartas(barajaRival.obtenerCartas(10))
 			tablero.establecerRelacionCombateFila()
 			tablero.mostrar(barajaJugador, barajaRival)
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
-			filaCartasJugables.establecerfilaCartasJugables(cartasSobrantesRondaAnterior)
+			filaCartasJugables.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-			filaCartasRival.establecerManoCartas(cartasSobrantesRondaAnterior)
+			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 		}
 		tablero.resetearTablero()
 	}
@@ -87,6 +78,10 @@ object partida {
 		// return rival
 		}
 	}
+
+}
+
+class Cartel {
 
 }
 

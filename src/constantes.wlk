@@ -111,6 +111,10 @@ const filaArqueroRival = new FilaDeCombate(pos_y = 68, imagenPuntajeFila = "asse
 
 const filaInfanteRival = new FilaDeCombate(pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
 
+const filaCartasJugables = new FilaCartasJugables(pos_y = 4)
+
+const filaCartasRival = new FilaCartasRival()
+
 //////////PUNTAJES///////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
 

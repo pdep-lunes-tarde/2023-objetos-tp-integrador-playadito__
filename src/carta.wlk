@@ -59,7 +59,7 @@ class CartaCombativa inherits Carta {
 
 	const claseDeCombate // cadena, ej "infanteria"
 	const puntajeInicial // puntaje original (valor numerico)
-	var puntaje = puntajeInicial // puntaje modificable (constante por el momento porque no se implemento la modificacion)
+	var property puntaje = puntajeInicial // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
 	const numeroPuntaje = new Numero(numero = puntajeInicial)
 
@@ -80,10 +80,6 @@ class CartaCombativa inherits Carta {
 		imagenTipoDeCombate.esconder()
 		numeroPuntaje.esconder()
 	}
-
-	method modificarPuntaje(num)
-
-	method puntaje() = puntaje
 
 	method puntajeInicial() = puntajeInicial
 
@@ -114,17 +110,14 @@ class CartaDeUnidad inherits CartaCombativa {
 		imagenEspecialidad.esconder()
 	}
 
-	override method modificarPuntaje(num) {
-		puntaje = num
+	method modificarPuntaje(num) {
+		self.puntaje(num)
 		numeroPuntaje.modificarNumero(puntaje)
 	}
 
 }
 
 class CartaHeroe inherits CartaCombativa {
-
-	override method modificarPuntaje(num) {
-	} // solo para q entienda el msj
 
 }
 
