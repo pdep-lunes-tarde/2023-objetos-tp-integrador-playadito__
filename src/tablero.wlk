@@ -1,6 +1,7 @@
 import wollok.game.*
-import carta.*
 import tp.*
+import selector.*
+import carta.*
 import numeros.*
 import constantes.*
 
@@ -135,7 +136,7 @@ object filaCartasJugables {
 	var cartas = new List()
 	const pos_x = 50
 	const pos_y = 4
-	const seleccionador = new Selector(image = "assets/S-05.png", catcher = self)
+	var seleccionador
 
 	method position() = game.at(48, 4)
 
@@ -152,8 +153,9 @@ object filaCartasJugables {
 	// metodo repetido,
 	method calcularPosicionEnXCarta(fila_x) = (fila_x - 6) + contador.contar(8)
 
-	method establecerManoCartas(lasCartas) {
+	method establecerfilaCartasJugables(lasCartas) {
 		cartas = lasCartas
+		seleccionador = new Selector(imagen = "assets/S-05.png", catcher = self)
 	}
 
 	method listaCartas() = cartas.copy()
@@ -196,7 +198,7 @@ class PuntajeFila {
 
 	var cartasFila
 	var puntajeTotalFila = 0
-	const pos_x = 44
+	const pos_x = 42
 	var pos_y
 	const imagen
 	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())

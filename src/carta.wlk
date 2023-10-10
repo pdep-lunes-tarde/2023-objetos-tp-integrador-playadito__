@@ -29,18 +29,17 @@ class Carta {
 
 	// 80px (8 celdas)
 	// 110px(11 celdas)
-	// inicializar con (claseDeCombate, valor, especialidad, baraja)
-	const baraja
-	var pos_x = 0
-	var pos_y = 0
+	var property baraja
+	var property pos_x = 0
+	var property pos_y = 0
 
 	method image() = baraja.obtenerImagen()
 
 	method position() = game.at(pos_x, pos_y)
 
 	method actualizarPosicion(x, y) {
-		pos_x = x
-		pos_y = y
+		self.pos_x(x)
+		self.pos_y(y)
 	}
 
 	method getPosicionX() = pos_x
