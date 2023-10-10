@@ -18,8 +18,8 @@ object juego {
 		game.height(96)
 		game.cellSize(10)
 		game.ground("assets/BG-002.png")
-//		menu.mostrarMenu()
-		partida.start(reinosDelNorte)
+		menu.mostrarMenu()
+			// partida.start(reinosDelNorte)
 		game.start()
 	}
 
