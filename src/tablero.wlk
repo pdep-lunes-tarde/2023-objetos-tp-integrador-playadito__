@@ -29,6 +29,7 @@ object tablero {
 		filasRival.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
 			// mostar fila cartas jugables/////
 		game.addVisual(filaCartasJugables)
+		filaCartasJugables.instanciarSelector()
 		filaCartasJugables.mostrar()
 			// mostar fila de cartas clima
 		game.addVisual(filaCartasClima)
@@ -43,6 +44,7 @@ object tablero {
 			// //
 		barajaJugador.mostrar()
 		barajaRival.mostrar()
+	// //
 	}
 
 	method cartaJugadaJugador(laCarta) {
@@ -180,9 +182,13 @@ class FilaDeCombate inherits Fila {
 
 class FilaCartasJugables inherits Fila {
 
-	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
+	var selector = 0 // temporal
 
 	method image() = "assets/FC-002.png"
+
+	method instanciarSelector() {
+		selector = new Selector(imagen = "assets/S-05.png", catcher = self)
+	}
 
 	override method mostrar() {
 		super()

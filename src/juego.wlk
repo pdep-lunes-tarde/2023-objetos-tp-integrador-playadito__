@@ -10,6 +10,8 @@ import constantes.*
  * no el addvisual 2 veces/ mover los objetos con game.at() (?
  * 
  * preguntar si se puede ingresar un operador como parametro y utilizar para operar
+ * 
+ * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
  */
 object juego {
 
@@ -18,8 +20,8 @@ object juego {
 		game.height(96)
 		game.cellSize(10)
 		game.ground("assets/BG-002.png")
-//		menu.mostrarMenu()
-		partida.start(imperioNiffgardiano)
+		menu.mostrarMenu()
+//		partida.start(imperioNiffgardiano)
 		game.start()
 	}
 
@@ -34,7 +36,7 @@ object partida {
 	method start(barajaSeleccionado) {
 		self.barajaJugador(barajaSeleccionado)
 		self.barajaRival(self.asignarBarajaRandom())
-		barajaJugador.actualizarPosicion(150, 18) // deberia ir aca???
+		barajaJugador.actualizarPosicion(150, 18) // ver si se puede mover
 		barajaRival.actualizarPosicion(150, 80)
 		self.comenzarRonda()
 	}
