@@ -50,9 +50,10 @@ c) De haber algún objeto definido con `object`, justificar por qué.
 - [ ] Cuando alguien se queda sin cartas
 - [ ] Cartel de Ganador de Ronda
 - [ ] Fin de Partida
+- [ ] Ver como hacer para jugar una carta clima (con tratamiento polimorfico)
 - [x] Pantalla Inicial para Elegir Baraja (esta implementado, pero hay bug)
 - [x] limpiar fila con removerCarta
-- [ ] actualizarPuntajeTotal en otro lado
+- [x] actualizarPuntajeTotal en otro lado
 - [ ] tests
 - [ ] herencia con cartas y numeros
 - [ ] numero de las cartas restantes jugables

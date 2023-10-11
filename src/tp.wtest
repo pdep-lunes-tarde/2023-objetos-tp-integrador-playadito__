@@ -1,6 +1,6 @@
 import juego.*
 import tablero.*
-import carta.*
+import cartas.*
 import numeros.*
 import constantes.*
 

@@ -1,7 +1,7 @@
 import wollok.game.*
 import juego.*
 import selector.*
-import carta.*
+import cartas.*
 import numeros.*
 import constantes.*
 
@@ -30,6 +30,9 @@ object tablero {
 			// mostar fila cartas jugables/////
 		game.addVisual(filaCartasJugables)
 		filaCartasJugables.mostrar()
+			// mostar fila de cartas clima
+		game.addVisual(filaCartasClima)
+		filaCartasClima.mostrar()
 			// /// mostar filas////
 		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
 		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
@@ -104,6 +107,39 @@ class Fila {
 
 	method establecerManoDeCartas(lasCartas) {
 		cartas = lasCartas
+	}
+
+}
+
+class FilaCartasClima inherits Fila {
+
+	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
+
+	override method insertarCarta(cartaClima) {
+		if (cartaClima.tipoClima() == "buenDia") {
+			self.jugarCartaDeBuenDia()
+		} else {
+			self.jugarCartaDeMalTiempo(cartaClima)
+		}
+	}
+
+	override method removerCarta(cartaClima) {
+	// sacar los efectos
+	}
+
+	method jugarCartaDeBuenDia() {
+		if (!cartas.isEmpty()) {
+			self.vaciarFila()
+		}
+	}
+
+	method jugarCartaDeMalTiempo(cartaClima) {
+		const cartasClimaJugadas = cartas.map({ carta => carta.tipoClima() })
+		if (!cartasClimaJugadas.contains(cartaClima.tipoClima())) {
+			cartas.add(cartaClima)
+			self.mostrar()
+			cartaClima.aplicarEfecto()
+		}
 	}
 
 }

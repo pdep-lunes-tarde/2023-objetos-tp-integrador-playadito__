@@ -1,7 +1,7 @@
 import wollok.game.*
+import tablero.*
 import numeros.*
 import constantes.*
-import tablero.*
 
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
@@ -33,14 +33,9 @@ class Carta {
 	var property pos_x = 0
 	var property pos_y = 0
 
-	method image() = baraja.obtenerImagen()
-
 	method position() = game.at(pos_x, pos_y)
 
-	method actualizarPosicion(x, y) {
-		self.pos_x(x)
-		self.pos_y(y)
-	}
+	method image() = baraja.obtenerImagen()
 
 	method mostrar() {
 		if (game.hasVisual(self)) {
@@ -53,21 +48,24 @@ class Carta {
 		game.removeVisual(self)
 	}
 
+	method actualizarPosicion(x, y) {
+		self.pos_x(x)
+		self.pos_y(y)
+	}
+
 }
 
-class CartaCombativa inherits Carta {
+class CartaDeCombate inherits Carta {
 
 	const claseDeCombate // cadena, ej "infanteria"
-	const puntajeInicial // puntaje original (valor numerico)
-	var property puntaje = puntajeInicial // puntaje modificable (constante por el momento porque no se implemento la modificacion)
+	const valor // puntaje original (valor numerico)
+	var property puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
 	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
-	const numeroPuntaje = new Numero(numero = puntajeInicial)
+	const numeroPuntaje = new Numero(numero = puntaje)
 
-	override method actualizarPosicion(x, y) {
-		super(x, y)
-		imagenTipoDeCombate.actualizarPosicion(x + 5, y + 1)
-		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
-	}
+	method puntajeInicial() = valor
+
+	method claseDeCombate() = claseDeCombate
 
 	override method mostrar() {
 		super()
@@ -81,22 +79,19 @@ class CartaCombativa inherits Carta {
 		numeroPuntaje.esconder()
 	}
 
-	method puntajeInicial() = puntajeInicial
-
-	method claseDeCombate() = claseDeCombate
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenTipoDeCombate.actualizarPosicion(x + 5, y + 1)
+		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
+	}
 
 }
 
-class CartaDeUnidad inherits CartaCombativa {
+class CartaDeUnidad inherits CartaDeCombate {
 
 	// inicializar con (claseDeCombate, valor, especialidad, baraja)
 	const especialidad // objeto de especialidad
 	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
-
-	override method actualizarPosicion(x, y) {
-		super(x, y)
-		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
-	}
 
 	method especialidad() = especialidad
 
@@ -110,6 +105,11 @@ class CartaDeUnidad inherits CartaCombativa {
 		imagenEspecialidad.esconder()
 	}
 
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
+	}
+
 	method modificarPuntaje(num) {
 		self.puntaje(num)
 		numeroPuntaje.modificarNumero(puntaje)
@@ -117,27 +117,21 @@ class CartaDeUnidad inherits CartaCombativa {
 
 }
 
-class CartaHeroe inherits CartaCombativa {
+class CartaHeroe inherits CartaDeCombate {
+
+	method modificarPuntaje(num) {
+	}
 
 }
 
 class CartaClima inherits Carta {
 
 //esto de la imagen solo funciona si hay una de cada clima unicamente
-	const filaJugador
-	const filaRival
+	const filasDeEfecto
 	const tipoClima
 	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoClima + ".png")
 
-	method puntajeCartasAUno() {
-		filaJugador.modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
-		filaRival.modificarPuntajeCartas({ carta => carta.modificarPuntaje(1)})
-	}
-
-	override method actualizarPosicion(x, y) {
-		super(x, y)
-		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
-	}
+	method tipoClima() = tipoClima
 
 	override method mostrar() {
 		super()
@@ -147,6 +141,18 @@ class CartaClima inherits Carta {
 	override method esconder() {
 		super()
 		imagenTipoClima.esconder()
+	}
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
+	}
+
+	// pierde un poco el polimorfismo aca
+	// porque el efecto de carta de buen tiempo
+	// se aplica de forma diferente
+	method aplicarEfecto() {
+		filasDeEfecto.forEach({ filaAAfectar => filaAAfectar.modificarPuntajeCartas({ cartaDeCombate => cartaDeCombate.modificarPuntaje(1)})})
 	}
 
 }

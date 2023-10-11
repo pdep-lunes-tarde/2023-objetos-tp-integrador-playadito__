@@ -1,7 +1,7 @@
 import wollok.game.*
 import tablero.*
 import menu.*
-import carta.*
+import cartas.*
 import constantes.*
 
 /* ARREGLAR
@@ -19,7 +19,7 @@ object juego {
 		game.cellSize(10)
 		game.ground("assets/BG-002.png")
 //		menu.mostrarMenu()
-		partida.start(reinosDelNorte)
+		partida.start(imperioNiffgardiano)
 		game.start()
 	}
 
@@ -62,6 +62,7 @@ object partida {
 	}
 
 	method finalizarRonda() {
+		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
 		ronda++
 		if (ronda <= 4) {

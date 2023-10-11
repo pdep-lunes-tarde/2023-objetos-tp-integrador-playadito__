@@ -1,7 +1,7 @@
 import wollok.game.*
 import juego.*
 import selector.*
-import carta.*
+import cartas.*
 import constantes.*
 
 class CartaMenu inherits Carta {
