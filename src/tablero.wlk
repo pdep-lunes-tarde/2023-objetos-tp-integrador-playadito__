@@ -7,12 +7,17 @@ import constantes.*
 
 // solucion temporal no tan limpia
 // pero la idea es esta
-class CampoDeJuego {
+class Jugador {
 
+	// este objeto no cumple con encapsulamiento
+	// hay q ver si implementar todo para que cumpla con encapsulamiento 
+	// (q implica que los objetos se conozcan de forma deferente)
 	const rival
+	const manoDeCartas
 	const filasDeCombate
 	const filaClima = filaCartasClima
 
+	// conceptualmente esta medio feo preguntarle al jugador donde deberia caer la carta
 	method filaCorrespondiente(carta) {
 		const tipo = carta.tipoDeCarta()
 		if (tipo.equals(cartaDeClima)) {
@@ -27,11 +32,13 @@ class CampoDeJuego {
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
 
+	method manoDeCartas() = manoDeCartas
+
 }
 
-const campoJugador = new CampoDeJuego(rival = campoRival, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
+const jugador = new Jugador(rival = oponente, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
 
-const campoRival = new CampoDeJuego(rival = campoJugador, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
+const oponente = new Jugador(rival = jugador, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
 
 object tablero {
 
@@ -65,17 +72,17 @@ object tablero {
 		barajaJugador.mostrar()
 		barajaRival.mostrar()
 			// MOSTRAR FILA CARTAS JUGABLES
-		game.addVisual(filaCartasJugables)
-		filaCartasJugables.mostrar()
+		game.addVisual(filaCartasJugador)
+		filaCartasJugador.mostrar()
 	}
 
 	method cartaJugadaJugador(laCarta) {
-		self.jugarCarta(laCarta, campoJugador) // conceptualmente esta medio feo pasar el "campo de juego"
+		self.jugarCarta(laCarta, jugador)
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
 	}
 
 	method cartaJugadaRival(laCarta) {
-		self.jugarCarta(laCarta, campoRival)
+		self.jugarCarta(laCarta, oponente)
 	}
 
 	method jugarCarta(carta, campoDeJuego) {
@@ -192,7 +199,7 @@ object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 10, pos_y = 45,
 
 }
 
-object filaCartasJugables inherits Fila(pos_y = 4) {
+object filaCartasJugador inherits Fila(pos_y = 4) {
 
 	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
 

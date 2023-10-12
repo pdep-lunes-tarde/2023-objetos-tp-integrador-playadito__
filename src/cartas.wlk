@@ -17,6 +17,10 @@ class ClaseDeCombate inherits TipoDeCarta {
 
 class TipoDeClima inherits TipoDeCarta {
 
+	const filasDeEfecto
+
+	method filasDeEfecto() = filasDeEfecto.copy()
+
 }
 
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
@@ -153,8 +157,9 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 //esto de la imagen solo funciona si hay una de cada clima unicamente
-	const filasDeEfecto
 	const tipoDeClima
+//	const claseDeEfecto // clase de combate
+	const filasDeEfecto = tipoDeClima.filasDeEfecto()
 	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoDeClima.nombre() + ".png")
 
 	method tipoDeClima() = tipoDeClima
@@ -243,14 +248,53 @@ object sinHabilidad {
 
 }
 
+object unMazo {
+
+	var property laBaraja // baraja
+
+	method generar(baraja, lider, numeroUnidadesInfante, numeroHeroesInfante, numeroUnidadesArquero, numeroHeroesArquero, numeroUnidadesAsedio, numeroHeroesAsedio, tipoDeClimaExtra) {
+		const mazo = new List()
+		self.laBaraja(baraja)
+		mazo.add(lider)
+		self.generarCartasEspeciales(mazo)
+		self.generarCartasDeClima(mazo, tipoDeClimaExtra)
+		self.generarCartasDeCombate(mazo, numeroUnidadesInfante, numeroHeroesInfante, claseInfante, [ espia, lazoEstrecho, sinHabilidad ], (1 .. 7))
+		self.generarCartasDeCombate(mazo, numeroUnidadesArquero, numeroHeroesArquero, claseArquera, [ medico, lazoEstrecho, sinHabilidad ], (4 .. 7))
+		self.generarCartasDeCombate(mazo, numeroUnidadesAsedio, numeroHeroesAsedio, claseAsedio, [ medico, sinHabilidad ], (6 .. 8))
+		return mazo.copy()
+	}
+
+	method generarCartasEspeciales(elMazo) {
+	}
+
+	method generarCartasDeClima(elMazo, tipoDeClimaExtra) {
+		tiposDeClima.forEach({ clima => elMazo.add(new CartaClima(tipoDeClima = clima, baraja = laBaraja))})
+		elMazo.add(new CartaClima(tipoDeClima = tipoDeClimaExtra, baraja = laBaraja))
+	}
+
+	method generarCartasDeCombate(elMazo, cantidadDeUnidades, cantidadDeHeroes, clase, especialidadesPosibles, rangoDeValor) {
+		cantidadDeUnidades.times({ n => elMazo.add(new CartaDeUnidad(especialidad = especialidadesPosibles.anyOne(), claseDeCombate = clase, valor = rangoDeValor.anyOne(), baraja = laBaraja))})
+		cantidadDeHeroes.times({ n => elMazo.add(new CartaHeroe(claseDeCombate = clase, valor = (10 .. 15).anyOne(), baraja = laBaraja))})
+	}
+
+}
+
 class Baraja {
 
 	const nombre
-	const mazo
+	const lider
+	const cantInfanteUnidad
+	const cantInfanteHeroe
+	const cantArqueroUnidad
+	const cantArqueroHeroe
+	const cantAsedioUnidad
+	const cantAsedioHeroe
+	const climaExtra
+	const mazo = unMazo.generar(self, lider, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
 	const manoCartas = new List()
-	var pos_x = 0
-	var pos_y = 0
-	var cantidadEnMazo = 40
+	var property pos_x = 0
+	var property pos_y = 0
+	var property cantidadEnMazo = 40
 	const numeroPuntaje = new Numero(numero = cantidadEnMazo)
 
 	method image() = "assets/" + nombre + ".png"
@@ -263,6 +307,11 @@ class Baraja {
 	method obtenerImagen() = self.image()
 
 	method mazo() = mazo.copy()
+
+	method mostrar() {
+		game.addVisual(self)
+		game.addVisual(numeroPuntaje)
+	}
 
 	method obtenerCartaRandom() {
 		const unaCarta = mazo.anyOne()
@@ -281,19 +330,14 @@ class Baraja {
 	}
 
 	method actualizarPosicion(x, y) {
-		pos_x = x
-		pos_y = y
+		self.pos_x(x)
+		self.pos_y(y)
 		numeroPuntaje.actualizarPosicion(x + 1, y - 1)
 	}
 
 	method actualizarCantidadEnMazo() {
 		cantidadEnMazo = mazo.size()
 		numeroPuntaje.modificarNumero(cantidadEnMazo)
-	}
-
-	method mostrar() {
-		game.addVisual(self)
-		game.addVisual(numeroPuntaje)
 	}
 
 }

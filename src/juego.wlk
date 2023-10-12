@@ -4,32 +4,49 @@ import menu.*
 import cartas.*
 import constantes.*
 
-/* ARREGLAR
- * realizar los tests:(here)
- * cambiar los contadores por times() (here)
- * no el addvisual 2 veces/ mover los objetos con game.at() (?
+/* TODO
  * 
- * preguntar si se puede ingresar un operador como parametro y utilizar para operar
+ * ///////////////////////////// GENERALES /////////////////////////////
+ * - TESTS !!!!!!!
+ * - arreglar selector 
+ * 		- coexisten listeners y reacionan a mismas instrucciones: menu y juego
+ * 		- error cuando se selecciona la ultima carta de la fila
+ * - revisar codigo (y refactorizar en caso de ser necesario):
+ * 		- logica repetida
+ * 		- faltas de encapsulamiento
+ * 		- funciones estilo C
+ * 
+ * ///////////////////////////// CARTAS /////////////////////////////
+ * 
+ * (logica)
+ * - repensar relacion: CARTA - BARAJA - MAZO
+ * - implementar los aplicarEfecto(); clima y especialidad (tienen que ser polimorficas)
+ * - implementar cartaLider (caso particular de carta jugable, efecto)
+ * - implementar o sacar efectos de baraja
+ * 
+ * (visual)
+ * - icono de clima buen tiempo
+ * - icono carta heroe (en lo posible)
+ * 
+ * ///////////////////////////// TABLERO /////////////////////////////
+ * 
+ * (logica)
+ * - repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
+ * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
+ * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
+ * - implementar seccion cartas descartadas
+ * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
+ * 
+ * (visual)
+ * - recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
+ * - display de info de jugadores: 
+ * 		- gemas(2 para cada jugador)
+ * 		- cartas jugables restantes
+ * - carteles de fin de ronda, fin de partida, paso de mano
+ * 
+ * ///////////////////////////// OTRO /////////////////////////////
  * 
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
- * 
- * ** NOTA **
- * los efectos de clima todavia no se comportan como deben
- * - el efecto deberia ser permanente, ahora solo afecta a las cartas ya jugadas sobre la fila
- * - no esta implementado la carta del buen tiempo
- * 
- * TODO
- * 
- * recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
- * Fin de Ronda
- * Cuando alguien se queda sin cartas
- * Cartel de Ganador de Ronda
- * Fin de Partida
- * Ver como hacer para jugar una carta clima (con tratamiento polimorfico)
- * tests
- * numero de las cartas restantes jugables
- * Especialidades de las Cartas
- * Cartas especiales
  * 
  */
 object juego {
@@ -69,12 +86,12 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugables.establecerManoDeCartas(barajaJugador.obtenerCartas(10))
+			filaCartasJugador.establecerManoDeCartas(barajaJugador.obtenerCartas(10))
 			filaCartasRival.establecerManoDeCartas(barajaRival.obtenerCartas(10))
 			tablero.mostrar(barajaJugador, barajaRival)
 		} else {
-			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()
-			filaCartasJugables.establecerManoDeCartas(cartasSobrantesRondaAnterior)
+			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()
+			filaCartasJugador.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
 			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 		}
