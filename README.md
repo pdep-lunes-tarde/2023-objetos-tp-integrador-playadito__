@@ -44,8 +44,6 @@ c) De haber algún objeto definido con `object`, justificar por qué.
 
 ## Todo
 
-### 09/10 (en lo posible)
-
 - [ ] Fin de Ronda
 - [ ] Cuando alguien se queda sin cartas
 - [ ] Cartel de Ganador de Ronda

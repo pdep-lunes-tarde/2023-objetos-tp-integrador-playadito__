@@ -7,36 +7,24 @@ import constantes.*
 
 object tablero {
 
-	const filasJugador = new Dictionary()
-	const filasRival = new Dictionary()
-
-	method establecerRelacionCombateFila() {
-		filasRival.put("asedio", filaAsedioRival)
-		filasRival.put("arqueria", filaArqueroRival)
-		filasRival.put("infanteria", filaInfanteRival)
-		filasJugador.put("infanteria", filaInfanteJugador)
-		filasJugador.put("arqueria", filaArqueroJugador)
-		filasJugador.put("asedio", filaAsedioJugador)
-	}
+	const filasJugador = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ]
+	const filasRival = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ]
 
 	method resetearTablero() {
-		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
-		filasRival.forEach({ claseCombate , filaCombate => filaCombate.vaciarFila()})
+		filasJugador.forEach({ filaCombate => filaCombate.vaciarFila()})
+		filasRival.forEach({ filaCombate => filaCombate.vaciarFila()})
 	}
 
 	method mostrar(barajaJugador, barajaRival) {
-		filasJugador.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
-		filasRival.forEach({ claseCombate , filaCombate => game.addVisual(filaCombate)})
-			// mostar fila cartas jugables/////
-		game.addVisual(filaCartasJugables)
-		filaCartasJugables.instanciarSelector()
-		filaCartasJugables.mostrar()
-			// mostar fila de cartas clima
+		// MOSTRAR FILAS DE COMBATE
+		filasJugador.forEach({ filaCombate => game.addVisual(filaCombate)})
+		filasRival.forEach({ filaCombate => game.addVisual(filaCombate)})
+		filasJugador.forEach({ filaCombate => filaCombate.mostrar()})
+		filasRival.forEach({ filaCombate => filaCombate.mostrar()})
+			// MOSTRAR FILA DE CARTAS CLIMA
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
-			// /// mostar filas////
-		filasJugador.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
-		filasRival.forEach({ claseCombate , filaCombate => filaCombate.mostrar()})
+			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
@@ -44,15 +32,27 @@ object tablero {
 			// //
 		barajaJugador.mostrar()
 		barajaRival.mostrar()
-	// //
+			// MOSTRAR FILA CARTAS JUGABLES
+		game.addVisual(filaCartasJugables)
+		filaCartasJugables.mostrar()
 	}
 
 	method cartaJugadaJugador(laCarta) {
-		filasJugador.get(laCarta.claseDeCombate()).insertarCarta(laCarta)
+		filasJugador.find({ fila => fila.claseDeCombate() == laCarta.claseDeCombate()}).insertarCarta(laCarta)
+//		filasJugador.get(laCarta.claseDeCombate()).insertarCarta(laCarta)
 	}
 
 	method cartaJugadaRival(unaCarta) {
-		filasRival.get(unaCarta.claseDeCombate()).insertarCarta(unaCarta)
+		filasRival.find({ fila => fila.claseDeCombate() == unaCarta.claseDeCombate()}).insertarCarta(unaCarta)
+//		filasRival.get(unaCarta.claseDeCombate()).insertarCarta(unaCarta)
+	}
+
+}
+
+// este deberia llamarse tablero, y el otro, mesa de juego
+object mesaDeJuego {
+
+	method jugar(carta) {
 	}
 
 }
@@ -113,12 +113,49 @@ class Fila {
 
 }
 
-class FilaCartasClima inherits Fila {
+class FilaDeCombate inherits Fila {
+
+	// 700px (70 celdas)
+	// 120px (6)
+	const claseDeCombate
+	const imagenPuntajeFila
+	const puntajeFila = new PuntajeFila(pos_y = pos_y + 4, imagen = imagenPuntajeFila)
+
+	method image() = "assets/FC-002.png"
+
+	method puntajeDeFila() = puntajeFila.puntajeTotalFila()
+
+	method claseDeCombate() = claseDeCombate
+
+	override method mostrar() {
+		super()
+		puntajeFila.mostrar()
+	}
+
+	override method insertarCarta(unaCarta) {
+		super(unaCarta)
+		puntajeFila.actualizarPuntaje(cartas.copy())
+	}
+
+	override method removerCarta(unaCarta) {
+		// para una fila de combate, remover deberia ser "descartar" y no simplemente eliminarlo de la fila
+		super(unaCarta)
+		puntajeFila.actualizarPuntaje(cartas.copy())
+	}
+
+	// ver si se necesita para otra cosa que clima, o la modificamos
+	method modificarPuntajeCartas(bloque) {
+		cartas.forEach(bloque)
+	}
+
+}
+
+object filaCartasClima inherits Fila(pos_x = 10, pos_y = 45) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
 	override method insertarCarta(cartaClima) {
-		if (cartaClima.tipoClima() == "buenDia") {
+		if (cartaClima.tipoClima() === buenTiempo) {
 			self.jugarCartaDeBuenDia()
 		} else {
 			self.jugarCartaDeMalTiempo(cartaClima)
@@ -146,49 +183,11 @@ class FilaCartasClima inherits Fila {
 
 }
 
-class FilaDeCombate inherits Fila {
+object filaCartasJugables inherits Fila(pos_y = 4) {
 
-	// 700px (70 celdas)
-	// 120px (6)
-	const imagenPuntajeFila
-	const puntajeFila = new PuntajeFila(pos_y = pos_y + 4, imagen = imagenPuntajeFila)
+	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
 
 	method image() = "assets/FC-002.png"
-
-	method puntajeDeFila() = puntajeFila.puntajeTotalFila()
-
-	override method mostrar() {
-		super()
-		puntajeFila.mostrar()
-	}
-
-	override method insertarCarta(unaCarta) {
-		super(unaCarta)
-		puntajeFila.actualizarPuntaje(cartas.copy())
-	}
-
-	override method removerCarta(unaCarta) {
-		// para una fila de combate, remover deberia ser "descartar" y no simplemente eliminarlo de la fila
-		super(unaCarta)
-		puntajeFila.actualizarPuntaje(cartas.copy())
-	}
-
-	// ver si se necesita para otra cosa que clima, o la modificamos
-	method modificarPuntajeCartas(bloque) {
-		cartas.forEach(bloque)
-	}
-
-}
-
-class FilaCartasJugables inherits Fila {
-
-	var selector = 0 // temporal
-
-	method image() = "assets/FC-002.png"
-
-	method instanciarSelector() {
-		selector = new Selector(imagen = "assets/S-05.png", catcher = self)
-	}
 
 	override method mostrar() {
 		super()
@@ -199,13 +198,13 @@ class FilaCartasJugables inherits Fila {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
 		cartas.remove(cartaElegida) // self.removerCarta(cartaElegida)
-		game.schedule(700, { => filaCartasRival.jugarCarta()})
+		game.schedule(700, { => filaCartasRival.jugarCarta()}) // se tendria q ejecutar en tablero
 		self.mostrar()
 	}
 
 }
 
-class FilaCartasRival inherits Fila {
+object filaCartasRival inherits Fila {
 
 	method jugarCarta() {
 		const cartaElegida = cartas.anyOne()

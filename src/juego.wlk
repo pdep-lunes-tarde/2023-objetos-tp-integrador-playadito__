@@ -12,6 +12,22 @@ import constantes.*
  * preguntar si se puede ingresar un operador como parametro y utilizar para operar
  * 
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
+ * 
+ * 
+ * 
+ * TODO
+ * 
+ * recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
+ * Fin de Ronda
+ * Cuando alguien se queda sin cartas
+ * Cartel de Ganador de Ronda
+ * Fin de Partida
+ * Ver como hacer para jugar una carta clima (con tratamiento polimorfico)
+ * tests
+ * numero de las cartas restantes jugables
+ * Especialidades de las Cartas
+ * Cartas especiales
+ * 
  */
 object juego {
 
@@ -52,7 +68,6 @@ object partida {
 		if (ronda == 1) {
 			filaCartasJugables.establecerManoDeCartas(barajaJugador.obtenerCartas(10))
 			filaCartasRival.establecerManoDeCartas(barajaRival.obtenerCartas(10))
-			tablero.establecerRelacionCombateFila()
 			tablero.mostrar(barajaJugador, barajaRival)
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugables.listaCartas()

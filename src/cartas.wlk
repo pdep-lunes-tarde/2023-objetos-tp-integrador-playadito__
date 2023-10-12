@@ -3,6 +3,22 @@ import tablero.*
 import numeros.*
 import constantes.*
 
+class TipoDeCarta {
+
+	const nombre
+
+	method nombre() = nombre
+
+}
+
+class ClaseDeCombate inherits TipoDeCarta {
+
+}
+
+class TipoDeClima inherits TipoDeCarta {
+
+}
+
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
 
@@ -29,6 +45,7 @@ class Carta {
 
 	// 80px (8 celdas)
 	// 110px(11 celdas)
+	const tipoDeCarta
 	var property baraja
 	var property pos_x = 0
 	var property pos_y = 0
@@ -36,6 +53,8 @@ class Carta {
 	method position() = game.at(pos_x, pos_y)
 
 	method image() = baraja.obtenerImagen()
+
+	method tipoDeCarta() = tipoDeCarta
 
 	method mostrar() {
 		if (game.hasVisual(self)) {
@@ -57,10 +76,10 @@ class Carta {
 
 class CartaDeCombate inherits Carta {
 
-	const claseDeCombate // cadena, ej "infanteria"
+	const claseDeCombate
 	const valor // puntaje original (valor numerico)
 	var property puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
-	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate + ".png")
+	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate.nombre() + ".png")
 	const numeroPuntaje = new Numero(numero = puntaje)
 
 	method puntajeInicial() = valor
@@ -87,7 +106,7 @@ class CartaDeCombate inherits Carta {
 
 }
 
-class CartaDeUnidad inherits CartaDeCombate {
+class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 	// inicializar con (claseDeCombate, valor, especialidad, baraja)
 	const especialidad // objeto de especialidad
@@ -117,21 +136,21 @@ class CartaDeUnidad inherits CartaDeCombate {
 
 }
 
-class CartaHeroe inherits CartaDeCombate {
+class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
 	method modificarPuntaje(num) {
 	}
 
 }
 
-class CartaClima inherits Carta {
+class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 //esto de la imagen solo funciona si hay una de cada clima unicamente
 	const filasDeEfecto
-	const tipoClima
-	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoClima + ".png")
+	const tipoDeClima
+	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoDeClima.nombre() + ".png")
 
-	method tipoClima() = tipoClima
+	method tipoDeClima() = tipoDeClima
 
 	override method mostrar() {
 		super()
@@ -157,7 +176,7 @@ class CartaClima inherits Carta {
 
 }
 
-class CartaLider {
+class CartaLider inherits Carta(tipoDeCarta = cartaLider) {
 
 }
 
@@ -217,7 +236,7 @@ object sinHabilidad {
 
 class Baraja {
 
-	const imagen
+	const nombre
 	const mazo
 	const manoCartas = new List()
 	var pos_x = 0
@@ -225,8 +244,14 @@ class Baraja {
 	var cantidadEnMazo = 40
 	const numeroPuntaje = new Numero(numero = cantidadEnMazo)
 
+	method image() = "assets/" + nombre + ".png"
+
+	method position() = game.at(pos_x, pos_y)
+
+	method nombre() = nombre
+
 	// const efectoFinDeRonda
-	method obtenerImagen() = imagen
+	method obtenerImagen() = self.image()
 
 	method mazo() = mazo.copy()
 
@@ -245,10 +270,6 @@ class Baraja {
 	method efectoFinDeRonda() {
 	// efectoFinDeRonda
 	}
-
-	method image() = imagen
-
-	method position() = game.at(pos_x, pos_y)
 
 	method actualizarPosicion(x, y) {
 		pos_x = x

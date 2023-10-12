@@ -4,21 +4,19 @@ import selector.*
 import cartas.*
 import constantes.*
 
-class CartaMenu inherits Carta {
-
-	const imagen
+class CartaMenu inherits Carta(tipoDeCarta = cartaDeMenu) {
 
 	override method position() = game.at(self.pos_x(), self.pos_y())
 
-	override method image() = imagen
+	override method image() = "assets/baraja-menu-" + self.baraja().nombre() + ".png"
 
 }
 
-const cartaImperioNiffgardiano = new CartaMenu(imagen = "assets/baraja-menu-imp-niffg2.png", baraja = imperioNiffgardiano, pos_x = 40, pos_y = 50)
+const cartaImperioNiffgardiano = new CartaMenu(baraja = imperioNiffgardiano, pos_x = 40, pos_y = 50)
 
-const cartaReinosDelNorte = new CartaMenu(imagen = "assets/baraja-menu-reinos2.png", baraja = reinosDelNorte, pos_x = 70, pos_y = 50)
+const cartaReinosDelNorte = new CartaMenu(baraja = reinosDelNorte, pos_x = 70, pos_y = 50)
 
-const cartaScoiatael = new CartaMenu(imagen = "assets/baraja-menu-scoiatael2.png", baraja = scoiatael, pos_x = 100, pos_y = 50)
+const cartaScoiatael = new CartaMenu(baraja = scoiatael, pos_x = 100, pos_y = 50)
 
 object menu {
 
