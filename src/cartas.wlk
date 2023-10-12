@@ -56,6 +56,8 @@ class Carta {
 
 	method tipoDeCarta() = tipoDeCarta
 
+	method tieneEfecto() = false
+
 	method mostrar() {
 		if (game.hasVisual(self)) {
 			self.esconder()
@@ -129,9 +131,14 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
 	}
 
+	override method tieneEfecto() = especialidad != sinHabilidad
+
 	method modificarPuntaje(num) {
 		self.puntaje(num)
 		numeroPuntaje.modificarNumero(puntaje)
+	}
+
+	method aplicarEfecto() {
 	}
 
 }
@@ -166,6 +173,8 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 		super(x, y)
 		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
 	}
+
+	override method tieneEfecto() = true
 
 	// pierde un poco el polimorfismo aca
 	// porque el efecto de carta de buen tiempo

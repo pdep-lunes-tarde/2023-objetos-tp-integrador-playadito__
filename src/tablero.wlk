@@ -5,8 +5,40 @@ import cartas.*
 import numeros.*
 import constantes.*
 
+// solucion temporal no tan limpia
+// pero la idea es esta
+class CampoDeJuego {
+
+	const rival
+	const filasDeCombate
+	const filaClima = filaCartasClima
+
+	method filaCorrespondiente(carta) {
+		const tipo = carta.tipoDeCarta()
+		if (tipo.equals(cartaDeClima)) {
+			return filaClima
+		}
+		if (tipo.equals(cartaDeUnidad) && carta.especialidad().equals(espia)) {
+			return rival.filaParaEspia(carta)
+		} else {
+			return filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
+		}
+	}
+
+	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
+
+}
+
+const campoJugador = new CampoDeJuego(rival = campoRival, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
+
+const campoRival = new CampoDeJuego(rival = campoJugador, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
+
 object tablero {
 
+	// asi como esta, estas dos constantes sirven para:
+	// 1. el reseteo (resetearTablero())
+	// 2. los addVisual y los mostrar()
+	// habria q borrarlos y buscar la alternativa para estos dos procesos
 	const filasJugador = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ]
 	const filasRival = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ]
 
@@ -38,21 +70,21 @@ object tablero {
 	}
 
 	method cartaJugadaJugador(laCarta) {
-		filasJugador.find({ fila => fila.claseDeCombate() == laCarta.claseDeCombate()}).insertarCarta(laCarta)
-//		filasJugador.get(laCarta.claseDeCombate()).insertarCarta(laCarta)
+		self.jugarCarta(laCarta, campoJugador) // conceptualmente esta medio feo pasar el "campo de juego"
+		game.schedule(700, { => filaCartasRival.jugarCarta()})
 	}
 
-	method cartaJugadaRival(unaCarta) {
-		filasRival.find({ fila => fila.claseDeCombate() == unaCarta.claseDeCombate()}).insertarCarta(unaCarta)
-//		filasRival.get(unaCarta.claseDeCombate()).insertarCarta(unaCarta)
+	method cartaJugadaRival(laCarta) {
+		self.jugarCarta(laCarta, campoRival)
 	}
 
-}
-
-// este deberia llamarse tablero, y el otro, mesa de juego
-object mesaDeJuego {
-
-	method jugar(carta) {
+	method jugarCarta(carta, campoDeJuego) {
+		campoDeJuego.filaCorrespondiente(carta).insertarCarta(carta)
+			// se podria tambien prescindir del booleano tieneEfecto()
+			// y dejar efectos vacios
+		if (carta.tieneEfecto()) {
+			carta.aplicarEfecto()
+		}
 	}
 
 }
@@ -150,35 +182,12 @@ class FilaDeCombate inherits Fila {
 
 }
 
-object filaCartasClima inherits Fila(pos_x = 10, pos_y = 45) {
+object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 10, pos_y = 45, centroFila = 25 / 2) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
-	override method insertarCarta(cartaClima) {
-		if (cartaClima.tipoClima() === buenTiempo) {
-			self.jugarCartaDeBuenDia()
-		} else {
-			self.jugarCartaDeMalTiempo(cartaClima)
-		}
-	}
-
 	override method removerCarta(cartaClima) {
 	// sacar los efectos
-	}
-
-	method jugarCartaDeBuenDia() {
-		if (!cartas.isEmpty()) {
-			self.vaciarFila()
-		}
-	}
-
-	method jugarCartaDeMalTiempo(cartaClima) {
-		const cartasClimaJugadas = cartas.map({ carta => carta.tipoClima() })
-		if (!cartasClimaJugadas.contains(cartaClima.tipoClima())) {
-			cartas.add(cartaClima)
-			self.mostrar()
-			cartaClima.aplicarEfecto()
-		}
 	}
 
 }
@@ -197,8 +206,7 @@ object filaCartasJugables inherits Fila(pos_y = 4) {
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.cartaJugadaJugador(cartaElegida)
-		cartas.remove(cartaElegida) // self.removerCarta(cartaElegida)
-		game.schedule(700, { => filaCartasRival.jugarCarta()}) // se tendria q ejecutar en tablero
+		cartas.remove(cartaElegida) // self.removerCarta(cartaElegida)// se tendria q ejecutar en tablero
 		self.mostrar()
 	}
 

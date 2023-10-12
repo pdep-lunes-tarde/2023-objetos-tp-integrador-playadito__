@@ -13,7 +13,10 @@ import constantes.*
  * 
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
  * 
- * 
+ * ** NOTA **
+ * los efectos de clima todavia no se comportan como deben
+ * - el efecto deberia ser permanente, ahora solo afecta a las cartas ya jugadas sobre la fila
+ * - no esta implementado la carta del buen tiempo
  * 
  * TODO
  * 
