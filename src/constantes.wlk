@@ -1,7 +1,14 @@
 import tablero.*
 import cartas.*
+import baraja.*
 
 // ///////////////////////////// TIPOS /////////////////////////////
+const imperioNiffgardiano = new Faccion(nombre = "imperio-niffgardiano")
+
+const reinosDelNorte = new Faccion(nombre = "reinos-del-norte")
+
+const scoiatael = new Faccion(nombre = "scoiatael")
+
 const cartaDeMenu = new TipoDeCarta(nombre = "carta-menu")
 
 const cartaDeClima = new TipoDeCarta(nombre = "clima")
@@ -33,11 +40,11 @@ const tiposDeClima = [ buenTiempo, escarcha, niebla, lluvia ]
 const especialidades = [ medico, espia, lazoEstrecho, sinHabilidad ]
 
 // ///////////////////////////// CARTAS /////////////////////////////
-const emhyrVarEmreis = new CartaLider(baraja = imperioNiffgardiano)
+const emhyrVarEmreis = new CartaLider(faccion = imperioNiffgardiano)
 
-const foltest = new CartaLider(baraja = reinosDelNorte)
+const foltest = new CartaLider(faccion = reinosDelNorte)
 
-const francescaFindabair = new CartaLider(baraja = scoiatael)
+const francescaFindabair = new CartaLider(faccion = scoiatael)
 
 // ///////////////////////////// FILAS /////////////////////////////
 const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")
@@ -58,11 +65,11 @@ const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugado
 const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 70, imagen = "assets/PR-02.png")
 
 // ///////////////////////////// BARAJAS /////////////////////////////
-const imperioNiffgardiano = new Baraja(nombre = "imperio-niffgardiano", lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
+const barajaImpNiffg = new Baraja(faccion = imperioNiffgardiano, lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
 
-const reinosDelNorte = new Baraja(nombre = "reinos-del-norte", lider = foltest, cantInfanteUnidad = 7, cantInfanteHeroe = 5, cantArqueroUnidad = 6, cantArqueroHeroe = 3, cantAsedioUnidad = 5, cantAsedioHeroe = 4, climaExtra = lluvia)
+const barajaReinosDelNorte = new Baraja(faccion = reinosDelNorte, lider = foltest, cantInfanteUnidad = 7, cantInfanteHeroe = 5, cantArqueroUnidad = 6, cantArqueroHeroe = 3, cantAsedioUnidad = 5, cantAsedioHeroe = 4, climaExtra = lluvia)
 
-const scoiatael = new Baraja(nombre = "scoiatael", lider = francescaFindabair, cantInfanteUnidad = 5, cantInfanteHeroe = 4, cantArqueroUnidad = 7, cantArqueroHeroe = 5, cantAsedioUnidad = 6, cantAsedioHeroe = 3, climaExtra = escarcha)
+const barajaScoiatael = new Baraja(faccion = scoiatael, lider = francescaFindabair, cantInfanteUnidad = 5, cantInfanteHeroe = 4, cantArqueroUnidad = 7, cantArqueroHeroe = 5, cantAsedioUnidad = 6, cantAsedioHeroe = 3, climaExtra = escarcha)
 
-const barajasDisponibles = [ imperioNiffgardiano, reinosDelNorte, scoiatael ]
+const barajasDisponibles = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
 

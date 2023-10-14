@@ -1,7 +1,6 @@
 import wollok.game.*
 import tablero.*
 import menu.*
-import cartas.*
 import constantes.*
 
 /* TODO

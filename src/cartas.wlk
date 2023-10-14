@@ -3,7 +3,7 @@ import tablero.*
 import numeros.*
 import constantes.*
 
-class TipoDeCarta {
+class Tipo {
 
 	const nombre
 
@@ -11,15 +11,25 @@ class TipoDeCarta {
 
 }
 
-class ClaseDeCombate inherits TipoDeCarta {
+class TipoDeCarta inherits Tipo {
 
 }
 
-class TipoDeClima inherits TipoDeCarta {
+class ClaseDeCombate inherits Tipo {
+
+}
+
+class TipoDeClima inherits Tipo {
 
 	const filasDeEfecto
 
 	method filasDeEfecto() = filasDeEfecto.copy()
+
+}
+
+class Faccion inherits Tipo {
+
+	method imagen() = "assets/" + nombre + ".png"
 
 }
 
@@ -50,15 +60,17 @@ class Carta {
 	// 80px (8 celdas)
 	// 110px(11 celdas)
 	const tipoDeCarta
-	var property baraja
+	const faccion
 	var property pos_x = 0
 	var property pos_y = 0
 
 	method position() = game.at(pos_x, pos_y)
 
-	method image() = baraja.obtenerImagen()
+	method image() = faccion.imagen()
 
 	method tipoDeCarta() = tipoDeCarta
+
+	method faccion() = faccion
 
 	method tieneEfecto() = false
 
@@ -244,100 +256,6 @@ object sinHabilidad {
 	method obtenerImagen() = imagen
 
 	method aplicar() {
-	}
-
-}
-
-object unMazo {
-
-	var property laBaraja // baraja
-
-	method generar(baraja, lider, numeroUnidadesInfante, numeroHeroesInfante, numeroUnidadesArquero, numeroHeroesArquero, numeroUnidadesAsedio, numeroHeroesAsedio, tipoDeClimaExtra) {
-		const mazo = new List()
-		self.laBaraja(baraja)
-		mazo.add(lider)
-		self.generarCartasEspeciales(mazo)
-		self.generarCartasDeClima(mazo, tipoDeClimaExtra)
-		self.generarCartasDeCombate(mazo, numeroUnidadesInfante, numeroHeroesInfante, claseInfante, [ espia, lazoEstrecho, sinHabilidad ], (1 .. 7))
-		self.generarCartasDeCombate(mazo, numeroUnidadesArquero, numeroHeroesArquero, claseArquera, [ medico, lazoEstrecho, sinHabilidad ], (4 .. 7))
-		self.generarCartasDeCombate(mazo, numeroUnidadesAsedio, numeroHeroesAsedio, claseAsedio, [ medico, sinHabilidad ], (6 .. 8))
-		return mazo.copy()
-	}
-
-	method generarCartasEspeciales(elMazo) {
-	}
-
-	method generarCartasDeClima(elMazo, tipoDeClimaExtra) {
-		tiposDeClima.forEach({ clima => elMazo.add(new CartaClima(tipoDeClima = clima, baraja = laBaraja))})
-		elMazo.add(new CartaClima(tipoDeClima = tipoDeClimaExtra, baraja = laBaraja))
-	}
-
-	method generarCartasDeCombate(elMazo, cantidadDeUnidades, cantidadDeHeroes, clase, especialidadesPosibles, rangoDeValor) {
-		cantidadDeUnidades.times({ n => elMazo.add(new CartaDeUnidad(especialidad = especialidadesPosibles.anyOne(), claseDeCombate = clase, valor = rangoDeValor.anyOne(), baraja = laBaraja))})
-		cantidadDeHeroes.times({ n => elMazo.add(new CartaHeroe(claseDeCombate = clase, valor = (10 .. 15).anyOne(), baraja = laBaraja))})
-	}
-
-}
-
-class Baraja {
-
-	const nombre
-	const lider
-	const cantInfanteUnidad
-	const cantInfanteHeroe
-	const cantArqueroUnidad
-	const cantArqueroHeroe
-	const cantAsedioUnidad
-	const cantAsedioHeroe
-	const climaExtra
-	const mazo = unMazo.generar(self, lider, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
-	const manoCartas = new List()
-	var property pos_x = 0
-	var property pos_y = 0
-	var property cantidadEnMazo = 40
-	const numeroPuntaje = new Numero(numero = cantidadEnMazo)
-
-	method image() = "assets/" + nombre + ".png"
-
-	method position() = game.at(pos_x, pos_y)
-
-	method nombre() = nombre
-
-	// const efectoFinDeRonda
-	method obtenerImagen() = self.image()
-
-	method mazo() = mazo.copy()
-
-	method mostrar() {
-		game.addVisual(self)
-		game.addVisual(numeroPuntaje)
-	}
-
-	method obtenerCartaRandom() {
-		const unaCarta = mazo.anyOne()
-		manoCartas.add(unaCarta)
-		mazo.remove(unaCarta)
-	}
-
-	method obtenerCartas(cantidadCartas) {
-		cantidadCartas.times({ i => self.obtenerCartaRandom()})
-		self.actualizarCantidadEnMazo()
-		return manoCartas
-	}
-
-	method efectoFinDeRonda() {
-	// efectoFinDeRonda
-	}
-
-	method actualizarPosicion(x, y) {
-		self.pos_x(x)
-		self.pos_y(y)
-		numeroPuntaje.actualizarPosicion(x + 1, y - 1)
-	}
-
-	method actualizarCantidadEnMazo() {
-		cantidadEnMazo = mazo.size()
-		numeroPuntaje.modificarNumero(cantidadEnMazo)
 	}
 
 }
