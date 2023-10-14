@@ -22,7 +22,7 @@ object menu {
 
 	// se puede meter los new directamente, pero se hace un re choclo
 	const cartasMenu = [ cartaImperioNiffgardiano, cartaReinosDelNorte, cartaScoiatael ]
-	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
+	const selector = new Selector(imagen = "assets/S-07.png", catcher = self)
 
 	method position() = game.at(0, 0)
 
