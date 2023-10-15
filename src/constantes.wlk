@@ -25,7 +25,7 @@ const claseArquera = new ClaseDeCombate(nombre = "arqueria")
 
 const claseAsedio = new ClaseDeCombate(nombre = "asedio")
 
-const buenTiempo = new TipoDeClima(nombre = "buen-tiempo", filasDeEfecto = []) // tendria q ser TODAS las filas
+const buenTiempo = new TipoDeClima(nombre = "buen-tiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
 
 const escarcha = new TipoDeClima(nombre = "escarcha-heladora", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
 
@@ -58,6 +58,8 @@ const filaAsedioRival = new FilaDeCombate(claseDeCombate = claseAsedio, pos_y = 
 const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, pos_y = 68, imagenPuntajeFila = "assets/PR-01.png")
 
 const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
+
+const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")

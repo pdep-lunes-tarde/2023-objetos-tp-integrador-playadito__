@@ -122,6 +122,16 @@ class CartaDeCombate inherits Carta {
 		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
 	}
 
+	method modificarPuntajeA(num) {
+		self.puntaje(num)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
+	method resetearPuntaje() {
+		self.puntaje(valor)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
 }
 
 class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
@@ -149,11 +159,6 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 	override method tieneEfecto() = especialidad != sinHabilidad
 
-	method modificarPuntaje(num) {
-		self.puntaje(num)
-		numeroPuntaje.modificarNumero(puntaje)
-	}
-
 	method aplicarEfecto() {
 	}
 
@@ -161,7 +166,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
-	method modificarPuntaje(num) {
+	override method modificarPuntajeA(num) {
 	}
 
 }
@@ -170,7 +175,6 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 //esto de la imagen solo funciona si hay una de cada clima unicamente
 	const tipoDeClima
-//	const claseDeEfecto // clase de combate
 	const filasDeEfecto = tipoDeClima.filasDeEfecto()
 	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoDeClima.nombre() + ".png")
 
@@ -193,11 +197,13 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 	override method tieneEfecto() = true
 
-	// pierde un poco el polimorfismo aca
-	// porque el efecto de carta de buen tiempo
-	// se aplica de forma diferente
 	method aplicarEfecto() {
-		filasDeEfecto.forEach({ filaAAfectar => filaAAfectar.modificarPuntajeCartas({ cartaDeCombate => cartaDeCombate.modificarPuntaje(1)})})
+		// se podria meter alguna img aca
+		if (tipoDeClima.equals(buenTiempo)) {
+			filasDeEfecto.forEach({ fila => fila.diaDespejado()})
+		} else {
+			filasDeEfecto.forEach({ fila => fila.tiempoFeo()})
+		}
 	}
 
 }

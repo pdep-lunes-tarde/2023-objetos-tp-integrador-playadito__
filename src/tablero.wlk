@@ -50,16 +50,15 @@ object tablero {
 	const filasRival = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ]
 
 	method resetearTablero() {
+		filaCartasClima.vaciarFila()
 		filasJugador.forEach({ filaCombate => filaCombate.vaciarFila()})
 		filasRival.forEach({ filaCombate => filaCombate.vaciarFila()})
 	}
 
 	method mostrar(barajaJugador, barajaRival) {
 		// MOSTRAR FILAS DE COMBATE
-		filasJugador.forEach({ filaCombate => game.addVisual(filaCombate)})
-		filasRival.forEach({ filaCombate => game.addVisual(filaCombate)})
-		filasJugador.forEach({ filaCombate => filaCombate.mostrar()})
-		filasRival.forEach({ filaCombate => filaCombate.mostrar()})
+		lasFilasDeCombate.forEach({ filaCombate => game.addVisual(filaCombate)})
+		lasFilasDeCombate.forEach({ filaCombate => filaCombate.mostrar()})
 			// MOSTRAR FILA DE CARTAS CLIMA
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
@@ -157,6 +156,7 @@ class FilaDeCombate inherits Fila {
 	// 700px (70 celdas)
 	// 120px (6)
 	const claseDeCombate
+	var property climaExtremo = false
 	const imagenPuntajeFila
 	const puntajeFila = new PuntajeFila(pos_y = pos_y + 4, imagen = imagenPuntajeFila)
 
@@ -172,19 +172,33 @@ class FilaDeCombate inherits Fila {
 	}
 
 	override method insertarCarta(unaCarta) {
+		if (climaExtremo) {
+			unaCarta.modificarPuntajeA(1)
+		}
 		super(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
 	override method removerCarta(unaCarta) {
 		// para una fila de combate, remover deberia ser "descartar" y no simplemente eliminarlo de la fila
+		unaCarta.resetearPuntaje()
 		super(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
-	// ver si se necesita para otra cosa que clima, o la modificamos
 	method modificarPuntajeCartas(bloque) {
 		cartas.forEach(bloque)
+		puntajeFila.actualizarPuntaje(cartas.copy())
+	}
+
+	method tiempoFeo() {
+		self.climaExtremo(true)
+		self.modificarPuntajeCartas({ carta => carta.modificarPuntajeA(1)})
+	}
+
+	method diaDespejado() {
+		self.climaExtremo(false)
+		self.modificarPuntajeCartas({ carta => carta.resetearPuntaje()})
 	}
 
 }
