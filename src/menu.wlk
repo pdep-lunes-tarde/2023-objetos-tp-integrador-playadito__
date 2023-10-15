@@ -42,7 +42,7 @@ object menu {
 
 	method tomarSeleccion(index) {
 		const faccionElegida = cartasMenu.get(index).faccion()
-		const barajaSeleccionada = barajasDisponibles.find({ baraja => baraja.faccion().equals(faccionElegida) })
+		const barajaSeleccionada = lasBarajas.find({ baraja => baraja.faccion().equals(faccionElegida) })
 		self.esconder()
 		partida.start(barajaSeleccionada)
 	}

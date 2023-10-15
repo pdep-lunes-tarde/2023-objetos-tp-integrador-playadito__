@@ -72,6 +72,8 @@ class Carta {
 
 	method faccion() = faccion
 
+	method baraja() = lasBarajas.find({ baraja => baraja.faccion().equals(faccion) })
+
 	method tieneEfecto() = false
 
 	method mostrar() {
@@ -160,6 +162,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 	override method tieneEfecto() = especialidad != sinHabilidad
 
 	method aplicarEfecto() {
+		especialidad.aplicar(faccion)
 	}
 
 }
@@ -227,7 +230,8 @@ object medico {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(faccion) {
+		tablero.recuperarCartaPara(faccion)
 	}
 
 }
@@ -238,7 +242,8 @@ object espia {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(faccion) {
+		2.times({ n => tablero.sacarCartaPara(faccion)})
 	}
 
 }
@@ -249,7 +254,7 @@ object lazoEstrecho {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(faccion) {
 	}
 
 }

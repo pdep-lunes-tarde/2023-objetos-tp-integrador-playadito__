@@ -1,6 +1,7 @@
 import wollok.game.*
-import tablero.*
 import menu.*
+import tablero.*
+import jugador.*
 import constantes.*
 
 /* TODO
@@ -71,22 +72,27 @@ object partida {
 	method start(barajaSeleccionado) {
 		self.barajaJugador(barajaSeleccionado)
 		self.barajaRival(self.asignarBarajaRandom())
-		barajaJugador.actualizarPosicion(150, 18) // ver si se puede mover
-		barajaRival.actualizarPosicion(150, 80)
+			// crear los jugadores
+			// asignarselos al tablero
+		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
+		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
+		jugador.asignarRival(rival)
+		rival.asignarRival(jugador)
+		tablero.establecerBandoJugador(barajaJugador.faccion(), jugador)
+		tablero.establecerBandoJugador(barajaRival.faccion(), rival)
 		self.comenzarRonda()
 	}
 
 	method asignarBarajaRandom() {
-		barajasDisponibles.remove(barajaJugador)
-		return barajasDisponibles.anyOne()
+		lasBarajas.remove(barajaJugador)
+		return lasBarajas.anyOne()
 	}
 
 	method baraja() = barajaJugador
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			filaCartasJugador.establecerManoDeCartas(barajaJugador.obtenerCartas(10))
-			filaCartasRival.establecerManoDeCartas(barajaRival.obtenerCartas(10))
+			tablero.repartirManoInicial()
 			tablero.mostrar(barajaJugador, barajaRival)
 		} else {
 			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()

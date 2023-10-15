@@ -5,54 +5,12 @@ import cartas.*
 import numeros.*
 import constantes.*
 
-// solucion temporal no tan limpia
-// pero la idea es esta
-class Jugador {
-
-	// este objeto no cumple con encapsulamiento
-	// hay q ver si implementar todo para que cumpla con encapsulamiento 
-	// (q implica que los objetos se conozcan de forma deferente)
-	const rival
-	const manoDeCartas
-	const filasDeCombate
-	const filaClima = filaCartasClima
-
-	// conceptualmente esta medio feo preguntarle al jugador donde deberia caer la carta
-	method filaCorrespondiente(carta) {
-		const tipo = carta.tipoDeCarta()
-		if (tipo.equals(cartaDeClima)) {
-			return filaClima
-		}
-		if (tipo.equals(cartaDeUnidad) && carta.especialidad().equals(espia)) {
-			return rival.filaParaEspia(carta)
-		} else {
-			return filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
-		}
-	}
-
-	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
-
-	method manoDeCartas() = manoDeCartas
-
-}
-
-const jugador = new Jugador(rival = oponente, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
-
-const oponente = new Jugador(rival = jugador, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
-
 object tablero {
 
-	// asi como esta, estas dos constantes sirven para:
-	// 1. el reseteo (resetearTablero())
-	// 2. los addVisual y los mostrar()
-	// habria q borrarlos y buscar la alternativa para estos dos procesos
-	const filasJugador = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ]
-	const filasRival = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ]
+	const jugadores = new Dictionary()
 
-	method resetearTablero() {
-		filaCartasClima.vaciarFila()
-		filasJugador.forEach({ filaCombate => filaCombate.vaciarFila()})
-		filasRival.forEach({ filaCombate => filaCombate.vaciarFila()})
+	method establecerBandoJugador(faccion, jugador) {
+		jugadores.put(faccion, jugador)
 	}
 
 	method mostrar(barajaJugador, barajaRival) {
@@ -67,7 +25,10 @@ object tablero {
 		puntajeTotalRival.mostrar()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
 		pasarDeRonda.mostrarYagregarListener()
-			// //
+			// ver si se puede obtener de jugador, para que el metodo no 
+			// necesite recibir parametros
+		barajaJugador.actualizarPosicion(150, 18)
+		barajaRival.actualizarPosicion(150, 75)
 		barajaJugador.mostrar()
 		barajaRival.mostrar()
 			// MOSTRAR FILA CARTAS JUGABLES
@@ -75,22 +36,29 @@ object tablero {
 		filaCartasJugador.mostrar()
 	}
 
-	method cartaJugadaJugador(laCarta) {
-		self.jugarCarta(laCarta, jugador)
-		game.schedule(700, { => filaCartasRival.jugarCarta()})
+	method resetearTablero() {
+		filaCartasClima.vaciarFila()
+		lasFilasDeCombate.forEach({ filaCombate => filaCombate.vaciarFila()})
 	}
 
-	method cartaJugadaRival(laCarta) {
-		self.jugarCarta(laCarta, oponente)
-	}
-
-	method jugarCarta(carta, campoDeJuego) {
-		campoDeJuego.filaCorrespondiente(carta).insertarCarta(carta)
+	method jugarCarta(carta) {
+		const elJugador = jugadores.get(carta.faccion())
+		elJugador.filaParaCarta(carta).insertarCarta(carta)
 			// se podria tambien prescindir del booleano tieneEfecto()
 			// y dejar efectos vacios
 		if (carta.tieneEfecto()) {
 			carta.aplicarEfecto()
 		}
+	}
+
+	method repartirManoInicial() {
+		jugadores.forEach({ faccion , jugador => jugador.asignarCartas(10)})
+	}
+
+	method sacarCartaPara(faccion) {
+	}
+
+	method recuperarCartaPara(faccion) {
 	}
 
 }
@@ -111,7 +79,7 @@ object contador {
 
 class Fila {
 
-	var cartas = new List()
+	const cartas = new List()
 	var property pos_x = 48
 	var property pos_y = 0
 	const centroFila = 70 / 2
@@ -144,10 +112,6 @@ class Fila {
 	}
 
 	method calcularAbscisaDeCarta(fila_x) = (fila_x - 6) + contador.contar(8)
-
-	method establecerManoDeCartas(lasCartas) {
-		cartas = lasCartas
-	}
 
 }
 
@@ -224,10 +188,16 @@ object filaCartasJugador inherits Fila(pos_y = 4) {
 		selector.setSelector(cartas)
 	}
 
+	method establecerManoDeCartas(lasCartas) {
+		lasCartas.forEach({ carta => cartas.add(carta)})
+	}
+
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
-		tablero.cartaJugadaJugador(cartaElegida)
-		cartas.remove(cartaElegida) // self.removerCarta(cartaElegida)// se tendria q ejecutar en tablero
+		tablero.jugarCarta(cartaElegida)
+		cartas.remove(cartaElegida)
+			// temporal, tendria q ir en tablero
+		game.schedule(700, { => filaCartasRival.jugarCarta()})
 		self.mostrar()
 	}
 
@@ -235,10 +205,14 @@ object filaCartasJugador inherits Fila(pos_y = 4) {
 
 object filaCartasRival inherits Fila {
 
+	method establecerManoDeCartas(lasCartas) {
+		lasCartas.forEach({ carta => cartas.add(carta)})
+	}
+
 	method jugarCarta() {
-		const cartaElegida = cartas.anyOne()
-		tablero.cartaJugadaRival(cartaElegida)
-		cartas.remove(cartaElegida)
+		const carta = cartas.anyOne()
+		tablero.jugarCarta(carta)
+		cartas.remove(carta)
 	}
 
 }

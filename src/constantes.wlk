@@ -73,5 +73,5 @@ const barajaReinosDelNorte = new Baraja(faccion = reinosDelNorte, lider = foltes
 
 const barajaScoiatael = new Baraja(faccion = scoiatael, lider = francescaFindabair, cantInfanteUnidad = 5, cantInfanteHeroe = 4, cantArqueroUnidad = 7, cantArqueroHeroe = 5, cantAsedioUnidad = 6, cantAsedioHeroe = 3, climaExtra = escarcha)
 
-const barajasDisponibles = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
+const lasBarajas = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
 
