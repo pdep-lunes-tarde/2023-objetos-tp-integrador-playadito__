@@ -25,13 +25,13 @@ const claseArquera = new ClaseDeCombate(nombre = "arqueria")
 
 const claseAsedio = new ClaseDeCombate(nombre = "asedio")
 
-const buenTiempo = new TipoDeClima(nombre = "buen-tiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
+const buenTiempo = new TipoDeClima(nombre = "buenTiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
 
-const escarcha = new TipoDeClima(nombre = "escarcha-heladora2", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
+const escarcha = new TipoDeClima(nombre = "escarchaHeladora", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
 
-const niebla = new TipoDeClima(nombre = "niebla-impenetrable", filasDeEfecto = [ filaArqueroJugador, filaArqueroRival ])
+const niebla = new TipoDeClima(nombre = "nieblaImpenetrable", filasDeEfecto = [ filaArqueroJugador, filaArqueroRival ])
 
-const lluvia = new TipoDeClima(nombre = "lluvia-torrencial", filasDeEfecto = [ filaAsedioJugador, filaAsedioRival ])
+const lluvia = new TipoDeClima(nombre = "lluviaTorrencial", filasDeEfecto = [ filaAsedioJugador, filaAsedioRival ])
 
 const clasesDeCombate = [ claseInfante, claseArquera, claseAsedio ]
 
