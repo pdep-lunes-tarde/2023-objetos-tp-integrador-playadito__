@@ -20,6 +20,9 @@ object tablero {
 			// MOSTRAR FILA DE CARTAS CLIMA
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
+			// MOSTRAR FILA DE CARTAS CLIMA
+		game.addVisual(filaCartaLiderRival)
+		game.addVisual(filaCartaLiderJugador)
 			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
@@ -215,6 +218,12 @@ object filaCartasRival inherits Fila {
 		tablero.jugarCarta(carta)
 		cartas.remove(carta)
 	}
+
+}
+
+class filaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 2) {
+
+	method image() = "assets/FCL-001.png"
 
 }
 
