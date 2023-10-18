@@ -275,10 +275,21 @@ class PuntajeTotal {
 
 }
 
+class Mensajes inherits Imagenes {
+
+	method llamarMensaje() {
+		self.actualizarPosicion(0, 42)
+		game.addVisual(self)
+		game.schedule(1000, {=> self.esconder()})
+	}
+
+}
+
 object pasarDeRonda {
 
 	const pos_x = 129
 	const pos_y = -1
+	const imagenRondaPasada = new Mensajes(imagen = "assets/message-pasarRonda.png")
 
 	method text() = "Pasar de ronda (r)"
 
@@ -290,8 +301,9 @@ object pasarDeRonda {
 	}
 
 	method pasarRonda() {
-		game.schedule(700, {=> filaCartasRival.jugarCarta()})
-		game.schedule(2000, {=> partida.finalizarRonda()})
+		imagenRondaPasada.llamarMensaje()
+		game.schedule(1000, {=> filaCartasRival.jugarCarta()})
+		game.schedule(2700, {=> partida.finalizarRonda()})
 	}
 
 }
