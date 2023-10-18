@@ -162,7 +162,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
-	const imagenNumeroHeroe = new Imagenes(imagen = "assets/PC-01.png")
+	const imagenNumeroHeroe = new Imagenes(imagen = "assets/numeroHeroe.png")
 
 	override method modificarPuntajeA(num) {
 	}

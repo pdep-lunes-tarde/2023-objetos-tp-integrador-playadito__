@@ -25,24 +25,25 @@ import constantes.*
  * - implementar o sacar efectos de baraja
  * 
  * (visual)
- * - icono de clima buen tiempo
- * - icono carta heroe (en lo posible)
+ * - LISTO  icono de clima buen tiempo
+ * - LISTO  (medio fea)icono carta heroe (en lo posible)
  * 
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
  * - repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
  * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
+ * - ERROR arreglar problemas multiples luego de pasar de ronda
  * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
  * - implementar seccion cartas descartadas
  * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
  * 
  * (visual)
- * - recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
+ * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
  * - display de info de jugadores: 
  * 		- gemas(2 para cada jugador)
  * 		- cartas jugables restantes
- * - carteles de fin de ronda, fin de partida, paso de mano
+ * - LISTO  carteles de fin de ronda, fin de partida, paso de mano
  * 
  * ///////////////////////////// OTRO /////////////////////////////
  * 
