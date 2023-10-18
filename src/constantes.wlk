@@ -61,14 +61,14 @@ const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y 
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
-const filaCartaLiderJugador = new filaCartaLider(pos_y = 68)
+const filaCartaLiderJugador = new filaCartaLider(pos_y = 74)
 
-const filaCartaLiderRival = new filaCartaLider(pos_y = 30)
+const filaCartaLiderRival = new filaCartaLider(pos_y = 24)
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
-const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 33, imagen = "assets/PJ-02.png")
+const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 27, imagen = "assets/PJ-02.png")
 
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 71, imagen = "assets/PR-02.png")
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 77, imagen = "assets/PR-02.png")
 
 // ///////////////////////////// BARAJAS /////////////////////////////
 const barajaImpNiffg = new Baraja(faccion = imperioNiffgardiano, lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
