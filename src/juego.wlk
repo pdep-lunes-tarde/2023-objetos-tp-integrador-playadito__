@@ -41,7 +41,7 @@ import constantes.*
  * (visual)
  * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
  * - display de info de jugadores: 
- * 		- gemas(2 para cada jugador)
+ * LISTO- gemas(2 para cada jugador)
  * 		- cartas jugables restantes
  * - LISTO  carteles de fin de ronda, fin de partida, paso de mano
  * 
@@ -56,7 +56,7 @@ object juego {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
-		game.ground("assets/BG-002.png")
+		game.ground("assets/BG-004.png")
 		menu.mostrarMenu()
 //		partida.start(imperioNiffgardiano)
 		game.start()

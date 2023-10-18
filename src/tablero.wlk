@@ -24,6 +24,9 @@ object tablero {
 		game.addVisual(filaCartaLiderRival)
 		game.addVisual(filaCartaLiderJugador)
 		self.asignarLideres(barajaJugador, barajaRival)
+			// MOSTRAR SECCION DATOS
+		seccionDatosJugador.mostrar()
+		seccionDatosRival.mostrar()
 			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
@@ -122,6 +125,8 @@ class Fila {
 	}
 
 	method calcularAbscisaDeCarta(fila_x) = (fila_x - 6) + contador.contar(8)
+
+	method cantidadCartas() = cartas.size()
 
 }
 
@@ -228,9 +233,50 @@ object filaCartasRival inherits Fila {
 
 }
 
-class filaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 10 / 2 - 2) {
+class FilaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 10 / 2 - 2) {
 
 	method image() = "assets/FCL-001.png"
+
+}
+
+class Gema inherits Imagenes (imagen = "assets/gema.png") {
+
+	method rondaPerdida() {
+		imagen = "assets/gemaPerdida.png"
+	}
+
+	method mostrar() {
+		game.addVisual(self)
+	}
+
+}
+
+class SeccionDatos {
+
+	const pos_x = 4
+	const pos_y
+	const gema1 = new Gema(posx = pos_x + 5, posy = pos_y + 4)
+	const gema2 = new Gema(posx = pos_x + 8, posy = pos_y + 4)
+	const filaCartas
+	var cartasJugablesRestantes = 0
+
+	method image() = "assets/FP-001.png"
+
+	method position() = game.at(pos_x, pos_y)
+
+	method mostrar() {
+		game.addVisual(self)
+		gema1.mostrar()
+		gema2.mostrar()
+	}
+
+	method cartasJugablesRestantes() {
+		cartasJugablesRestantes = filaCartas.cantidadCartas()
+	}
+
+	method faccionJugador() {
+	// implementar
+	}
 
 }
 
