@@ -198,6 +198,8 @@ object filaCartasJugador inherits Fila(pos_y = 4) {
 		cartas.remove(cartaElegida)
 			// temporal, tendria q ir en tablero
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
+		game.schedule(1200, { => imagenTurno.llamarMensaje()})
+			// ver mejor lugar donde ponerlo
 		self.mostrar()
 	}
 
@@ -289,7 +291,6 @@ object pasarDeRonda {
 
 	const pos_x = 129
 	const pos_y = -1
-	const imagenRondaPasada = new Mensajes(imagen = "assets/message-pasarRonda.png")
 
 	method text() = "Pasar de ronda (r)"
 

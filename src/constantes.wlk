@@ -75,3 +75,12 @@ const barajaScoiatael = new Baraja(faccion = scoiatael, lider = francescaFindaba
 
 const lasBarajas = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
 
+////////////////////////////// MENSAJES /////////////////////////////////
+const imagenRondaPasada = new Mensajes(imagen = "assets/message-pasarRonda.png")
+
+const imagenTurno = new Mensajes(imagen = "assets/message-turno.png")
+
+const imagenRondaPerdida = new Mensajes(imagen = "assets/message-rondaperdida.png")
+
+const imagenRondaGanada = new Mensajes(imagen = "assets/message-rondaganada.png")
+

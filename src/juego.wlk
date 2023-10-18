@@ -108,7 +108,7 @@ object partida {
 		self.ganadorRonda()
 		ronda++
 		if (ronda <= 4) {
-			self.comenzarRonda()
+			game.schedule(2000, { => self.comenzarRonda()})
 		} else {
 		// implementar finDePartida()
 		}
@@ -116,9 +116,11 @@ object partida {
 
 	method ganadorRonda() {
 		if (puntajeTotalJugador.puntajeTotal() > puntajeTotalRival.puntajeTotal()) {
-		// return jugador // ver que poner
+			// return jugador // ver que poner
+			game.schedule(1200, { => imagenRondaGanada.llamarMensaje()})
 		} else {
-		// return rival
+			// return rival
+			game.schedule(1200, { => imagenRondaPerdida.llamarMensaje()})
 		}
 	}
 
