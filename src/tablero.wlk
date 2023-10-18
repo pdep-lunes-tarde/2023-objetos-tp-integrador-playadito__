@@ -27,8 +27,8 @@ object tablero {
 		pasarDeRonda.mostrarYagregarListener()
 			// ver si se puede obtener de jugador, para que el metodo no 
 			// necesite recibir parametros
-		barajaJugador.actualizarPosicion(150, 18)
-		barajaRival.actualizarPosicion(150, 75)
+		barajaJugador.actualizarPosicion(159, 30)
+		barajaRival.actualizarPosicion(159, 68)
 		barajaJugador.mostrar()
 		barajaRival.mostrar()
 			// MOSTRAR FILA CARTAS JUGABLES
@@ -80,9 +80,9 @@ object contador {
 class Fila {
 
 	const cartas = new List()
-	var property pos_x = 48
+	var property pos_x = 55
 	var property pos_y = 0
-	const centroFila = 70 / 2
+	const centroFila = 90 / 2 - 2
 
 	method position() = game.at(pos_x, pos_y)
 
@@ -167,14 +167,13 @@ class FilaDeCombate inherits Fila {
 
 }
 
-object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 10, pos_y = 45, centroFila = 25 / 2) {
+object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 49, centroFila = 26 / 2 - 2) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
-	override method removerCarta(cartaClima) {
-	// sacar los efectos
-	}
-
+//	override method removerCarta(cartaClima) {
+//	// sacar los efectos
+//	}
 }
 
 object filaCartasJugador inherits Fila(pos_y = 4) {
@@ -221,7 +220,7 @@ object filaCartasRival inherits Fila {
 
 class PuntajeFila {
 
-	const pos_x = 42
+	const pos_x = 50
 	const pos_y
 	var property puntajeTotalFila = 0
 	const imagen
@@ -254,7 +253,7 @@ class PuntajeFila {
 
 class PuntajeTotal {
 
-	const pos_x = 32
+	const pos_x = 40
 	const pos_y
 	const filasDeCombate
 	var property puntajeTotal = 0
@@ -289,7 +288,7 @@ class Mensajes inherits Imagenes {
 
 object pasarDeRonda {
 
-	const pos_x = 129
+	const pos_x = 136
 	const pos_y = -1
 
 	method text() = "Pasar de ronda (r)"
