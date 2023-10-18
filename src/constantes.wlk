@@ -27,7 +27,7 @@ const claseAsedio = new ClaseDeCombate(nombre = "asedio")
 
 const buenTiempo = new TipoDeClima(nombre = "buen-tiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
 
-const escarcha = new TipoDeClima(nombre = "escarcha-heladora", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
+const escarcha = new TipoDeClima(nombre = "escarcha-heladora2", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
 
 const niebla = new TipoDeClima(nombre = "niebla-impenetrable", filasDeEfecto = [ filaArqueroJugador, filaArqueroRival ])
 
