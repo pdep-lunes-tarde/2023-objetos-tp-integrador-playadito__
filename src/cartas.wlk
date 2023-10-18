@@ -27,7 +27,6 @@ class TipoDeClima inherits Tipo {
 
 }
 
-//ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
 
 	const imagen
@@ -163,7 +162,24 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
+	const imagenNumeroHeroe = new Imagenes(imagen = "assets/PC-01.png")
+
 	override method modificarPuntajeA(num) {
+	}
+
+	override method mostrar() {
+		super()
+		game.addVisual(imagenNumeroHeroe)
+	}
+
+	override method esconder() {
+		super()
+		imagenNumeroHeroe.esconder()
+	}
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenNumeroHeroe.actualizarPosicion(x + 1, y + 8)
 	}
 
 }
