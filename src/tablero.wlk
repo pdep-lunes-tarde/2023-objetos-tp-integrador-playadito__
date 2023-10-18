@@ -20,9 +20,10 @@ object tablero {
 			// MOSTRAR FILA DE CARTAS CLIMA
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
-			// MOSTRAR FILA DE CARTAS CLIMA
+			// MOSTRAR FILA DE LIDERES Y SUS CARTAS
 		game.addVisual(filaCartaLiderRival)
 		game.addVisual(filaCartaLiderJugador)
+		self.asignarLideres(barajaJugador, barajaRival)
 			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
@@ -64,6 +65,11 @@ object tablero {
 	method recuperarCartaPara(faccion) {
 	}
 
+	method asignarLideres(barajaJugador, barajaRival) {
+		filaCartaLiderJugador.insertarCarta(barajaJugador.lider())
+		filaCartaLiderRival.insertarCarta(barajaRival.lider())
+	}
+
 }
 
 //usar times
@@ -85,6 +91,7 @@ class Fila {
 	const cartas = new List()
 	var property pos_x = 55
 	var property pos_y = 0
+	var property pos_y_carta = pos_y
 	const centroFila = 90 / 2 - 2
 
 	method position() = game.at(pos_x, pos_y)
@@ -93,7 +100,7 @@ class Fila {
 		if (!cartas.isEmpty()) {
 			const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
 			contador.contador(posicionPrimeraCarta)
-			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(pos_x), pos_y)})
+			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(pos_x), pos_y_carta)})
 			cartas.forEach({ carta => carta.mostrar()})
 		}
 	}
@@ -170,7 +177,7 @@ class FilaDeCombate inherits Fila {
 
 }
 
-object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 49, centroFila = 26 / 2 - 2) {
+object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 49, pos_y_carta = 50, centroFila = 26 / 2 - 2) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
@@ -221,7 +228,7 @@ object filaCartasRival inherits Fila {
 
 }
 
-class filaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 2) {
+class filaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 10 / 2 - 2) {
 
 	method image() = "assets/FCL-001.png"
 

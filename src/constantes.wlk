@@ -61,9 +61,9 @@ const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y 
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
-const filaCartaLiderJugador = new filaCartaLider(pos_y = 74)
+const filaCartaLiderRival = new filaCartaLider(pos_y = 74, pos_y_carta = 75)
 
-const filaCartaLiderRival = new filaCartaLider(pos_y = 24)
+const filaCartaLiderJugador = new filaCartaLider(pos_y = 24, pos_y_carta = 25)
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 27, imagen = "assets/PJ-02.png")

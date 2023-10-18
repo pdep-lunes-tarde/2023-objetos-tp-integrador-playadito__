@@ -4,6 +4,12 @@ import cartas.*
 import numeros.*
 import constantes.*
 
+class Faccion inherits Tipo {
+
+	method imagen() = "assets/" + nombre + ".png"
+
+}
+
 class Baraja {
 
 	// tipo faccion
@@ -18,7 +24,7 @@ class Baraja {
 	const cantAsedioHeroe
 	const climaExtra
 	// mazo de cartas
-	const mazo = mazoDeCartas.generar(faccion, lider, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
+	const mazo = mazoDeCartas.generar(faccion, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
 	const manoCartas = new List()
 	var property pos_x = 0
 	var property pos_y = 0
@@ -61,16 +67,17 @@ class Baraja {
 		numeroPuntaje.modificarNumero(cantidadEnMazo)
 	}
 
+	method lider() = lider
+
 }
 
 object mazoDeCartas {
 
 	var property laFaccion // baraja
 
-	method generar(faccion, lider, numeroUnidadesInfante, numeroHeroesInfante, numeroUnidadesArquero, numeroHeroesArquero, numeroUnidadesAsedio, numeroHeroesAsedio, tipoDeClimaExtra) {
+	method generar(faccion, numeroUnidadesInfante, numeroHeroesInfante, numeroUnidadesArquero, numeroHeroesArquero, numeroUnidadesAsedio, numeroHeroesAsedio, tipoDeClimaExtra) {
 		const mazo = new List()
 		self.laFaccion(faccion)
-		mazo.add(lider)
 		self.generarCartasEspeciales(mazo)
 		self.generarCartasDeClima(mazo, tipoDeClimaExtra)
 		self.generarCartasDeCombate(mazo, numeroUnidadesInfante, numeroHeroesInfante, claseInfante, [ espia, lazoEstrecho, sinHabilidad ], (1 .. 7))

@@ -27,12 +27,6 @@ class TipoDeClima inherits Tipo {
 
 }
 
-class Faccion inherits Tipo {
-
-	method imagen() = "assets/" + nombre + ".png"
-
-}
-
 //ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
 
