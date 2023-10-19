@@ -19,7 +19,7 @@ import constantes.*
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
- * - repensar relacion: CARTA - BARAJA - MAZO
+ * - LISTO repensar relacion: CARTA - BARAJA - MAZO
  * - implementar los aplicarEfecto(); clima y especialidad (tienen que ser polimorficas)
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
@@ -31,7 +31,7 @@ import constantes.*
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
- * - repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
+ * - LISTO repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
  * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
  * - ERROR arreglar problemas multiples luego de pasar de ronda
  * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
@@ -136,10 +136,6 @@ object partida {
 			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
 		}
 	}
-
-}
-
-class Cartel {
 
 }
 

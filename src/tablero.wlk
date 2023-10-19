@@ -30,9 +30,6 @@ object tablero {
 			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
-			// seccion datos, numero cartas restantes
-		seccionDatosRival.cartasJugablesRestantes()
-		seccionDatosJugador.cartasJugablesRestantes()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
 		pasarDeRonda.mostrarYagregarListener()
 			// ver si se puede obtener de jugador, para que el metodo no 
@@ -278,6 +275,7 @@ class SeccionDatos {
 		game.addVisual(self)
 		gema1.mostrar()
 		gema2.mostrar()
+		self.cartasJugablesRestantes()
 		game.addVisualIn(numeroCartasRestantes, game.at(pos_x + 18, pos_y + 2))
 	}
 

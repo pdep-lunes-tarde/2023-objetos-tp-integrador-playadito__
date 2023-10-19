@@ -179,7 +179,7 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
 	override method actualizarPosicion(x, y) {
 		super(x, y)
-		imagenNumeroHeroe.actualizarPosicion(x + 1, y + 8)
+		imagenNumeroHeroe.actualizarPosicion(x, y + 8)
 	}
 
 }
