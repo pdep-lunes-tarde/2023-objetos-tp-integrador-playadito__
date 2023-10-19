@@ -361,10 +361,9 @@ class PuntajeTotal {
 
 }
 
-class Mensajes inherits Imagenes {
+class Mensajes inherits Imagenes (posx = 0, posy = 42) {
 
 	method llamarMensaje() {
-		self.actualizarPosicion(0, 42)
 		game.addVisual(self)
 		game.schedule(1000, {=> self.esconder()})
 	}
