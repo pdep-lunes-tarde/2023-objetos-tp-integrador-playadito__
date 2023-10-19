@@ -27,16 +27,9 @@ class TipoDeClima inherits Tipo {
 
 }
 
-class Faccion inherits Tipo {
-
-	method imagen() = "assets/" + nombre + ".png"
-
-}
-
-//ver que onda, lo cree para lo de la imagen, pero si esto cambia, hay que revisar otras cosas
 class Imagenes {
 
-	const imagen
+	var imagen
 	var posx = 0
 	var posy = 0
 
@@ -169,7 +162,24 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
+	const imagenNumeroHeroe = new Imagenes(imagen = "assets/numeroHeroe.png")
+
 	override method modificarPuntajeA(num) {
+	}
+
+	override method mostrar() {
+		super()
+		game.addVisual(imagenNumeroHeroe)
+	}
+
+	override method esconder() {
+		super()
+		imagenNumeroHeroe.esconder()
+	}
+
+	override method actualizarPosicion(x, y) {
+		super(x, y)
+		imagenNumeroHeroe.actualizarPosicion(x + 1, y + 8)
 	}
 
 }

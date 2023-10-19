@@ -25,13 +25,13 @@ const claseArquera = new ClaseDeCombate(nombre = "arqueria")
 
 const claseAsedio = new ClaseDeCombate(nombre = "asedio")
 
-const buenTiempo = new TipoDeClima(nombre = "buen-tiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
+const buenTiempo = new TipoDeClima(nombre = "buenTiempo", filasDeEfecto = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]) // tendria q ser TODAS las filas
 
-const escarcha = new TipoDeClima(nombre = "escarcha-heladora", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
+const escarcha = new TipoDeClima(nombre = "escarchaHeladora", filasDeEfecto = [ filaInfanteJugador, filaInfanteRival ])
 
-const niebla = new TipoDeClima(nombre = "niebla-impenetrable", filasDeEfecto = [ filaArqueroJugador, filaArqueroRival ])
+const niebla = new TipoDeClima(nombre = "nieblaImpenetrable", filasDeEfecto = [ filaArqueroJugador, filaArqueroRival ])
 
-const lluvia = new TipoDeClima(nombre = "lluvia-torrencial", filasDeEfecto = [ filaAsedioJugador, filaAsedioRival ])
+const lluvia = new TipoDeClima(nombre = "lluviaTorrencial", filasDeEfecto = [ filaAsedioJugador, filaAsedioRival ])
 
 const clasesDeCombate = [ claseInfante, claseArquera, claseAsedio ]
 
@@ -61,10 +61,14 @@ const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y 
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
+const filaCartaLiderRival = new FilaCartaLider(pos_y = 79, pos_y_carta = 80)
+
+const filaCartaLiderJugador = new FilaCartaLider(pos_y = 4, pos_y_carta = 5)
+
 // ///////////////////////////// PUNTAJES /////////////////////////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
 
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 70, imagen = "assets/PR-02.png")
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 64, imagen = "assets/PR-02.png")
 
 // ///////////////////////////// BARAJAS /////////////////////////////
 const barajaImpNiffg = new Baraja(faccion = imperioNiffgardiano, lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
@@ -74,4 +78,22 @@ const barajaReinosDelNorte = new Baraja(faccion = reinosDelNorte, lider = foltes
 const barajaScoiatael = new Baraja(faccion = scoiatael, lider = francescaFindabair, cantInfanteUnidad = 5, cantInfanteHeroe = 4, cantArqueroUnidad = 7, cantArqueroHeroe = 5, cantAsedioUnidad = 6, cantAsedioHeroe = 3, climaExtra = escarcha)
 
 const lasBarajas = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
+
+////////////////////////////// MENSAJES /////////////////////////////////
+const imagenRondaPasada = new Mensajes(imagen = "assets/message-pasarRonda.png")
+
+const imagenTurno = new Mensajes(imagen = "assets/message-turno.png")
+
+const imagenRondaPerdida = new Mensajes(imagen = "assets/message-rondaperdida.png")
+
+const imagenRondaGanada = new Mensajes(imagen = "assets/message-rondaganada.png")
+
+const imagenPartidaGanada = new Mensajes(imagen = "assets/message-victoria.png")
+
+const imagenPartidaPerdida = new Mensajes(imagen = "assets/message-fracaso.png")
+
+///////////////////////////// SECCION DATOS /////////////////////////////
+const seccionDatosJugador = new SeccionDatos(pos_y = 25, filaCartas = filaCartasJugador)
+
+const seccionDatosRival = new SeccionDatos(pos_y = 61, filaCartas = filaCartasRival)
 

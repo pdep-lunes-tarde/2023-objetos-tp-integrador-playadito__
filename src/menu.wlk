@@ -12,11 +12,11 @@ class CartaMenu inherits Carta(tipoDeCarta = cartaDeMenu) {
 
 }
 
-const cartaImperioNiffgardiano = new CartaMenu(faccion = imperioNiffgardiano, pos_x = 40, pos_y = 50)
+const cartaImperioNiffgardiano = new CartaMenu(faccion = imperioNiffgardiano, pos_x = 46, pos_y = 13)
 
-const cartaReinosDelNorte = new CartaMenu(faccion = reinosDelNorte, pos_x = 70, pos_y = 50)
+const cartaReinosDelNorte = new CartaMenu(faccion = reinosDelNorte, pos_x = 76, pos_y = 13)
 
-const cartaScoiatael = new CartaMenu(faccion = scoiatael, pos_x = 100, pos_y = 50)
+const cartaScoiatael = new CartaMenu(faccion = scoiatael, pos_x = 106, pos_y = 13)
 
 object menu {
 
@@ -26,7 +26,7 @@ object menu {
 
 	method position() = game.at(0, 0)
 
-	method image() = "assets/menu-bg.png"
+	method image() = "assets/menu-bg2.png"
 
 	method mostrarMenu() {
 		game.addVisual(self)
