@@ -37,14 +37,14 @@ import constantes.*
  * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
  * - implementar seccion cartas descartadas
  * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
- * - ERROR seccion datos el numero restante de cartas es uno mayor al actual
  * - ver si es mejor seccion de datos crearla como global o dentro del jugador
+ * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
  * 
  * (visual)
  * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
  * - display de info de jugadores: 
- * LISTO- gemas(2 para cada jugador)
- * 		- cartas jugables restantes
+ * 	LISTO 	- gemas(2 para cada jugador)
+ * 	LISTO 	- cartas jugables restantess
  * - LISTO  carteles de fin de ronda, fin de partida, paso de mano
  * 
  * ///////////////////////////// OTRO /////////////////////////////
@@ -58,7 +58,7 @@ object juego {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
-		game.ground("assets/BG-004.png")
+		game.ground("assets/BG-002.png")
 		menu.mostrarMenu()
 //		partida.start(imperioNiffgardiano)
 		game.start()
@@ -77,8 +77,8 @@ object partida {
 		self.barajaRival(self.asignarBarajaRandom())
 			// crear los jugadores
 			// asignarselos al tablero
-		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], seccionDatos = seccionDatosJugador)
-		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], seccionDatos = seccionDatosRival)
+		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
+		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
 		jugador.asignarRival(rival)
 		rival.asignarRival(jugador)
 		tablero.establecerBandoJugador(barajaJugador.faccion(), jugador)
@@ -110,7 +110,7 @@ object partida {
 		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
 		ronda++
-		if (ronda <= 4) {
+		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida())) {
 			game.schedule(2000, { => self.comenzarRonda()})
 		} else {
 		// implementar finDePartida()
@@ -119,12 +119,15 @@ object partida {
 
 	method ganadorRonda() {
 		if (puntajeTotalJugador.puntajeTotal() > puntajeTotalRival.puntajeTotal()) {
-			// return jugador // ver que poner
 			game.schedule(1200, { => imagenRondaGanada.llamarMensaje()})
+			game.schedule(1200, { => seccionDatosRival.perdioRonda()})
 		} else {
-			// return rival
 			game.schedule(1200, { => imagenRondaPerdida.llamarMensaje()})
+			game.schedule(1200, { => seccionDatosJugador.perdioRonda()})
 		}
+	}
+
+	method finDePartida() {
 	}
 
 }

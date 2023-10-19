@@ -30,6 +30,9 @@ object tablero {
 			// MOSTRAR PUNTAJE TOTAL
 		puntajeTotalJugador.mostrar()
 		puntajeTotalRival.mostrar()
+			// seccion datos, numero cartas restantes
+		seccionDatosRival.cartasJugablesRestantes()
+		seccionDatosJugador.cartasJugablesRestantes()
 			// pasar de ronda, ver si va aca, y asi o con addVisual de una
 		pasarDeRonda.mostrarYagregarListener()
 			// ver si se puede obtener de jugador, para que el metodo no 
@@ -56,7 +59,6 @@ object tablero {
 		if (carta.tieneEfecto()) {
 			carta.aplicarEfecto()
 		}
-		elJugador.seccionDatos().cartasJugablesRestantes()
 	}
 
 	method repartirManoInicial() {
@@ -211,6 +213,7 @@ object filaCartasJugador inherits Fila(pos_y = 4) {
 		const cartaElegida = cartas.get(index)
 		tablero.jugarCarta(cartaElegida)
 		cartas.remove(cartaElegida)
+		seccionDatosJugador.cartasJugablesRestantes()
 			// temporal, tendria q ir en tablero
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
 		game.schedule(1200, { => imagenTurno.llamarMensaje()})
@@ -230,6 +233,7 @@ object filaCartasRival inherits Fila {
 		const carta = cartas.anyOne()
 		tablero.jugarCarta(carta)
 		cartas.remove(carta)
+		seccionDatosRival.cartasJugablesRestantes()
 	}
 
 }
@@ -242,7 +246,10 @@ class FilaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 
 
 class Gema inherits Imagenes (imagen = "assets/gema.png") {
 
+	var property estado = true
+
 	method rondaPerdida() {
+		estado = false
 		imagen = "assets/gemaPerdida.png"
 	}
 
@@ -261,6 +268,7 @@ class SeccionDatos {
 	const filaCartas
 	var cartasJugablesRestantes = 0
 	const numeroCartasRestantes = new Numero(numero = cartasJugablesRestantes.toString(), color = "F2F2D9FF")
+	var property rondasPerdidas = 0
 
 	method image() = "assets/FP-001.png"
 
@@ -277,6 +285,17 @@ class SeccionDatos {
 		cartasJugablesRestantes = filaCartas.cantidadCartas()
 		numeroCartasRestantes.modificarNumero(cartasJugablesRestantes)
 	}
+
+	method perdioRonda() {
+		rondasPerdidas++
+		if (gema1.estado()) {
+			gema1.rondaPerdida()
+		} else if (gema2.estado()) {
+			gema2.rondaPerdida()
+		}
+	}
+
+	method perdioPartida() = rondasPerdidas === 2 or cartasJugablesRestantes === 0
 
 	method faccionJugador() {
 	// implementar

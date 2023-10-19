@@ -88,6 +88,10 @@ const imagenRondaPerdida = new Mensajes(imagen = "assets/message-rondaperdida.pn
 
 const imagenRondaGanada = new Mensajes(imagen = "assets/message-rondaganada.png")
 
+const imagenPartidaGanada = new Mensajes(imagen = "assets/message-victoria.png")
+
+const imagenPartidaPerdida = new Mensajes(imagen = "assets/message-fracaso.png")
+
 ///////////////////////////// SECCION DATOS /////////////////////////////
 const seccionDatosJugador = new SeccionDatos(pos_y = 25, filaCartas = filaCartasJugador)
 
