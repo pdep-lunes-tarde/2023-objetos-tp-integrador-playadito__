@@ -270,7 +270,7 @@ class SeccionDatos {
 		game.addVisual(self)
 		gema1.mostrar()
 		gema2.mostrar()
-		game.addVisualIn(numeroCartasRestantes, game.at(pos_x + 18, pos_y + 3))
+		game.addVisualIn(numeroCartasRestantes, game.at(pos_x + 18, pos_y + 2))
 	}
 
 	method cartasJugablesRestantes() {

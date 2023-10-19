@@ -38,7 +38,7 @@ import constantes.*
  * - implementar seccion cartas descartadas
  * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
  * - ERROR seccion datos el numero restante de cartas es uno mayor al actual
- * - ERROR se selecciona recien comienza el juego
+ * - ver si es mejor seccion de datos crearla como global o dentro del jugador
  * 
  * (visual)
  * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
@@ -58,7 +58,7 @@ object juego {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
-		game.ground("assets/BG-004.png")
+		game.ground("assets/BG-002.png")
 		menu.mostrarMenu()
 //		partida.start(imperioNiffgardiano)
 		game.start()
