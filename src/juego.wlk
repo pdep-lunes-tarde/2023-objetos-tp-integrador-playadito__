@@ -128,6 +128,11 @@ object partida {
 	}
 
 	method finDePartida() {
+		if (seccionDatosRival.perdioPartida()) {
+			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+		} else {
+			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+		}
 	}
 
 }
