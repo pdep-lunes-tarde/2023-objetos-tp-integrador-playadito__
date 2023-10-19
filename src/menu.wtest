@@ -1,0 +1,13 @@
+import menu.*
+import juego.*
+import constantes.*
+
+describe "menuDeJuego" {
+
+	test "si se selecciona la primera baraja, el partida arranca con la baraja del Imperio Niffgardiano para el jugador." {
+		menu.tomarSeleccion(0)
+		assert.equals(barajaImpNiffg, partida.barajaJugador())
+	}
+
+}
+
