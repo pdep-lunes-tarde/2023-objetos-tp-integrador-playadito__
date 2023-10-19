@@ -29,7 +29,7 @@ class TipoDeClima inherits Tipo {
 
 class Imagenes {
 
-	const imagen
+	var imagen
 	var posx = 0
 	var posy = 0
 
