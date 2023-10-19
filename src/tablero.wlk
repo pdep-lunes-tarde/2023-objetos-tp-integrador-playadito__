@@ -56,6 +56,7 @@ object tablero {
 		if (carta.tieneEfecto()) {
 			carta.aplicarEfecto()
 		}
+		elJugador.seccionDatos().cartasJugablesRestantes()
 	}
 
 	method repartirManoInicial() {
@@ -259,6 +260,7 @@ class SeccionDatos {
 	const gema2 = new Gema(posx = pos_x + 28, posy = pos_y + 4)
 	const filaCartas
 	var cartasJugablesRestantes = 0
+	const numeroCartasRestantes = new Numero(numero = cartasJugablesRestantes.toString(), color = "F2F2D9FF")
 
 	method image() = "assets/FP-001.png"
 
@@ -268,10 +270,12 @@ class SeccionDatos {
 		game.addVisual(self)
 		gema1.mostrar()
 		gema2.mostrar()
+		game.addVisualIn(numeroCartasRestantes, game.at(pos_x + 18, pos_y + 3))
 	}
 
 	method cartasJugablesRestantes() {
 		cartasJugablesRestantes = filaCartas.cantidadCartas()
+		numeroCartasRestantes.modificarNumero(cartasJugablesRestantes)
 	}
 
 	method faccionJugador() {

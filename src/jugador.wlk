@@ -14,6 +14,9 @@ class Jugador {
 	const manoDeCartas
 	const filasDeCombate
 	const filaClima = filaCartasClima
+	const seccionDatos // lo necesito para lo de seccion de datos, ver si hay algo mejor
+
+	method seccionDatos() = seccionDatos
 
 	method asignarRival(elRival) {
 		self.rival(elRival)

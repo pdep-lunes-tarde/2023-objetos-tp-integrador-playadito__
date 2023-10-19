@@ -37,6 +37,8 @@ import constantes.*
  * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
  * - implementar seccion cartas descartadas
  * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
+ * - ERROR seccion datos el numero restante de cartas es uno mayor al actual
+ * - ERROR se selecciona recien comienza el juego
  * 
  * (visual)
  * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
@@ -75,8 +77,8 @@ object partida {
 		self.barajaRival(self.asignarBarajaRandom())
 			// crear los jugadores
 			// asignarselos al tablero
-		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
-		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
+		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], seccionDatos = seccionDatosJugador)
+		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], seccionDatos = seccionDatosRival)
 		jugador.asignarRival(rival)
 		rival.asignarRival(jugador)
 		tablero.establecerBandoJugador(barajaJugador.faccion(), jugador)

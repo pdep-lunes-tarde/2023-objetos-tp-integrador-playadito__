@@ -5,10 +5,11 @@ class Numero {
 	var numero
 	var posX = 0
 	var posY = 0
+	var color = "000000FF"
 
 	method text() = numero.toString()
 
-	method textColor() = "000000FF"
+	method textColor() = color
 
 	method modificarNumero(nuevoNumero) {
 		numero = nuevoNumero
