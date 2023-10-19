@@ -61,14 +61,14 @@ const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y 
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
-const filaCartaLiderRival = new FilaCartaLider(pos_y = 74, pos_y_carta = 75)
+const filaCartaLiderRival = new FilaCartaLider(pos_y = 79, pos_y_carta = 80)
 
-const filaCartaLiderJugador = new FilaCartaLider(pos_y = 24, pos_y_carta = 25)
+const filaCartaLiderJugador = new FilaCartaLider(pos_y = 4, pos_y_carta = 5)
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
-const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 27, imagen = "assets/PJ-02.png")
+const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
 
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 77, imagen = "assets/PR-02.png")
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 64, imagen = "assets/PR-02.png")
 
 // ///////////////////////////// BARAJAS /////////////////////////////
 const barajaImpNiffg = new Baraja(faccion = imperioNiffgardiano, lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
@@ -89,7 +89,7 @@ const imagenRondaPerdida = new Mensajes(imagen = "assets/message-rondaperdida.pn
 const imagenRondaGanada = new Mensajes(imagen = "assets/message-rondaganada.png")
 
 ///////////////////////////// SECCION DATOS /////////////////////////////
-const seccionDatosJugador = new SeccionDatos(pos_y = 10, filaCartas = filaCartasJugador)
+const seccionDatosJugador = new SeccionDatos(pos_y = 25, filaCartas = filaCartasJugador)
 
-const seccionDatosRival = new SeccionDatos(pos_y = 80, filaCartas = filaCartasRival)
+const seccionDatosRival = new SeccionDatos(pos_y = 61, filaCartas = filaCartasRival)
 

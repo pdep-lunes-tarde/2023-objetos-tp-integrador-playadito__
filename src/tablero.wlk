@@ -182,7 +182,7 @@ class FilaDeCombate inherits Fila {
 
 }
 
-object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 49, pos_y_carta = 50, centroFila = 26 / 2 - 2) {
+object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 42, pos_y_carta = 43, centroFila = 26 / 2 - 2) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
@@ -255,8 +255,8 @@ class SeccionDatos {
 
 	const pos_x = 4
 	const pos_y
-	const gema1 = new Gema(posx = pos_x + 5, posy = pos_y + 4)
-	const gema2 = new Gema(posx = pos_x + 8, posy = pos_y + 4)
+	const gema1 = new Gema(posx = pos_x + 24, posy = pos_y + 4)
+	const gema2 = new Gema(posx = pos_x + 28, posy = pos_y + 4)
 	const filaCartas
 	var cartasJugablesRestantes = 0
 
