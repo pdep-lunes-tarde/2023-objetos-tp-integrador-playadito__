@@ -39,6 +39,8 @@ import constantes.*
  * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
  * - ver si es mejor seccion de datos crearla como global o dentro del jugador
  * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
+ * - ERROR ver fin de partida
+ * 
  * 
  * (visual)
  * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
@@ -113,7 +115,7 @@ object partida {
 		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida())) {
 			game.schedule(2000, { => self.comenzarRonda()})
 		} else {
-		// implementar finDePartida()
+			self.finDePartida()
 		}
 	}
 
