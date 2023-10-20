@@ -60,7 +60,7 @@ object juego {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
-		game.ground("assets/BG-002.png")
+		game.ground("assets/BG-004.png")
 		menu.mostrarMenu()
 //		partida.start(imperioNiffgardiano)
 		game.start()
