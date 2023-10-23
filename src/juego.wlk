@@ -20,10 +20,9 @@ import constantes.*
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
- * - implementar los aplicarEfecto() de  especialidad
+ * - implementar los aplicarEfecto() de especialidad
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
- * - ERROR el efecto de las cartas clima no se elimina a pesar de haber pasado la ronda
  * 
  * (visual)
  * - imagen particular para carta lider
@@ -88,12 +87,6 @@ object partida {
 			tablero.repartirManoInicial()
 			tablero.mostrar(barajaJugador, barajaRival)
 		}
-//		else {
-//			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()
-//			filaCartasJugador.establecerManoDeCartas(cartasSobrantesRondaAnterior)
-//			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-//			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
-//		}
 		tablero.resetearTablero()
 	}
 
