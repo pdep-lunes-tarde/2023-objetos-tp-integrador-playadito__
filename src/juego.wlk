@@ -31,17 +31,7 @@ import constantes.*
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
-<<<<<<< HEAD
- * - ERROR arreglar problemas multiples luego de pasar de ronda
- * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
-=======
- * - LISTO repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
- * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
- * - LISTO ERROR arreglar problemas multiples luego de pasar de ronda
- * - LISTO implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
->>>>>>> 997b2ca3791f7620a8fe652609373e526276a413
  * - implementar seccion cartas descartadas
- * - LISTO implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
  * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
  * - ver si es mejor seccion de datos crearla como global o dentro del jugador
  * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
