@@ -32,6 +32,7 @@ object menu {
 		game.addVisual(self)
 		cartasMenu.forEach({ baraja => game.addVisual(baraja)})
 		selector.setSelector(cartasMenu)
+		juego.selectorActual(selector)
 	}
 
 	method esconder() {

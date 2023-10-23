@@ -39,12 +39,12 @@ class Selector {
 		items.clear()
 	}
 
-	// listener y efectos
-	method initialize() {
-		keyboard.left().onPressDo{ self.moveLeft()}
-		keyboard.right().onPressDo{ self.moveRight()}
-		keyboard.enter().onPressDo{ self.select()}
-	}
+//	// listener y efectos
+//	method initialize() {
+//		keyboard.left().onPressDo{ self.moveLeft()}
+//		keyboard.right().onPressDo{ self.moveRight()}
+//		keyboard.enter().onPressDo{ self.select()}
+//	}
 
 	method moveLeft() {
 		if (index > 0) {

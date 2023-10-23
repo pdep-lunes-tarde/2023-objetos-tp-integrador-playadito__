@@ -45,13 +45,43 @@ import constantes.*
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
  * 
  */
+object noHaySelector {
+
+	method moveLeft() {
+	}
+
+	method moveRight() {
+	}
+
+	method select() {
+	}
+
+}
+
 object juego {
+
+	var property selectorActual = noHaySelector
+
+	method seApretoIzquierda() {
+		selectorActual.moveLeft()
+	}
+
+	method seApretoDerecha() {
+		selectorActual.moveRight()
+	}
+
+	method seApretoSelect() {
+		selectorActual.select()
+	}
 
 	method jugar() {
 		game.width(170)
 		game.height(96)
 		game.cellSize(10)
 		game.ground("assets/BG-002.png")
+		keyboard.left().onPressDo{ self.seApretoIzquierda()}
+		keyboard.right().onPressDo{ self.seApretoDerecha()}
+		keyboard.enter().onPressDo{ self.seApretoSelect()}
 		menu.mostrarMenu()
 //		partida.start(imperioNiffgardiano)
 		game.start()

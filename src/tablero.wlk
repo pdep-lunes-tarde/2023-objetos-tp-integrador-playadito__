@@ -223,6 +223,7 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 	override method mostrar() {
 		super()
 		selector.setSelector(cartas)
+		juego.selectorActual(selector)
 	}
 
 	method establecerManoDeCartas(lasCartas) {
@@ -275,7 +276,7 @@ class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2)
 
 	override method mostrar() {
 		if (!cartas.isEmpty()) {
-			//game.addVisual(numeroDescartadas)
+			// game.addVisual(numeroDescartadas)
 			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
 			cartas.last().mostrar()
 		}
