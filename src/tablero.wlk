@@ -3,6 +3,7 @@ import juego.*
 import selector.*
 import cartas.*
 import numeros.*
+import imagen.*
 import constantes.*
 
 object tablero {
@@ -241,7 +242,7 @@ class FilaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 
 
 }
 
-class Gema inherits Imagenes (imagen = "assets/gema.png") {
+class Gema inherits Imagen (imagen = "assets/gema.png") {
 
 	var property estado = true
 
@@ -359,7 +360,7 @@ class PuntajeTotal {
 
 }
 
-class Mensajes inherits Imagenes (posx = 0, posy = 42) {
+class Mensajes inherits Imagen (posx = 0, posy = 42) {
 
 	method llamarMensaje() {
 		game.addVisual(self)
@@ -368,7 +369,7 @@ class Mensajes inherits Imagenes (posx = 0, posy = 42) {
 
 }
 
-class MensajesFinPartida inherits Imagenes (posx = 20, posy = 10) {
+class MensajesFinPartida inherits Imagen (posx = 20, posy = 10) {
 
 	method llamarMensaje() {
 		game.addVisual(self)

@@ -2,6 +2,7 @@ import wollok.game.*
 import tablero.*
 import numeros.*
 import constantes.*
+import imagen.*
 
 class Tipo {
 
@@ -24,27 +25,6 @@ class TipoDeClima inherits Tipo {
 	const filasDeEfecto
 
 	method filasDeEfecto() = filasDeEfecto.copy()
-
-}
-
-class Imagenes {
-
-	var imagen
-	var posx = 0
-	var posy = 0
-
-	method image() = imagen
-
-	method position() = game.at(posx, posy)
-
-	method actualizarPosicion(x, y) {
-		posx = x
-		posy = y
-	}
-
-	method esconder() {
-		game.removeVisual(self)
-	}
 
 }
 
@@ -92,7 +72,7 @@ class CartaDeCombate inherits Carta {
 	const claseDeCombate
 	const valor // puntaje original (valor numerico)
 	var property puntaje = valor // puntaje modificable (constante por el momento porque no se implemento la modificacion)
-	const imagenTipoDeCombate = new Imagenes(imagen = "assets/" + claseDeCombate.nombre() + ".png")
+	const imagenTipoDeCombate = new Imagen(imagen = "assets/" + claseDeCombate.nombre() + ".png")
 	const numeroPuntaje = new Numero(numero = puntaje)
 
 	method puntajeInicial() = valor
@@ -133,7 +113,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 	// inicializar con (claseDeCombate, valor, especialidad, baraja)
 	const especialidad // objeto de especialidad
-	const imagenEspecialidad = new Imagenes(imagen = especialidad.obtenerImagen())
+	const imagenEspecialidad = new Imagen(imagen = especialidad.obtenerImagen())
 
 	method especialidad() = especialidad
 
@@ -162,7 +142,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
-	const imagenNumeroHeroe = new Imagenes(imagen = "assets/numeroHeroe.png")
+	const imagenNumeroHeroe = new Imagen(imagen = "assets/numeroHeroe.png")
 
 	override method modificarPuntajeA(num) {
 	}
@@ -186,10 +166,9 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
 class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
-//esto de la imagen solo funciona si hay una de cada clima unicamente
 	const tipoDeClima
 	const filasDeEfecto = tipoDeClima.filasDeEfecto()
-	const imagenTipoClima = new Imagenes(imagen = "assets/" + tipoDeClima.nombre() + ".png")
+	const imagenTipoClima = new Imagen(imagen = "assets/" + tipoDeClima.nombre() + ".png")
 
 	method tipoDeClima() = tipoDeClima
 
@@ -225,15 +204,6 @@ class CartaLider inherits Carta(tipoDeCarta = cartaLider) {
 
 }
 
-// Especialidades
-//class especialidad {
-//	const imagen 
-//
-//	method obtenerImagen() = imagen
-//
-//	method aplicar() {
-//	}
-//}
 object medico {
 
 	const imagen = "assets/medico.png"
