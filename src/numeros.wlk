@@ -3,9 +3,9 @@ import wollok.game.*
 class Numero {
 
 	var numero
-	var posX = 0
-	var posY = 0
-	var color = "000000FF"
+	var posEnX = 0
+	var posEnY = 0
+	var property color = "000000FF"
 
 	method text() = numero.toString()
 
@@ -15,11 +15,11 @@ class Numero {
 		numero = nuevoNumero
 	}
 
-	method position() = game.at(posX, posY)
+	method position() = game.at(posEnX, posEnY)
 
 	method actualizarPosicion(x, y) {
-		posX = x
-		posY = y
+		posEnX = x
+		posEnY = y
 	}
 
 	method esconder() {

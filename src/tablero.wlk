@@ -10,8 +10,8 @@ object tablero {
 
 	const jugadores = new Dictionary()
 
-	method establecerBandoJugador(faccion, jugador) {
-		jugadores.put(faccion, jugador)
+	method establecerBandoJugador(faccion, elJugador) {
+		jugadores.put(faccion, elJugador)
 	}
 
 	method mostrar(barajaJugador, barajaRival) {
@@ -25,6 +25,9 @@ object tablero {
 		game.addVisual(filaCartaLiderRival)
 		game.addVisual(filaCartaLiderJugador)
 		self.asignarLideres(barajaJugador, barajaRival)
+			// MOSTAR FILA CARTAS DESCARTADAS
+		game.addVisual(filaDescartadosJugador)
+		game.addVisual(filaDescartadosRival)
 			// MOSTRAR SECCION DATOS
 		seccionDatosJugador.mostrar()
 		seccionDatosRival.mostrar()
@@ -51,7 +54,8 @@ object tablero {
 
 	method jugarCarta(carta) {
 		const elJugador = jugadores.get(carta.faccion())
-		elJugador.filaParaCarta(carta).insertarCarta(carta)
+		elJugador.jugarCarta(carta)
+//		elJugador.filaParaCarta(carta).insertarCarta(carta)
 			// se podria tambien prescindir del booleano tieneEfecto()
 			// y dejar efectos vacios
 		if (carta.tieneEfecto()) {
@@ -59,8 +63,14 @@ object tablero {
 		}
 	}
 
+	method descartarCarta(carta) {
+		const elJugador = jugadores.get(carta.faccion())
+		elJugador.descartarCarta(carta)
+//		elJugador.filaParaCarta(carta).insertarCarta(carta)
+	}
+
 	method repartirManoInicial() {
-		jugadores.forEach({ faccion , jugador => jugador.asignarCartas(10)})
+		jugadores.forEach({ faccion , elJugador => elJugador.asignarCartas(10)})
 	}
 
 	method sacarCartaPara(faccion) {
@@ -93,18 +103,18 @@ object contador {
 class Fila {
 
 	const cartas = new List()
-	var property pos_x = 55
-	var property pos_y = 0
-	var property pos_y_carta = pos_y
+	var property posEnX = 55
+	var property posEnY = 0
+	var property posEnYCarta = posEnY
 	const centroFila = 90 / 2 - 2
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method mostrar() {
 		if (!cartas.isEmpty()) {
 			const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
 			contador.contador(posicionPrimeraCarta)
-			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(pos_x), pos_y_carta)})
+			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(posEnX), posEnYCarta)})
 			cartas.forEach({ carta => carta.mostrar()})
 		}
 	}
@@ -119,13 +129,14 @@ class Fila {
 	method removerCarta(unaCarta) {
 		unaCarta.esconder()
 		cartas.remove(unaCarta)
+		tablero.descartarCarta(unaCarta)
 	}
 
 	method vaciarFila() {
 		cartas.forEach({ carta => self.removerCarta(carta)})
 	}
 
-	method calcularAbscisaDeCarta(fila_x) = (fila_x - 6) + contador.contar(8)
+	method calcularAbscisaDeCarta(filaEnX) = (filaEnX - 6) + contador.contar(8)
 
 	method cantidadCartas() = cartas.size()
 
@@ -138,7 +149,7 @@ class FilaDeCombate inherits Fila {
 	const claseDeCombate
 	var property climaExtremo = false
 	const imagenPuntajeFila
-	const puntajeFila = new PuntajeFila(pos_y = pos_y + 4, imagen = imagenPuntajeFila)
+	const puntajeFila = new PuntajeFila(posEnY = posEnY + 4, imagen = imagenPuntajeFila)
 
 	method image() = "assets/FC-002.png"
 
@@ -183,16 +194,25 @@ class FilaDeCombate inherits Fila {
 
 }
 
-object filaCartasClima inherits Fila(cartas = new Set(), pos_x = 11, pos_y = 42, pos_y_carta = 43, centroFila = 26 / 2 - 2) {
+object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43, centroFila = 26 / 2 - 2) {
 
 	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
 
-//	override method removerCarta(cartaClima) {
-//	// sacar los efectos
-//	}
+	override method insertarCarta(unaCarta) {
+		const cartasEnFila = cartas.map({ carta => carta.tipoDeClima() })
+		if (!cartasEnFila.contains(unaCarta.tipoDeClima())) {
+			super(unaCarta)
+		}
+	}
+
+	override method removerCarta(cartaClima) {
+		cartaClima.esconder()
+		cartas.remove(cartaClima)
+	}
+
 }
 
-object filaCartasJugador inherits Fila(pos_y = 4) {
+object filaCartasJugador inherits Fila(posEnY = 4) {
 
 	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
 
@@ -236,9 +256,25 @@ object filaCartasRival inherits Fila {
 
 }
 
-class FilaCartaLider inherits Fila(cartas = new Set(), pos_x = 11, centroFila = 10 / 2 - 2) {
+class FilaCartaLider inherits Fila(cartas = new Set(), posEnX = 11, centroFila = 10 / 2 - 2) {
 
 	method image() = "assets/FCL-001.png"
+
+}
+
+class FilaCartasDescartadas inherits Fila(centroFila = 10 / 2 - 2) {
+
+	const cantidadDeCartas = new Numero(numero = 0)
+
+	method image() = "assets/FCL-001.png" // es el fondo
+
+	override method mostrar() {
+		if (!cartas.isEmpty()) {
+			cartas.last().actualizarPosicion(posEnX, posEnY)
+			cartas.last().mostrar()
+		}
+		cantidadDeCartas.modificarNumero(self.cantidadCartas())
+	}
 
 }
 
@@ -259,10 +295,10 @@ class Gema inherits Imagen (imagen = "assets/gema.png") {
 
 class SeccionDatos {
 
-	const pos_x = 4
-	const pos_y
-	const gema1 = new Gema(posx = pos_x + 24, posy = pos_y + 4)
-	const gema2 = new Gema(posx = pos_x + 28, posy = pos_y + 4)
+	const posEnX = 4
+	const posEnY
+	const gema1 = new Gema(posEnX = posEnX + 24, posEnY = posEnY + 4)
+	const gema2 = new Gema(posEnX = posEnX + 28, posEnY = posEnY + 4)
 	const filaCartas
 	var cartasJugablesRestantes = 0
 	const numeroCartasRestantes = new Numero(numero = cartasJugablesRestantes.toString(), color = "F2F2D9FF")
@@ -270,14 +306,14 @@ class SeccionDatos {
 
 	method image() = "assets/FP-001.png"
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method mostrar() {
 		game.addVisual(self)
 		gema1.mostrar()
 		gema2.mostrar()
 		self.cartasJugablesRestantes()
-		game.addVisualIn(numeroCartasRestantes, game.at(pos_x + 18, pos_y + 2))
+		game.addVisualIn(numeroCartasRestantes, game.at(posEnX + 18, posEnY + 2))
 	}
 
 	method cartasJugablesRestantes() {
@@ -304,20 +340,20 @@ class SeccionDatos {
 
 class PuntajeFila {
 
-	const pos_x = 50
-	const pos_y
+	const posEnX = 50
+	const posEnY
 	var property puntajeTotalFila = 0
 	const imagen
 	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method image() = imagen
 
 	method mostrar() {
 		if (!game.hasVisual(self)) {
 			game.addVisual(self)
-			game.addVisualIn(numeroPuntaje, game.at(pos_x - 1, pos_y - 1))
+			game.addVisualIn(numeroPuntaje, game.at(posEnX - 1, posEnY - 1))
 		}
 	}
 
@@ -337,20 +373,20 @@ class PuntajeFila {
 
 class PuntajeTotal {
 
-	const pos_x = 40
-	const pos_y
+	const posEnX = 40
+	const posEnY
 	const filasDeCombate
 	var property puntajeTotal = 0
 	const imagen
 	const numeroPuntaje = new Numero(numero = puntajeTotal.toString())
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method image() = imagen
 
 	method mostrar() {
 		game.addVisual(self)
-		game.addVisualIn(numeroPuntaje, game.at(pos_x, pos_y))
+		game.addVisualIn(numeroPuntaje, game.at(posEnX, posEnY))
 	}
 
 	method actualizarPuntajeTotal() {
@@ -360,7 +396,7 @@ class PuntajeTotal {
 
 }
 
-class Mensajes inherits Imagen (posx = 0, posy = 42) {
+class Mensajes inherits Imagen (posEnX = 0, posEnY = 42) {
 
 	method llamarMensaje() {
 		game.addVisual(self)
@@ -369,7 +405,7 @@ class Mensajes inherits Imagen (posx = 0, posy = 42) {
 
 }
 
-class MensajesFinPartida inherits Imagen (posx = 20, posy = 10) {
+class MensajesFinPartida inherits Imagen (posEnX = 20, posEnY = 10) {
 
 	method llamarMensaje() {
 		game.addVisual(self)
@@ -379,15 +415,15 @@ class MensajesFinPartida inherits Imagen (posx = 20, posy = 10) {
 
 object pasarDeRonda {
 
-	const pos_x = 136
-	const pos_y = -1
+	const posEnX = 136
+	const posEnY = -1
 
 	method text() = "Pasar de ronda (r)"
 
 	method textColor() = "F2F2D9FF"
 
 	method mostrarYagregarListener() {
-		game.addVisualIn(self, game.at(pos_x, pos_y))
+		game.addVisualIn(self, game.at(posEnX, posEnY))
 		keyboard.r().onPressDo{ self.pasarRonda()}
 	}
 

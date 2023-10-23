@@ -19,7 +19,7 @@ class Selector {
 	// posicion segun el objeto a seleccionar
 	method obtenerPosicionItem(itemIndex) {
 		const item = items.get(itemIndex)
-		return game.at(item.pos_x(), item.pos_y())
+		return game.at(item.posEnX(), item.posEnY())
 	}
 
 	// mostrar / actualizar

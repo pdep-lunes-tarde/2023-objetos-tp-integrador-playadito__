@@ -6,7 +6,7 @@ import constantes.*
 
 class Faccion inherits Tipo {
 
-	method imagen() = "assets/" + nombre + ".png"
+	method imagen() = "assets/" + self.nombre() + ".png"
 
 }
 
@@ -26,14 +26,14 @@ class Baraja {
 	// mazo de cartas
 	const mazo = mazoDeCartas.generar(faccion, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
 	const manoCartas = new List()
-	var property pos_x = 0
-	var property pos_y = 0
+	var property posEnX = 0
+	var property posEnY = 0
 	var property cantidadEnMazo = 40
 	const numeroPuntaje = new Numero(numero = cantidadEnMazo)
 
 	method image() = faccion.imagen()
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method faccion() = faccion
 
@@ -57,8 +57,8 @@ class Baraja {
 	}
 
 	method actualizarPosicion(x, y) {
-		self.pos_x(x)
-		self.pos_y(y)
+		self.posEnX(x)
+		self.posEnY(y)
 		numeroPuntaje.actualizarPosicion(x + 1, y - 1)
 	}
 

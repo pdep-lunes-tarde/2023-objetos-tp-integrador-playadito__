@@ -1,6 +1,12 @@
 import tablero.*
 import cartas.*
 import baraja.*
+import jugador.*
+
+// ///////////////////////////// JUGADORES /////////////////////////////
+const jugador = new Jugador(elRival = rival, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador)
+
+const rival = new Jugador(elRival = jugador, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival)
 
 // ///////////////////////////// TIPOS /////////////////////////////
 const imperioNiffgardiano = new Faccion(nombre = "imperio-niffgardiano")
@@ -47,28 +53,32 @@ const foltest = new CartaLider(faccion = reinosDelNorte)
 const francescaFindabair = new CartaLider(faccion = scoiatael)
 
 // ///////////////////////////// FILAS /////////////////////////////
-const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, pos_y = 18, imagenPuntajeFila = "assets/PJ-01.png")
+const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, posEnY = 18, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaArqueroJugador = new FilaDeCombate(claseDeCombate = claseArquera, pos_y = 30, imagenPuntajeFila = "assets/PJ-01.png")
+const filaArqueroJugador = new FilaDeCombate(claseDeCombate = claseArquera, posEnY = 30, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaInfanteJugador = new FilaDeCombate(claseDeCombate = claseInfante, pos_y = 42, imagenPuntajeFila = "assets/PJ-01.png")
+const filaInfanteJugador = new FilaDeCombate(claseDeCombate = claseInfante, posEnY = 42, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaAsedioRival = new FilaDeCombate(claseDeCombate = claseAsedio, pos_y = 80, imagenPuntajeFila = "assets/PR-01.png")
+const filaAsedioRival = new FilaDeCombate(claseDeCombate = claseAsedio, posEnY = 80, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, pos_y = 68, imagenPuntajeFila = "assets/PR-01.png")
+const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, posEnY = 68, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, pos_y = 56, imagenPuntajeFila = "assets/PR-01.png")
+const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, posEnY = 56, imagenPuntajeFila = "assets/PR-01.png")
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
-const filaCartaLiderRival = new FilaCartaLider(pos_y = 79, pos_y_carta = 80)
+const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5)
 
-const filaCartaLiderJugador = new FilaCartaLider(pos_y = 4, pos_y_carta = 5)
+const filaCartaLiderRival = new FilaCartaLider(posEnY = 79, posEnYCarta = 80)
+
+const filaDescartadosJugador = new FilaCartasDescartadas(posEnX = 159, posEnY = 4)
+
+const filaDescartadosRival = new FilaCartasDescartadas(posEnX = 159, posEnY = 79)
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
-const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], pos_y = 28, imagen = "assets/PJ-02.png")
+const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], posEnY = 28, imagen = "assets/PJ-02.png")
 
-const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], pos_y = 64, imagen = "assets/PR-02.png")
+const puntajeTotalRival = new PuntajeTotal(filasDeCombate = [ filaAsedioRival, filaArqueroRival, filaInfanteRival ], posEnY = 64, imagen = "assets/PR-02.png")
 
 // ///////////////////////////// BARAJAS /////////////////////////////
 const barajaImpNiffg = new Baraja(faccion = imperioNiffgardiano, lider = emhyrVarEmreis, cantInfanteUnidad = 6, cantInfanteHeroe = 3, cantArqueroUnidad = 5, cantArqueroHeroe = 4, cantAsedioUnidad = 7, cantAsedioHeroe = 5, climaExtra = niebla)
@@ -93,7 +103,7 @@ const imagenPartidaGanada = new MensajesFinPartida(imagen = "assets/message-vict
 const imagenPartidaPerdida = new MensajesFinPartida(imagen = "assets/message-fracaso.png")
 
 ///////////////////////////// SECCION DATOS /////////////////////////////
-const seccionDatosJugador = new SeccionDatos(pos_y = 25, filaCartas = filaCartasJugador)
+const seccionDatosJugador = new SeccionDatos(posEnY = 25, filaCartas = filaCartasJugador)
 
-const seccionDatosRival = new SeccionDatos(pos_y = 61, filaCartas = filaCartasRival)
+const seccionDatosRival = new SeccionDatos(posEnY = 61, filaCartas = filaCartasRival)
 

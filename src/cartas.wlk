@@ -34,10 +34,10 @@ class Carta {
 	// 110px(11 celdas)
 	const tipoDeCarta
 	const faccion
-	var property pos_x = 0
-	var property pos_y = 0
+	var property posEnX = 0
+	var property posEnY = 0
 
-	method position() = game.at(pos_x, pos_y)
+	method position() = game.at(posEnX, posEnY)
 
 	method image() = faccion.imagen()
 
@@ -61,8 +61,8 @@ class Carta {
 	}
 
 	method actualizarPosicion(x, y) {
-		self.pos_x(x)
-		self.pos_y(y)
+		self.posEnX(x)
+		self.posEnY(y)
 	}
 
 }
@@ -193,6 +193,7 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 		// se podria meter alguna img aca
 		if (tipoDeClima.equals(buenTiempo)) {
 			filasDeEfecto.forEach({ fila => fila.diaDespejado()})
+			filaCartasClima.vaciarFila()
 		} else {
 			filasDeEfecto.forEach({ fila => fila.tiempoFeo()})
 		}

@@ -11,6 +11,7 @@ import constantes.*
  * - arreglar selector 
  * 		- coexisten listeners y reacionan a mismas instrucciones: menu y juego
  * 		- error cuando se selecciona la ultima carta de la fila
+ * - revisar objeto partida y como se arranca, hay muchas cosas que se pueden simplificar
  * - revisar codigo (y refactorizar en caso de ser necesario):
  * 		- logica repetida
  * 		- faltas de encapsulamiento
@@ -19,20 +20,16 @@ import constantes.*
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
- * - LISTO repensar relacion: CARTA - BARAJA - MAZO
- * - implementar los aplicarEfecto(); clima y especialidad (tienen que ser polimorficas)
+ * - implementar los aplicarEfecto() de  especialidad
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
  * 
  * (visual)
- * - LISTO  icono de clima buen tiempo
- * - LISTO  (medio fea)icono carta heroe (en lo posible)
+ * - imagen particular para carta lider
  * 
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
- * - LISTO repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
- * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
  * - ERROR arreglar problemas multiples luego de pasar de ronda
  * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
  * - implementar seccion cartas descartadas
@@ -43,11 +40,7 @@ import constantes.*
  * 
  * 
  * (visual)
- * - LISTO  recalcular las posiciones de las cartas respecto de las filas (estan semi-corridas)
- * - display de info de jugadores: 
- * 	LISTO 	- gemas(2 para cada jugador)
- * 	LISTO 	- cartas jugables restantess
- * - LISTO  carteles de fin de ronda, fin de partida, paso de mano
+ * - recalcular posicion de cartas descartadas, de nuevo, esta corrido
  * 
  * ///////////////////////////// OTRO /////////////////////////////
  * 
@@ -77,12 +70,8 @@ object partida {
 	method start(barajaSeleccionado) {
 		self.barajaJugador(barajaSeleccionado)
 		self.barajaRival(self.asignarBarajaRandom())
-			// crear los jugadores
-			// asignarselos al tablero
-		const jugador = new Jugador(baraja = barajaJugador, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ])
-		const rival = new Jugador(baraja = barajaRival, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ])
-		jugador.asignarRival(rival)
-		rival.asignarRival(jugador)
+		jugador.asignarBaraja(barajaJugador)
+		rival.asignarBaraja(barajaRival)
 		tablero.establecerBandoJugador(barajaJugador.faccion(), jugador)
 		tablero.establecerBandoJugador(barajaRival.faccion(), rival)
 		self.comenzarRonda()
@@ -99,11 +88,6 @@ object partida {
 		if (ronda == 1) {
 			tablero.repartirManoInicial()
 			tablero.mostrar(barajaJugador, barajaRival)
-		} else {
-			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()
-			filaCartasJugador.establecerManoDeCartas(cartasSobrantesRondaAnterior)
-			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 		}
 		tablero.resetearTablero()
 	}
