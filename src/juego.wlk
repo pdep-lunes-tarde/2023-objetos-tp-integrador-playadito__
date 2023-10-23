@@ -23,6 +23,7 @@ import constantes.*
  * - implementar los aplicarEfecto(); clima y especialidad (tienen que ser polimorficas)
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
+ * - ERROR el efecto de las cartas clima no se elimina a pesar de haber pasado la ronda
  * 
  * (visual)
  * - LISTO  icono de clima buen tiempo
@@ -33,13 +34,14 @@ import constantes.*
  * (logica)
  * - LISTO repensar relacion de los objetos: TABLERO - JUGADOR - FILAS DE JUEGO - FILA DE CARTAS - PUNTAJE
  * - arreglar juego de carta clima (se puede jugar multiples cartas de un mismo clima)
- * - ERROR arreglar problemas multiples luego de pasar de ronda
- * - implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
+ * - LISTO ERROR arreglar problemas multiples luego de pasar de ronda
+ * - LISTO implementar de informacion de cada jugador (numero de cartas restantes y rondas perdidas)
  * - implementar seccion cartas descartadas
- * - implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
+ * - LISTO implementar chequeo de fin de ronda (cuando alguien se queda sin cartas)
+ * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
  * - ver si es mejor seccion de datos crearla como global o dentro del jugador
  * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
- * - ERROR ver fin de partida
+ * - LISTO ERROR ver fin de partida
  * 
  * 
  * (visual)
@@ -113,7 +115,7 @@ object partida {
 		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
 		ronda++
-		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida())and !(seccionDatosJugador.noTieneCartas())and !(seccionDatosRival.noTieneCartas())) {
+		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida()) and !(seccionDatosJugador.noTieneCartas()) and !(seccionDatosRival.noTieneCartas())) {
 			game.schedule(2000, { => self.comenzarRonda()})
 		} else {
 			self.finDePartida()
@@ -133,7 +135,11 @@ object partida {
 	method finDePartida() {
 		if (seccionDatosRival.perdioPartida()) {
 			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
-		} else {
+		} else if (seccionDatosJugador.perdioPartida()) {
+			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+		} else if (seccionDatosRival.noTieneCartas()) {
+			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+		} else if (seccionDatosJugador.noTieneCartas()) {
 			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
 		}
 	}

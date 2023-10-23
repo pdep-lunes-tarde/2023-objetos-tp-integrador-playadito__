@@ -373,7 +373,7 @@ class Mensajes inherits Imagenes (posx = 0, posy = 42) {
 
 }
 
-class MensajesFinPartida inherits Imagenes (posx = 20, posy = 10) {
+class MensajesFinPartida inherits Imagenes (posx = 50, posy = 10) {
 
 	method llamarMensaje() {
 		game.addVisual(self)
