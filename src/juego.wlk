@@ -99,12 +99,13 @@ object partida {
 		if (ronda == 1) {
 			tablero.repartirManoInicial()
 			tablero.mostrar(barajaJugador, barajaRival)
-		} else {
-			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()
-			filaCartasJugador.establecerManoDeCartas(cartasSobrantesRondaAnterior)
-			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
-			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
 		}
+//		else {
+//			var cartasSobrantesRondaAnterior = filaCartasJugador.listaCartas()
+//			filaCartasJugador.establecerManoDeCartas(cartasSobrantesRondaAnterior)
+//			cartasSobrantesRondaAnterior = filaCartasRival.listaCartas()
+//			filaCartasRival.establecerManoDeCartas(cartasSobrantesRondaAnterior)
+//		}
 		tablero.resetearTablero()
 	}
 
@@ -112,7 +113,7 @@ object partida {
 		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
 		ronda++
-		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida())) {
+		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida())and !(seccionDatosJugador.noTieneCartas())and !(seccionDatosRival.noTieneCartas())) {
 			game.schedule(2000, { => self.comenzarRonda()})
 		} else {
 			self.finDePartida()

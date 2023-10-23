@@ -231,6 +231,9 @@ object filaCartasRival inherits Fila {
 		tablero.jugarCarta(carta)
 		cartas.remove(carta)
 		seccionDatosRival.cartasJugablesRestantes()
+		if (seccionDatosRival.noTieneCartas() or seccionDatosJugador.noTieneCartas()) {
+			partida.finalizarRonda()
+		}
 	}
 
 }
@@ -293,7 +296,9 @@ class SeccionDatos {
 		}
 	}
 
-	method perdioPartida() = rondasPerdidas === 2 or cartasJugablesRestantes === 0
+	method perdioPartida() = rondasPerdidas === 2
+
+	method noTieneCartas() = cartasJugablesRestantes === 0
 
 	method faccionJugador() {
 	// implementar
@@ -387,13 +392,18 @@ object pasarDeRonda {
 
 	method mostrarYagregarListener() {
 		game.addVisualIn(self, game.at(pos_x, pos_y))
-		keyboard.r().onPressDo{ self.pasarRonda()}
+		keyboard.r().onPressDo{ self.pasarRondaJugador()}
 	}
 
-	method pasarRonda() {
-		imagenRondaPasada.llamarMensaje()
+	method pasarRondaJugador() {
+		imagenRondaPasadaJugador.llamarMensaje()
 		game.schedule(1000, {=> filaCartasRival.jugarCarta()})
 		game.schedule(2700, {=> partida.finalizarRonda()})
+	}
+
+	method pasarRondaRival() {
+		imagenRondaPasadaRival.llamarMensaje()
+		game.schedule(1700, {=> partida.finalizarRonda()})
 	}
 
 }
