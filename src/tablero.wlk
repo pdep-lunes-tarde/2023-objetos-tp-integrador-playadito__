@@ -265,7 +265,7 @@ class FilaCartaLider inherits Fila(cartas = new Set(), posEnX = 11, centroFila =
 
 }
 
-class FilaCartasDescartadas inherits Fila(centroFila = 10 / 2 - 2) {
+class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2) {
 
 	const cantidadDeCartas = new Numero(numero = 0)
 
