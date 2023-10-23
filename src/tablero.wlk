@@ -28,6 +28,8 @@ object tablero {
 			// MOSTAR FILA CARTAS DESCARTADAS
 		game.addVisual(filaDescartadosJugador)
 		game.addVisual(filaDescartadosRival)
+//		filaDescartadosJugador.mostrar()
+//		filaDescartadosRival.mostrar()
 			// MOSTRAR SECCION DATOS
 		seccionDatosJugador.mostrar()
 		seccionDatosRival.mostrar()
@@ -267,16 +269,17 @@ class FilaCartaLider inherits Fila(cartas = new Set(), posEnX = 11, centroFila =
 
 class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2) {
 
-	const cantidadDeCartas = new Numero(numero = 0)
+	const numeroDescartadas = new Numero(numero = 0)
 
 	method image() = "assets/FCL-001.png" // es el fondo
 
 	override method mostrar() {
 		if (!cartas.isEmpty()) {
-			cartas.last().actualizarPosicion(posEnX, posEnY)
+			//game.addVisual(numeroDescartadas)
+			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
 			cartas.last().mostrar()
 		}
-		cantidadDeCartas.modificarNumero(self.cantidadCartas())
+		numeroDescartadas.modificarNumero(self.cantidadCartas())
 	}
 
 }

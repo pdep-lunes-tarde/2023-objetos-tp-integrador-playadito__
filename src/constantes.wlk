@@ -71,9 +71,9 @@ const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5)
 
 const filaCartaLiderRival = new FilaCartaLider(posEnY = 79, posEnYCarta = 80)
 
-const filaDescartadosJugador = new FilaCartasDescartadas(posEnY = 30, posEnYCarta = 31)
+const filaDescartadosJugador = new FilaCartasDescartadas(posEnY = 29, posEnYCarta = 30)
 
-const filaDescartadosRival = new FilaCartasDescartadas(posEnY = 68, posEnYCarta = 69)
+const filaDescartadosRival = new FilaCartasDescartadas(posEnY = 67, posEnYCarta = 68)
 
 // ///////////////////////////// PUNTAJES /////////////////////////////
 const puntajeTotalJugador = new PuntajeTotal(filasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador ], posEnY = 28, imagen = "assets/PJ-02.png")
