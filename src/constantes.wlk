@@ -5,9 +5,9 @@ import jugador.*
 import mensaje.*
 
 // ///////////////////////////// JUGADORES /////////////////////////////
-const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, seccionDeDatos = seccionDatosJugador, puntajeTotal = puntajeTotalJugador)
+const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador)
 
-const rival = new Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, seccionDeDatos = seccionDatosRival, puntajeTotal = puntajeTotalRival)
+const rival = new Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, puntajeTotal = puntajeTotalRival)
 
 // ///////////////////////////// TIPOS /////////////////////////////
 const imperioNiffgardiano = new Faccion(nombre = "imperio-niffgardiano")
@@ -105,7 +105,7 @@ const imagenPartidaGanada = new MensajeFinPartida(imagen = "assets/message-victo
 const imagenPartidaPerdida = new MensajeFinPartida(imagen = "assets/message-fracaso.png")
 
 ///////////////////////////// SECCION DATOS /////////////////////////////
-const seccionDatosJugador = new SeccionDatos(posEnY = 25, filaCartas = filaCartasJugador)
+const seccionDatosJugador = new SeccionDatos(posEnY = 25, elJugador = jugador)
 
-const seccionDatosRival = new SeccionDatos(posEnY = 61, filaCartas = filaCartasRival)
+const seccionDatosRival = new SeccionDatos(posEnY = 61, elJugador = rival)
 

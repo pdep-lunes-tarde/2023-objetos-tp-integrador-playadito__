@@ -8,11 +8,8 @@ import constantes.*
 
 object tablero {
 
-	// deberia conocer o contener a seccion de datos
-	// hace falta un "actualizar tablero" o algo que gatille la actualizacion de seccion de datos
-	// objeto partida le va  amandar el msj, tablero.actualizar()
-	// ya c q esta el resetar, pero son lo mismo
 	const jugadores = new Dictionary()
+	var property esTurnoDelRival = false
 
 	method establecerBandoJugador(faccion, elJugador) {
 		jugadores.put(faccion, elJugador)
@@ -22,6 +19,8 @@ object tablero {
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
 		pasarDeRonda.mostrarYagregarListener()
+		seccionDatosJugador.mostrar()
+		seccionDatosRival.mostrar()
 			// ver si se puede obtener de jugador, para que el metodo no 
 			// necesite recibir parametros
 		barajaJugador.actualizarPosicion(159, 30)
@@ -32,9 +31,17 @@ object tablero {
 	method resetearTablero() {
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
+		self.actualizarDatosJugadores()
+	}
+
+	method actualizarDatosJugadores() {
+		seccionDatosJugador.actualizarInfo()
+		seccionDatosRival.actualizarInfo()
 	}
 
 	method rivalJuega() {
+		game.schedule(700, { => filaCartasRival.jugarCarta()})
+		game.schedule(1200, { => imagenTurno.llamarMensaje()})
 	}
 
 	method jugarCarta(carta) {
@@ -42,6 +49,10 @@ object tablero {
 		elJugador.jugarCarta(carta)
 		if (carta.tieneEfecto()) {
 			carta.aplicarEfecto()
+		}
+			// ver que tan buena es esta solucion
+		if (esTurnoDelRival) {
+			self.rivalJuega()
 		}
 	}
 
@@ -201,14 +212,10 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
+		tablero.esTurnoDelRival(true)
 		tablero.jugarCarta(cartaElegida)
 		cartas.remove(cartaElegida)
-		seccionDatosJugador.cartasJugablesRestantes()
-			// temporal, tendria q ir en tablero
-			// /////////
-		game.schedule(700, { => filaCartasRival.jugarCarta()})
-		game.schedule(1200, { => imagenTurno.llamarMensaje()})
-			// ver mejor lugar donde ponerlo
+		seccionDatosJugador.actualizarInfo()
 		self.mostrar()
 	}
 
@@ -221,14 +228,14 @@ object filaCartasRival inherits Fila {
 	}
 
 	method jugarCarta() {
-		const carta = cartas.anyOne()
-		tablero.jugarCarta(carta)
-		cartas.remove(carta)
-			// /////
-			// /////
-		seccionDatosRival.cartasJugablesRestantes()
-		if (seccionDatosRival.noTieneCartas() or seccionDatosJugador.noTieneCartas()) {
-			partida.finalizarRonda()
+		if (cartas.isEmpty()) {
+			pasarDeRonda.pasarRondaRival()
+		} else {
+			const carta = cartas.anyOne()
+			tablero.esTurnoDelRival(false)
+			tablero.jugarCarta(carta)
+			cartas.remove(carta)
+			seccionDatosRival.actualizarInfo()
 		}
 	}
 
@@ -271,7 +278,7 @@ class Gema inherits Imagen (imagen = "assets/gema.png") {
 
 }
 
-class SeccionDatos_ {
+class SeccionDatos {
 
 	const posEnX = 4
 	const posEnY
@@ -301,53 +308,6 @@ class SeccionDatos_ {
 	method actualizarInfo() {
 		self.manoDeCartasRestantes()
 		self.mostrarGemasSegunRondas()
-	}
-
-}
-
-class SeccionDatos {
-
-	const posEnX = 4
-	const posEnY
-	const gema1 = new Gema(posEnX = posEnX + 24, posEnY = posEnY + 4)
-	const gema2 = new Gema(posEnX = posEnX + 28, posEnY = posEnY + 4)
-	const filaCartas
-	var cartasJugablesRestantes = 0
-	const numeroCartasRestantes = new Numero(numero = cartasJugablesRestantes.toString(), color = "F2F2D9FF")
-	var property rondasPerdidas = 0
-
-	method image() = "assets/FP-001.png"
-
-	method position() = game.at(posEnX, posEnY)
-
-	method mostrar() {
-		game.addVisual(self)
-		gema1.mostrar()
-		gema2.mostrar()
-		self.cartasJugablesRestantes()
-		game.addVisualIn(numeroCartasRestantes, game.at(posEnX + 18, posEnY + 2))
-	}
-
-	method cartasJugablesRestantes() {
-		cartasJugablesRestantes = filaCartas.cantidadCartas()
-		numeroCartasRestantes.modificarNumero(cartasJugablesRestantes)
-	}
-
-	method perdioRonda() {
-		rondasPerdidas++
-		if (gema1.estado()) {
-			gema1.apagar()
-		} else if (gema2.estado()) {
-			gema2.apagar()
-		}
-	}
-
-	method perdioPartida() = rondasPerdidas === 2
-
-	method noTieneCartas() = cartasJugablesRestantes === 0
-
-	method faccionJugador() {
-	// implementar
 	}
 
 }

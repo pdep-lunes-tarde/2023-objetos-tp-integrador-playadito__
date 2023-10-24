@@ -12,7 +12,6 @@ class Jugador {
 	const filaCartaLider
 	const filasDeCombate
 	const cartasDescartadas
-	const seccionDeDatos
 	const puntajeTotal // es un objeto puntajeTotal
 	const filaClima = filaCartasClima
 
@@ -25,8 +24,6 @@ class Jugador {
 		filaCartaLider.mostrar()
 			// mostrar seccion cartas descartadas
 		game.addVisual(cartasDescartadas)
-			// mostrar seccion de datos
-		seccionDeDatos.mostrar()
 			// mostrar puntaje total
 		puntajeTotal.mostrar()
 			// mostrar baraja
@@ -47,6 +44,12 @@ class Jugador {
 	method repartirCartaLider() {
 		filaCartaLider.insertarCarta(laBaraja.lider())
 	}
+
+	method pierdeRonda() {
+		rondasPerdidas++
+	}
+
+	method perdioPartida() = rondasPerdidas == 2
 
 	method asignarCartas(numeroDeCartas) {
 		filaManoDeCartas.establecerManoDeCartas(laBaraja.obtenerCartas(numeroDeCartas))

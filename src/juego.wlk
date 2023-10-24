@@ -123,35 +123,46 @@ object partida {
 	method finalizarRonda() {
 		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
-		ronda++
-		if (ronda <= 4 and !(seccionDatosRival.perdioPartida()) and !(seccionDatosJugador.perdioPartida()) and !(seccionDatosJugador.noTieneCartas()) and !(seccionDatosRival.noTieneCartas())) {
-			game.schedule(2000, { => self.comenzarRonda()})
-		} else {
+		if (jugador.perdioPartida() or rival.perdioPartida()) {
 			self.finDePartida()
+		} else {
+			ronda++
+			game.schedule(2000, { => self.comenzarRonda()})
 		}
 	}
 
 	method ganadorRonda() {
-		if (puntajeTotalJugador.puntajeTotal() > puntajeTotalRival.puntajeTotal()) {
+		// codigo medio repetido (?
+		if (jugador.puntajeTotal() > rival.puntajeTotal()) {
+			rival.pierdeRonda()
+			game.schedule(1200, { => tablero.actualizarDatosJugadores()})
 			game.schedule(1200, { => imagenRondaGanada.llamarMensaje()})
-			game.schedule(1200, { => seccionDatosRival.perdioRonda()})
-		} else {
+		} else if (jugador.puntajeTotal() < rival.puntajeTotal()) {
+			jugador.pierdeRonda()
+			game.schedule(1200, { => tablero.actualizarDatosJugadores()})
 			game.schedule(1200, { => imagenRondaPerdida.llamarMensaje()})
-			game.schedule(1200, { => seccionDatosJugador.perdioRonda()})
+		} else {
+			// caso empate (pierden los dos)
+			rival.pierdeRonda()
+			jugador.pierdeRonda()
+			game.schedule(1200, { => tablero.actualizarDatosJugadores()})
+			game.schedule(1200, { => imagenRondaPerdida.llamarMensaje()})
 		}
 	}
 
 	method finDePartida() {
-		if (seccionDatosRival.perdioPartida()) {
-			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
-		} else if (seccionDatosJugador.perdioPartida()) {
-			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-		} else if (seccionDatosRival.noTieneCartas()) {
-			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
-		} else if (seccionDatosJugador.noTieneCartas()) {
-			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-		}
+		// ...
+		game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
 	}
 
 }
 
+//		if (seccionDatosRival.perdioPartida()) {
+//			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+//		} else if (seccionDatosJugador.perdioPartida()) {
+//			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+//		} else if (seccionDatosRival.noTieneCartas()) {
+//			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+//		} else if (seccionDatosJugador.noTieneCartas()) {
+//			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+//		}  
