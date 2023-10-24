@@ -192,6 +192,11 @@ object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43,
 		}
 	}
 
+	override method removerCarta(unaCarta) {
+		unaCarta.removerEfecto()
+		super(unaCarta)
+	}
+
 }
 
 object filaCartasJugador inherits Fila(posEnY = 4) {

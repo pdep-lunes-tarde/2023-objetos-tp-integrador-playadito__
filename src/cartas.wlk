@@ -192,11 +192,14 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 	method aplicarEfecto() {
 		// se podria meter alguna img aca
 		if (tipoDeClima.equals(buenTiempo)) {
-			filasDeEfecto.forEach({ fila => fila.diaDespejado()})
 			filaCartasClima.vaciarFila()
 		} else {
 			filasDeEfecto.forEach({ fila => fila.tiempoFeo()})
 		}
+	}
+
+	method removerEfecto() {
+		filasDeEfecto.forEach({ fila => fila.diaDespejado()})
 	}
 
 }
