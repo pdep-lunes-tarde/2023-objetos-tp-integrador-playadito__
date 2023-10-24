@@ -4,9 +4,9 @@ import baraja.*
 import jugador.*
 
 // ///////////////////////////// JUGADORES /////////////////////////////
-const jugador = new Jugador(elRival = rival, manoDeCartas = filaCartasJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador)
+const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, seccionDeDatos = seccionDatosJugador, puntajeTotal = puntajeTotalJugador)
 
-const rival = new Jugador(elRival = jugador, manoDeCartas = filaCartasRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival)
+const rival = new Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, seccionDeDatos = seccionDatosRival, puntajeTotal = puntajeTotalRival)
 
 // ///////////////////////////// TIPOS /////////////////////////////
 const imperioNiffgardiano = new Faccion(nombre = "imperio-niffgardiano")
@@ -65,8 +65,7 @@ const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, posEnY
 
 const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, posEnY = 56, imagenPuntajeFila = "assets/PR-01.png")
 
-const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
-
+//const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5)
 
 const filaCartaLiderRival = new FilaCartaLider(posEnY = 79, posEnYCarta = 80)

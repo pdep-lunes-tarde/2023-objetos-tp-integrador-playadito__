@@ -15,51 +15,24 @@ object tablero {
 	}
 
 	method mostrar(barajaJugador, barajaRival) {
-		// MOSTRAR FILAS DE COMBATE
-		lasFilasDeCombate.forEach({ filaCombate => game.addVisual(filaCombate)})
-		lasFilasDeCombate.forEach({ filaCombate => filaCombate.mostrar()})
-			// MOSTRAR FILA DE CARTAS CLIMA
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
-			// MOSTRAR FILA DE LIDERES Y SUS CARTAS
-		game.addVisual(filaCartaLiderRival)
-		game.addVisual(filaCartaLiderJugador)
-		self.asignarLideres(barajaJugador, barajaRival)
-			// MOSTAR FILA CARTAS DESCARTADAS
-		game.addVisual(filaDescartadosJugador)
-		game.addVisual(filaDescartadosRival)
-//		filaDescartadosJugador.mostrar()
-//		filaDescartadosRival.mostrar()
-			// MOSTRAR SECCION DATOS
-		seccionDatosJugador.mostrar()
-		seccionDatosRival.mostrar()
-			// MOSTRAR PUNTAJE TOTAL
-		puntajeTotalJugador.mostrar()
-		puntajeTotalRival.mostrar()
-			// pasar de ronda, ver si va aca, y asi o con addVisual de una
 		pasarDeRonda.mostrarYagregarListener()
 			// ver si se puede obtener de jugador, para que el metodo no 
 			// necesite recibir parametros
 		barajaJugador.actualizarPosicion(159, 30)
 		barajaRival.actualizarPosicion(159, 68)
-		barajaJugador.mostrar()
-		barajaRival.mostrar()
-			// MOSTRAR FILA CARTAS JUGABLES
-		game.addVisual(filaCartasJugador)
-		filaCartasJugador.mostrar()
+		jugadores.forEach({ faccion , elJugador => elJugador.mostrarComponentes()})
 	}
 
 	method resetearTablero() {
 		filaCartasClima.vaciarFila()
-		lasFilasDeCombate.forEach({ filaCombate => filaCombate.vaciarFila()})
+		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 	}
 
 	method jugarCarta(carta) {
 		const elJugador = jugadores.get(carta.faccion())
 		elJugador.jugarCarta(carta)
-//		elJugador.filaParaCarta(carta).insertarCarta(carta)
-			// se podria tambien prescindir del booleano tieneEfecto()
-			// y dejar efectos vacios
 		if (carta.tieneEfecto()) {
 			carta.aplicarEfecto()
 		}
@@ -68,10 +41,10 @@ object tablero {
 	method descartarCarta(carta) {
 		const elJugador = jugadores.get(carta.faccion())
 		elJugador.descartarCarta(carta)
-//		elJugador.filaParaCarta(carta).insertarCarta(carta)
 	}
 
 	method repartirManoInicial() {
+		jugadores.forEach({ faccion , elJugador => elJugador.repartirCartaLider()})
 		jugadores.forEach({ faccion , elJugador => elJugador.asignarCartas(10)})
 	}
 
@@ -79,11 +52,6 @@ object tablero {
 	}
 
 	method recuperarCartaPara(faccion) {
-	}
-
-	method asignarLideres(barajaJugador, barajaRival) {
-		filaCartaLiderJugador.insertarCarta(barajaJugador.lider())
-		filaCartaLiderRival.insertarCarta(barajaRival.lider())
 	}
 
 }
@@ -262,7 +230,7 @@ object filaCartasRival inherits Fila {
 
 }
 
-class FilaCartaLider inherits Fila(cartas = new Set(), posEnX = 11, centroFila = 10 / 2 - 2) {
+class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
 	method image() = "assets/FCL-001.png"
 
@@ -276,7 +244,6 @@ class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2)
 
 	override method mostrar() {
 		if (!cartas.isEmpty()) {
-			// game.addVisual(numeroDescartadas)
 			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
 			cartas.last().mostrar()
 		}

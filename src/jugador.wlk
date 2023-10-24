@@ -1,3 +1,4 @@
+import wollok.game.*
 import tablero.*
 import cartas.*
 import constantes.*
@@ -6,13 +7,46 @@ class Jugador {
 
 	var property laBaraja = null
 	const elRival
-	const manoDeCartas
+	const filaManoDeCartas
+	const filaCartaLider
 	const filasDeCombate
 	const cartasDescartadas
+	const seccionDeDatos
+	const puntajeTotal
 	const filaClima = filaCartasClima
+
+	method mostrarComponentes() {
+		// mostrar filas de combate
+		filasDeCombate.forEach({ filaCombate => game.addVisual(filaCombate)})
+		filasDeCombate.forEach({ filaCombate => filaCombate.mostrar()})
+			// mostrar seccion carta lider
+		game.addVisual(filaCartaLider)
+		filaCartaLider.mostrar()
+			// mostrar seccion cartas descartadas
+		game.addVisual(cartasDescartadas)
+			// mostrar seccion de datos
+		seccionDeDatos.mostrar()
+			// mostrar puntaje total
+		puntajeTotal.mostrar()
+			// mostrar baraja
+		laBaraja.mostrar()
+			// mostrar fila de cartas jugables solo del jugador
+		if (filaManoDeCartas.equals(filaCartasJugador)) {
+			game.addVisual(filaManoDeCartas)
+			filaManoDeCartas.mostrar()
+		}
+	}
 
 	method asignarBaraja(baraja) {
 		self.laBaraja(baraja)
+	}
+
+	method repartirCartaLider() {
+		filaCartaLider.insertarCarta(laBaraja.lider())
+	}
+
+	method asignarCartas(numeroDeCartas) {
+		filaManoDeCartas.establecerManoDeCartas(laBaraja.obtenerCartas(numeroDeCartas))
 	}
 
 	method jugarCarta(carta) {
@@ -21,6 +55,10 @@ class Jugador {
 
 	method descartarCarta(carta) {
 		cartasDescartadas.insertarCarta(carta)
+	}
+
+	method vaciarFilasDeCombate() {
+		filasDeCombate.forEach({ filaCombate => filaCombate.vaciarFila()})
 	}
 
 	method filaParaCarta(carta) {
@@ -36,10 +74,6 @@ class Jugador {
 	}
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
-
-	method asignarCartas(numeroDeCartas) {
-		manoDeCartas.establecerManoDeCartas(laBaraja.obtenerCartas(numeroDeCartas))
-	}
 
 }
 
