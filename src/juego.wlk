@@ -30,7 +30,7 @@ import constantes.*
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
- * - implementar seccion cartas descartadas
+ * - revisar el descartado de carta [tablero ln(41~44), ln(145)]
  * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
  * - ver si es mejor seccion de datos crearla como global o dentro del jugador
  * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
@@ -83,7 +83,6 @@ object juego {
 		keyboard.right().onPressDo{ self.seApretoDerecha()}
 		keyboard.enter().onPressDo{ self.seApretoSelect()}
 		menu.mostrarMenu()
-//		partida.start(imperioNiffgardiano)
 		game.start()
 	}
 
@@ -96,6 +95,7 @@ object partida {
 	var property ronda = 1
 
 	method start(barajaSeleccionado) {
+		// NO ESTA LIMPIO
 		self.barajaJugador(barajaSeleccionado)
 		self.barajaRival(self.asignarBarajaRandom())
 		jugador.asignarBaraja(barajaJugador)

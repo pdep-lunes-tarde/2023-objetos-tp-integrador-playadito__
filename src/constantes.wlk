@@ -2,6 +2,7 @@ import tablero.*
 import cartas.*
 import baraja.*
 import jugador.*
+import mensaje.*
 
 // ///////////////////////////// JUGADORES /////////////////////////////
 const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, seccionDeDatos = seccionDatosJugador, puntajeTotal = puntajeTotalJugador)
@@ -89,19 +90,19 @@ const barajaScoiatael = new Baraja(faccion = scoiatael, lider = francescaFindaba
 const lasBarajas = [ barajaImpNiffg, barajaReinosDelNorte, barajaScoiatael ]
 
 ////////////////////////////// MENSAJES /////////////////////////////////
-const imagenRondaPasadaJugador = new Mensajes(imagen = "assets/message-pasarRondaJugador.png")
+const imagenRondaPasadaJugador = new Mensaje(imagen = "assets/message-pasarRondaJugador.png")
 
-const imagenRondaPasadaRival = new Mensajes(imagen = "assets/message-pasarRondaRival.png")
+const imagenRondaPasadaRival = new Mensaje(imagen = "assets/message-pasarRondaRival.png")
 
-const imagenTurno = new Mensajes(imagen = "assets/message-turno.png")
+const imagenTurno = new Mensaje(imagen = "assets/message-turno.png")
 
-const imagenRondaPerdida = new Mensajes(imagen = "assets/message-rondaperdida.png")
+const imagenRondaPerdida = new Mensaje(imagen = "assets/message-rondaperdida.png")
 
-const imagenRondaGanada = new Mensajes(imagen = "assets/message-rondaganada.png")
+const imagenRondaGanada = new Mensaje(imagen = "assets/message-rondaganada.png")
 
-const imagenPartidaGanada = new MensajesFinPartida(imagen = "assets/message-victoria.png")
+const imagenPartidaGanada = new MensajeFinPartida(imagen = "assets/message-victoria.png")
 
-const imagenPartidaPerdida = new MensajesFinPartida(imagen = "assets/message-fracaso.png")
+const imagenPartidaPerdida = new MensajeFinPartida(imagen = "assets/message-fracaso.png")
 
 ///////////////////////////// SECCION DATOS /////////////////////////////
 const seccionDatosJugador = new SeccionDatos(posEnY = 25, filaCartas = filaCartasJugador)

@@ -2,7 +2,7 @@ import wollok.game.*
 
 class Imagen {
 
-	var imagen
+	var property imagen
 	var posEnX = 0
 	var posEnY = 0
 

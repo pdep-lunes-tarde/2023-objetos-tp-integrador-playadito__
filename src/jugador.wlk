@@ -6,13 +6,14 @@ import constantes.*
 class Jugador {
 
 	var property laBaraja = null
+	var property rondasPerdidas = 0
 	const elRival
 	const filaManoDeCartas
 	const filaCartaLider
 	const filasDeCombate
 	const cartasDescartadas
 	const seccionDeDatos
-	const puntajeTotal
+	const puntajeTotal // es un objeto puntajeTotal
 	const filaClima = filaCartasClima
 
 	method mostrarComponentes() {
@@ -41,6 +42,8 @@ class Jugador {
 		self.laBaraja(baraja)
 	}
 
+	method puntajeTotal() = puntajeTotal.puntajeTotal()
+
 	method repartirCartaLider() {
 		filaCartaLider.insertarCarta(laBaraja.lider())
 	}
@@ -48,6 +51,8 @@ class Jugador {
 	method asignarCartas(numeroDeCartas) {
 		filaManoDeCartas.establecerManoDeCartas(laBaraja.obtenerCartas(numeroDeCartas))
 	}
+
+	method cartasDeJuegosSobrantes() = filaManoDeCartas.cantidadCartas()
 
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)

@@ -8,6 +8,10 @@ import constantes.*
 
 object tablero {
 
+	// deberia conocer o contener a seccion de datos
+	// hace falta un "actualizar tablero" o algo que gatille la actualizacion de seccion de datos
+	// objeto partida le va  amandar el msj, tablero.actualizar()
+	// ya c q esta el resetar, pero son lo mismo
 	const jugadores = new Dictionary()
 
 	method establecerBandoJugador(faccion, elJugador) {
@@ -28,6 +32,9 @@ object tablero {
 	method resetearTablero() {
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
+	}
+
+	method rivalJuega() {
 	}
 
 	method jugarCarta(carta) {
@@ -99,7 +106,6 @@ class Fila {
 	method removerCarta(unaCarta) {
 		unaCarta.esconder()
 		cartas.remove(unaCarta)
-		tablero.descartarCarta(unaCarta)
 	}
 
 	method vaciarFila() {
@@ -141,9 +147,9 @@ class FilaDeCombate inherits Fila {
 	}
 
 	override method removerCarta(unaCarta) {
-		// para una fila de combate, remover deberia ser "descartar" y no simplemente eliminarlo de la fila
 		unaCarta.resetearPuntaje()
 		super(unaCarta)
+		tablero.descartarCarta(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
@@ -175,11 +181,6 @@ object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43,
 		}
 	}
 
-	override method removerCarta(cartaClima) {
-		cartaClima.esconder()
-		cartas.remove(cartaClima)
-	}
-
 }
 
 object filaCartasJugador inherits Fila(posEnY = 4) {
@@ -204,6 +205,7 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		cartas.remove(cartaElegida)
 		seccionDatosJugador.cartasJugablesRestantes()
 			// temporal, tendria q ir en tablero
+			// /////////
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
 		game.schedule(1200, { => imagenTurno.llamarMensaje()})
 			// ver mejor lugar donde ponerlo
@@ -222,6 +224,8 @@ object filaCartasRival inherits Fila {
 		const carta = cartas.anyOne()
 		tablero.jugarCarta(carta)
 		cartas.remove(carta)
+			// /////
+			// /////
 		seccionDatosRival.cartasJugablesRestantes()
 		if (seccionDatosRival.noTieneCartas() or seccionDatosJugador.noTieneCartas()) {
 			partida.finalizarRonda()
@@ -256,13 +260,47 @@ class Gema inherits Imagen (imagen = "assets/gema.png") {
 
 	var property estado = true
 
-	method rondaPerdida() {
-		estado = false
-		imagen = "assets/gemaPerdida.png"
+	method apagar() {
+		self.estado(false)
+		self.imagen("assets/gemaPerdida.png")
 	}
 
 	method mostrar() {
 		game.addVisual(self)
+	}
+
+}
+
+class SeccionDatos_ {
+
+	const posEnX = 4
+	const posEnY
+	const elJugador
+	const gemas = [ new Gema(posEnX = posEnX + 24, posEnY = posEnY + 4), new Gema(posEnX = posEnX + 28, posEnY = posEnY + 4) ]
+	const numeroCartasRestantes = new Numero(numero = 0, color = "F2F2D9FF")
+
+	method position() = game.at(posEnX, posEnY)
+
+	method image() = "assets/FP-001.png"
+
+	method mostrar() {
+		game.addVisual(self)
+		gemas.forEach({ gema => gema.mostrar()})
+		self.actualizarInfo()
+		game.addVisualIn(numeroCartasRestantes, game.at(posEnX + 18, posEnY + 2))
+	}
+
+	method manoDeCartasRestantes() {
+		numeroCartasRestantes.modificarNumero(elJugador.cartasDeJuegosSobrantes())
+	}
+
+	method mostrarGemasSegunRondas() {
+		elJugador.rondasPerdidas().times({ i => gemas.get(i - 1).apagar()})
+	}
+
+	method actualizarInfo() {
+		self.manoDeCartasRestantes()
+		self.mostrarGemasSegunRondas()
 	}
 
 }
@@ -298,9 +336,9 @@ class SeccionDatos {
 	method perdioRonda() {
 		rondasPerdidas++
 		if (gema1.estado()) {
-			gema1.rondaPerdida()
+			gema1.apagar()
 		} else if (gema2.estado()) {
-			gema2.rondaPerdida()
+			gema2.apagar()
 		}
 	}
 
@@ -320,7 +358,7 @@ class PuntajeFila {
 	const posEnY
 	var property puntajeTotalFila = 0
 	const imagen
-	const numeroPuntaje = new Numero(numero = puntajeTotalFila.toString())
+	const numeroPuntaje = new Numero(numero = puntajeTotalFila)
 
 	method position() = game.at(posEnX, posEnY)
 
@@ -354,7 +392,7 @@ class PuntajeTotal {
 	const filasDeCombate
 	var property puntajeTotal = 0
 	const imagen
-	const numeroPuntaje = new Numero(numero = puntajeTotal.toString())
+	const numeroPuntaje = new Numero(numero = puntajeTotal)
 
 	method position() = game.at(posEnX, posEnY)
 
@@ -368,23 +406,6 @@ class PuntajeTotal {
 	method actualizarPuntajeTotal() {
 		self.puntajeTotal(filasDeCombate.map({ fila => fila.puntajeDeFila()}).sum())
 		numeroPuntaje.modificarNumero(puntajeTotal)
-	}
-
-}
-
-class Mensajes inherits Imagen (posEnX = 0, posEnY = 42) {
-
-	method llamarMensaje() {
-		game.addVisual(self)
-		game.schedule(1000, {=> self.esconder()})
-	}
-
-}
-
-class MensajesFinPartida inherits Imagen (posEnX = 20, posEnY = 10) {
-
-	method llamarMensaje() {
-		game.addVisual(self)
 	}
 
 }
