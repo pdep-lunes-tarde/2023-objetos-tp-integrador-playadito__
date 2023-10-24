@@ -268,55 +268,6 @@ class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2)
 
 }
 
-class Gema inherits Imagen (imagen = "assets/gema.png") {
-
-	var property estado = true
-
-	method apagar() {
-		self.estado(false)
-		self.imagen("assets/gemaPerdida.png")
-	}
-
-	method mostrar() {
-		game.addVisual(self)
-	}
-
-}
-
-class SeccionDatos {
-
-	const posEnX = 4
-	const posEnY
-	const elJugador
-	const gemas = [ new Gema(posEnX = posEnX + 24, posEnY = posEnY + 4), new Gema(posEnX = posEnX + 28, posEnY = posEnY + 4) ]
-	const numeroCartasRestantes = new Numero(numero = 0, color = "F2F2D9FF")
-
-	method position() = game.at(posEnX, posEnY)
-
-	method image() = "assets/FP-001.png"
-
-	method mostrar() {
-		game.addVisual(self)
-		gemas.forEach({ gema => gema.mostrar()})
-		self.actualizarInfo()
-		game.addVisualIn(numeroCartasRestantes, game.at(posEnX + 18, posEnY + 2))
-	}
-
-	method manoDeCartasRestantes() {
-		numeroCartasRestantes.modificarNumero(elJugador.cartasDeJuegosSobrantes())
-	}
-
-	method mostrarGemasSegunRondas() {
-		elJugador.rondasPerdidas().times({ i => gemas.get(i - 1).apagar()})
-	}
-
-	method actualizarInfo() {
-		self.manoDeCartasRestantes()
-		self.mostrarGemasSegunRondas()
-	}
-
-}
-
 class PuntajeFila {
 
 	const posEnX = 50
@@ -371,6 +322,55 @@ class PuntajeTotal {
 	method actualizarPuntajeTotal() {
 		self.puntajeTotal(filasDeCombate.map({ fila => fila.puntajeDeFila()}).sum())
 		numeroPuntaje.modificarNumero(puntajeTotal)
+	}
+
+}
+
+class Gema inherits Imagen (imagen = "assets/gema.png") {
+
+	var property estado = true
+
+	method apagar() {
+		self.estado(false)
+		self.imagen("assets/gemaPerdida.png")
+	}
+
+	method mostrar() {
+		game.addVisual(self)
+	}
+
+}
+
+class SeccionDatos {
+
+	const posEnX = 4
+	const posEnY
+	const elJugador
+	const gemas = [ new Gema(posEnX = posEnX + 24, posEnY = posEnY + 4), new Gema(posEnX = posEnX + 28, posEnY = posEnY + 4) ]
+	const numeroCartasRestantes = new Numero(numero = 0, color = "F2F2D9FF")
+
+	method position() = game.at(posEnX, posEnY)
+
+	method image() = "assets/FP-001.png"
+
+	method mostrar() {
+		game.addVisual(self)
+		gemas.forEach({ gema => gema.mostrar()})
+		self.actualizarInfo()
+		game.addVisualIn(numeroCartasRestantes, game.at(posEnX + 18, posEnY + 2))
+	}
+
+	method manoDeCartasRestantes() {
+		numeroCartasRestantes.modificarNumero(elJugador.cartasDeJuegosSobrantes())
+	}
+
+	method mostrarGemasSegunRondas() {
+		elJugador.rondasPerdidas().times({ i => gemas.get(i - 1).apagar()})
+	}
+
+	method actualizarInfo() {
+		self.manoDeCartasRestantes()
+		self.mostrarGemasSegunRondas()
 	}
 
 }

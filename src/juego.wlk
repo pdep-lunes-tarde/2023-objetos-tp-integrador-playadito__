@@ -17,6 +17,12 @@ import constantes.*
  * 		- faltas de encapsulamiento
  * 		- funciones estilo C
  * 
+ * ///////////////////////////// PARTIDA /////////////////////////////
+ * - en general hay bastante pasaje de variables e informacion que no es necesario, se puede simplificar bastante
+ * - mejorar ganadorRonda()
+ * - mejorar start
+ * - terminar de ver fin de partida
+ * 
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
@@ -30,15 +36,10 @@ import constantes.*
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
  * (logica)
+ * - revisar logica de pasaje de ronda (apaso de ronda o paso de turno), esto tiene q ver mas con regla de juego
  * - revisar el descartado de carta [tablero ln(41~44), ln(145)]
  * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
- * - ver si es mejor seccion de datos crearla como global o dentro del jugador
- * - el ganador de ronda, que utiliza seccion de datos, ver una mejor implementacion
- * - LISTO ERROR ver fin de partida
  * 
- * 
- * (visual)
- * - recalcular posicion de cartas descartadas, de nuevo, esta corrido
  * 
  * ///////////////////////////// OTRO /////////////////////////////
  * 
@@ -165,4 +166,4 @@ object partida {
 //			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
 //		} else if (seccionDatosJugador.noTieneCartas()) {
 //			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-//		}  
+//		}    
