@@ -9,7 +9,6 @@ import constantes.*
  * ///////////////////////////// GENERALES /////////////////////////////
  * - TESTS !!!!!!!
  * - arreglar selector 
- * 		- coexisten listeners y reacionan a mismas instrucciones: menu y juego
  * 		- error cuando se selecciona la ultima carta de la fila
  * - revisar objeto partida y como se arranca, hay muchas cosas que se pueden simplificar
  * - revisar codigo (y refactorizar en caso de ser necesario):
@@ -166,4 +165,4 @@ object partida {
 //			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
 //		} else if (seccionDatosJugador.noTieneCartas()) {
 //			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-//		}    
+//		}     
