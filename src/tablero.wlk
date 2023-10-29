@@ -41,7 +41,9 @@ object tablero {
 
 	method rivalJuega() {
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
-		game.schedule(1200, { => imagenTurno.llamarMensaje()})
+		if (!(jugador.cartasDeJuegosSobrantes() === 0)) { // no funciona
+			game.schedule(1200, { => imagenTurno.llamarMensaje()})
+		}
 	}
 
 	method jugarCarta(carta) {
@@ -53,6 +55,11 @@ object tablero {
 			// ver que tan buena es esta solucion
 		if (esTurnoDelRival) {
 			self.rivalJuega()
+		}
+		if (!esTurnoDelRival) {
+			if (jugador.cartasDeJuegosSobrantes() === 0) {
+				pasarDeRonda.pasarRondaJugador()
+			}
 		}
 	}
 

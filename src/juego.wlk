@@ -28,6 +28,7 @@ import constantes.*
  * - implementar los aplicarEfecto() de especialidad
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
+ * - ERROR cartas climas repetidas siguen en la fila de cartas jugables cuando son jugadas
  * 
  * (visual)
  * - imagen particular para carta lider
@@ -151,18 +152,12 @@ object partida {
 	}
 
 	method finDePartida() {
-		// ...
-		game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+		if (rival.perdioPartida()) {
+			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+		} else if (jugador.perdioPartida()) {
+			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+		}
 	}
 
 }
 
-//		if (seccionDatosRival.perdioPartida()) {
-//			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
-//		} else if (seccionDatosJugador.perdioPartida()) {
-//			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-//		} else if (seccionDatosRival.noTieneCartas()) {
-//			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
-//		} else if (seccionDatosJugador.noTieneCartas()) {
-//			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
-//		}     
