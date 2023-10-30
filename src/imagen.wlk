@@ -15,6 +15,12 @@ class Imagen {
 		posEnY = y
 	}
 
+	method mostrar() {
+		if (!game.hasVisual(self)) {
+			game.addVisual(self)
+		}
+	}
+
 	method esconder() {
 		game.removeVisual(self)
 	}

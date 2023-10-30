@@ -23,11 +23,11 @@ class Selector {
 	}
 
 	// mostrar / actualizar
-	method mostrarEn(position) {
+	method mostrarEn(posicion) {
 		if (game.hasVisual(self)) {
 			game.removeVisual(self)
 		}
-		game.addVisualIn(self, position)
+		game.addVisualIn(self, posicion)
 	}
 
 	// esto es temporal, el selector para el menu sigue existiendo

@@ -28,7 +28,6 @@ import constantes.*
  * - implementar los aplicarEfecto() de especialidad
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
- * - ERROR cartas climas repetidas siguen en la fila de cartas jugables cuando son jugadas
  * 
  * (visual)
  * - imagen particular para carta lider

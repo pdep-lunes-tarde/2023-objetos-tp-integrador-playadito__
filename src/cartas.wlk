@@ -50,10 +50,9 @@ class Carta {
 	method tieneEfecto() = false
 
 	method mostrar() {
-		if (game.hasVisual(self)) {
-			self.esconder()
+		if (!game.hasVisual(self)) {
+			game.addVisual(self)
 		}
-		game.addVisual(self)
 	}
 
 	method esconder() {
@@ -81,8 +80,8 @@ class CartaDeCombate inherits Carta {
 
 	override method mostrar() {
 		super()
-		game.addVisual(imagenTipoDeCombate)
-		game.addVisual(numeroPuntaje)
+		imagenTipoDeCombate.mostrar()
+		numeroPuntaje.mostrar()
 	}
 
 	override method esconder() {
@@ -119,7 +118,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 	override method mostrar() {
 		super()
-		game.addVisual(imagenEspecialidad)
+		imagenEspecialidad.mostrar()
 	}
 
 	override method esconder() {
@@ -149,7 +148,7 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
 	override method mostrar() {
 		super()
-		game.addVisual(imagenNumeroHeroe)
+		imagenNumeroHeroe.mostrar()
 	}
 
 	override method esconder() {
@@ -174,7 +173,7 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 	override method mostrar() {
 		super()
-		game.addVisual(imagenTipoClima)
+		imagenTipoClima.mostrar()
 	}
 
 	override method esconder() {

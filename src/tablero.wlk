@@ -225,8 +225,8 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		tablero.esTurnoDelRival(true)
+		self.removerCarta(cartaElegida)
 		tablero.jugarCarta(cartaElegida)
-		cartas.remove(cartaElegida)
 		seccionDatosJugador.actualizarInfo()
 		self.mostrar()
 	}
