@@ -21,6 +21,7 @@ import constantes.*
  * - mejorar ganadorRonda()
  * - mejorar start
  * - terminar de ver fin de partida
+ * - caso empate(1-1), y sin cartas sin implementar
  * 
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
