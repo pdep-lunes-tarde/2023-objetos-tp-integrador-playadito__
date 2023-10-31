@@ -1,6 +1,7 @@
 import wollok.game.*
 import tablero.*
 import cartas.*
+import modalCartasDescartadas.*
 import constantes.*
 
 class Jugador {
@@ -58,7 +59,7 @@ class Jugador {
 		filaManoDeCartas.insertarCarta(laBaraja.obtenerCartaRandom())
 	}
 
-	method recuperarCartaDescartada()
+	method recuperarUnaCartaDescartada()
 
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)
@@ -98,7 +99,10 @@ object jugador inherits Jugador(elRival = rival, filaManoDeCartas = filaCartasJu
 		filaManoDeCartas.mostrar()
 	}
 
-	override method recuperarCartaDescartada() {
+	override method recuperarUnaCartaDescartada() {
+		if (cartasDescartadas.tieneCartas()) {
+			modalRecuperarCarta.mostrarModal(cartasDescartadas.listaCartas())
+		}
 	}
 
 }
@@ -111,7 +115,7 @@ object rival inherits Jugador(elRival = jugador, filaManoDeCartas = filaCartasRi
 		laBaraja.actualizarPosicion(159, 68)
 	}
 
-	override method recuperarCartaDescartada() {
+	override method recuperarUnaCartaDescartada() {
 	}
 
 }

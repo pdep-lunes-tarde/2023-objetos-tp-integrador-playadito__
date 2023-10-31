@@ -27,6 +27,7 @@ object tablero {
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 		self.actualizarDatosJugadores()
+		filaCartasJugador.mostrar() // refresca la vista del selector, 
 	}
 
 	method actualizarDatosJugadores() {
@@ -61,6 +62,7 @@ object tablero {
 	}
 
 	method jugadorDeTurnoRecuperaCarta() {
+		jugadorDeTurno.recuperarUnaCartaDescartada()
 	}
 
 }
@@ -117,6 +119,8 @@ class Fila {
 	method calcularAbscisaDeCarta(filaEnX) = (filaEnX - 6) + contador.contar(8)
 
 	method cantidadCartas() = cartas.size()
+
+	method tieneCartas() = !cartas.isEmpty()
 
 }
 
@@ -226,6 +230,9 @@ object filaCartasRival inherits Fila {
 		lasCartas.forEach({ carta => cartas.add(carta)})
 	}
 
+	override method mostrar() {
+	}
+
 	method jugarCarta() {
 		try {
 			const carta = cartas.anyOne()
@@ -249,16 +256,19 @@ class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
 class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2) {
 
-	const numeroDescartadas = new Numero(numero = 0)
+//	const numeroDescartadas = new Numero(numero = 0)
+	method image() = "assets/FCL-001.png"
 
-	method image() = "assets/FCL-001.png" // es el fondo
+	override method removerCarta(unaCarta) {
+		cartas.remove(unaCarta)
+		self.mostrar()
+	}
 
 	override method mostrar() {
 		if (!cartas.isEmpty()) {
 			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
 			cartas.last().mostrar()
 		}
-		numeroDescartadas.modificarNumero(self.cantidadCartas())
 	}
 
 }
@@ -384,8 +394,7 @@ object pasarDeMano {
 		tablero.jugadorDeTurno(rival)
 		imagenPasoDeManoJugador.llamarMensaje()
 		game.schedule(1000, {=> tablero.rivalJuega()})
-			// cambiar esto, no va asi
-		game.schedule(2700, {=> partida.finalizarRonda()})
+		game.schedule(2700, {=> partida.finalizarRonda()}) // cambiar esto, no va asi
 	}
 
 	method rivalPasa() {

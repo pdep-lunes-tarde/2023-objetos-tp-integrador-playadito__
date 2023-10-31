@@ -27,6 +27,11 @@ import constantes.*
  * 
  * (logica)
  * - implementar los aplicarEfecto() de especialidad
+ * 		- (IMPLEMENTADO) Efecto de Espia
+ * 		- (IMPLEMENTADO pero con bug) Efecto de Medico
+ * 			Esto del medico esta medio rancio, se puede hacer mas facil,
+ * 			pero la solucion planteada esta mejor y tampoco es tan compleja, solo hay q depurar
+ * 		- Efecto de LazoEstrecho (modificarlo a otro efecto)
  * - implementar cartaLider (caso particular de carta jugable, efecto)
  * - implementar o sacar efectos de baraja
  * 

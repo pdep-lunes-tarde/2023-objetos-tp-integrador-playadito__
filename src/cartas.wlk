@@ -56,7 +56,9 @@ class Carta {
 	}
 
 	method esconder() {
-		game.removeVisual(self)
+		if (game.hasVisual(self)) {
+			game.removeVisual(self)
+		}
 	}
 
 	method actualizarPosicion(x, y) {
