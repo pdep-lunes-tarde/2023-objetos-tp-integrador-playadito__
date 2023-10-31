@@ -1,4 +1,5 @@
 import wollok.game.*
+import juego.*
 
 object noHaySelector {
 
@@ -43,13 +44,11 @@ class Selector {
 		game.addVisualIn(self, posicion)
 	}
 
-	// esto es temporal, el selector para el menu sigue existiendo
-	// hay q ver como desreferenciarlo por completo
 	method esconder() {
 		if (game.hasVisual(self)) {
 			game.removeVisual(self)
 		}
-		items.clear()
+		juego.selectorActual(noHaySelector)
 	}
 
 	method moveLeft() {
@@ -71,7 +70,6 @@ class Selector {
 		items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
 		index = 0
-		self.mostrarEn(self.obtenerPosicionItem(index))
 	}
 
 }
