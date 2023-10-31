@@ -9,7 +9,7 @@ import constantes.*
 object tablero {
 
 	const jugadores = new Dictionary()
-	var property esTurnoDelRival = false
+	var property jugadorDeTurno = jugador
 
 	method establecerBandoJugador(faccion, elJugador) {
 		jugadores.put(faccion, elJugador)
@@ -18,7 +18,7 @@ object tablero {
 	method mostrar(barajaJugador, barajaRival) {
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
-		pasarDeRonda.mostrarYagregarListener()
+		pasarDeMano.mostrarYagregarListener()
 		seccionDatosJugador.mostrar()
 		seccionDatosRival.mostrar()
 			// ver si se puede obtener de jugador, para que el metodo no 
@@ -41,25 +41,18 @@ object tablero {
 
 	method rivalJuega() {
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
-		if (!(jugador.cartasDeJuegosSobrantes() === 0)) { // no funciona
-			game.schedule(1200, { => imagenTurno.llamarMensaje()})
-		}
+		game.schedule(1200, { => imagenTurno.llamarMensaje()})
 	}
 
-	method jugarCarta(carta) {
-		const elJugador = jugadores.get(carta.faccion())
-		elJugador.jugarCarta(carta)
-		if (carta.tieneEfecto()) {
-			carta.aplicarEfecto()
+	method jugarCarta(unaCarta) {
+		jugadorDeTurno.jugarCarta(unaCarta)
+		if (unaCarta.tieneEfecto()) {
+			unaCarta.aplicarEfecto()
 		}
-			// ver que tan buena es esta solucion
-		if (esTurnoDelRival) {
+		self.jugadorDeTurno(jugadorDeTurno.oponente())
+			// logica para la disparar el juego de la computadora
+		if (jugadorDeTurno.equals(rival)) {
 			self.rivalJuega()
-		}
-		if (!esTurnoDelRival) {
-			if (jugador.cartasDeJuegosSobrantes() === 0) {
-				pasarDeRonda.pasarRondaJugador()
-			}
 		}
 	}
 
@@ -74,6 +67,7 @@ object tablero {
 	}
 
 	method sacarCartaPara(faccion) {
+//		jugadorDeTurno
 	}
 
 	method recuperarCartaPara(faccion) {
@@ -216,6 +210,9 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		super()
 		selector.setSelector(cartas)
 		juego.selectorActual(selector)
+		if (cartas.isEmpty()) {
+			pasarDeMano.jugadorPasa()
+		}
 	}
 
 	method establecerManoDeCartas(lasCartas) {
@@ -224,7 +221,6 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
-		tablero.esTurnoDelRival(true)
 		self.removerCarta(cartaElegida)
 		tablero.jugarCarta(cartaElegida)
 		seccionDatosJugador.actualizarInfo()
@@ -240,14 +236,15 @@ object filaCartasRival inherits Fila {
 	}
 
 	method jugarCarta() {
-		if (cartas.isEmpty()) {
-			pasarDeRonda.pasarRondaRival()
-		} else {
+		try {
 			const carta = cartas.anyOne()
-			tablero.esTurnoDelRival(false)
 			tablero.jugarCarta(carta)
 			cartas.remove(carta)
 			seccionDatosRival.actualizarInfo()
+		} catch e : Exception {
+			// cuando el rival no tenga mas cartas,
+			// habra excepcion, se atrapa y pasa de mano
+			pasarDeMano.rivalPasa()
 		}
 	}
 
@@ -342,10 +339,6 @@ class Gema inherits Imagen (imagen = "assets/gema.png") {
 		self.imagen("assets/gemaPerdida.png")
 	}
 
-	method mostrar() {
-		game.addVisual(self)
-	}
-
 }
 
 class SeccionDatos {
@@ -382,29 +375,29 @@ class SeccionDatos {
 
 }
 
-object pasarDeRonda {
+object pasarDeMano {
 
 	const posEnX = 136
 	const posEnY = -1
 
-	method text() = "Pasar de ronda (r)"
+	method text() = "Pasar de Mano (r)"
 
 	method textColor() = "F2F2D9FF"
 
 	method mostrarYagregarListener() {
 		game.addVisualIn(self, game.at(posEnX, posEnY))
-		keyboard.r().onPressDo{ self.pasarRondaJugador()}
+		keyboard.r().onPressDo{ self.jugadorPasa()}
 	}
 
-	method pasarRondaJugador() {
-		imagenRondaPasadaJugador.llamarMensaje()
-		game.schedule(1000, {=> filaCartasRival.jugarCarta()})
-		game.schedule(2700, {=> partida.finalizarRonda()})
+	method jugadorPasa() {
+		tablero.jugadorDeTurno(rival)
+		imagenPasoDeManoJugador.llamarMensaje()
+		game.schedule(1000, {=> tablero.rivalJuega()})
 	}
 
-	method pasarRondaRival() {
-		imagenRondaPasadaRival.llamarMensaje()
-		game.schedule(1700, {=> partida.finalizarRonda()})
+	method rivalPasa() {
+		tablero.jugadorDeTurno(jugador)
+		imagenPasoDeManoRival.llamarMensaje()
 	}
 
 }

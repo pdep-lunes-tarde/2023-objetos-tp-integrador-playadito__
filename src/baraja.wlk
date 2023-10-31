@@ -25,7 +25,7 @@ class Baraja {
 	const climaExtra
 	// mazo de cartas
 	const mazo = mazoDeCartas.generar(faccion, cantInfanteUnidad, cantInfanteHeroe, cantArqueroUnidad, cantArqueroHeroe, cantAsedioUnidad, cantAsedioHeroe, climaExtra)
-	const manoCartas = new List()
+//	const manoCartas = new List()
 	var property posEnX = 0
 	var property posEnY = 0
 	var property cantidadEnMazo = 40
@@ -46,14 +46,15 @@ class Baraja {
 
 	method obtenerCartaRandom() {
 		const unaCarta = mazo.anyOne()
-		manoCartas.add(unaCarta)
 		mazo.remove(unaCarta)
+		return unaCarta
 	}
 
 	method obtenerCartas(cantidadCartas) {
-		cantidadCartas.times({ i => self.obtenerCartaRandom()})
+		const cartas = []
+		cantidadCartas.times({ i => cartas.add(self.obtenerCartaRandom())})
 		self.actualizarCantidadEnMazo()
-		return manoCartas
+		return cartas
 	}
 
 	method actualizarPosicion(x, y) {

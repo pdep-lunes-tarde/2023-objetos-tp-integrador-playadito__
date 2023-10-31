@@ -41,6 +41,8 @@ class Jugador {
 
 	method puntajeTotal() = puntajeTotal.puntajeTotal()
 
+	method oponente() = elRival
+
 	method repartirCartaLider() {
 		filaCartaLider.insertarCarta(laBaraja.lider())
 	}

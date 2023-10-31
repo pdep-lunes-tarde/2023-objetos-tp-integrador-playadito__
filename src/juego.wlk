@@ -34,6 +34,8 @@ import constantes.*
  * 
  * ///////////////////////////// TABLERO /////////////////////////////
  * 
+ * ** Modificar Nombre e Imagen de Paso de Mano (const imagenPasoDeManoJugador)
+ * 
  * (logica)
  * - revisar logica de pasaje de ronda (apaso de ronda o paso de turno), esto tiene q ver mas con regla de juego
  * - revisar el descartado de carta [tablero ln(41~44), ln(145)]
