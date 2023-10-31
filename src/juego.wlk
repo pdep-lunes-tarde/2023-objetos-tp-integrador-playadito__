@@ -117,7 +117,7 @@ object partida {
 	method comenzarRonda() {
 		if (ronda == 1) {
 			tablero.repartirManoInicial()
-			tablero.mostrar(barajaJugador, barajaRival)
+			tablero.mostrar()
 		}
 		tablero.resetearTablero()
 	}

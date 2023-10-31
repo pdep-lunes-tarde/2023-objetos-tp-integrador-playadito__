@@ -28,20 +28,15 @@ class Jugador {
 		puntajeTotal.mostrar()
 			// mostrar baraja
 		laBaraja.mostrar()
-			// mostrar fila de cartas jugables solo del jugador
-		if (filaManoDeCartas.equals(filaCartasJugador)) {
-			game.addVisual(filaManoDeCartas)
-			filaManoDeCartas.mostrar()
-		}
-	}
-
-	method asignarBaraja(baraja) {
-		self.laBaraja(baraja)
 	}
 
 	method puntajeTotal() = puntajeTotal.puntajeTotal()
 
 	method oponente() = elRival
+
+	method asignarBaraja(baraja) {
+		self.laBaraja(baraja)
+	}
 
 	method repartirCartaLider() {
 		filaCartaLider.insertarCarta(laBaraja.lider())
@@ -62,6 +57,8 @@ class Jugador {
 	method sacarCarta() {
 		filaManoDeCartas.insertarCarta(laBaraja.obtenerCartaRandom())
 	}
+
+	method recuperarCartaDescartada()
 
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)
@@ -88,6 +85,34 @@ class Jugador {
 	}
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
+
+}
+
+object jugador inherits Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador) {
+
+	override method mostrarComponentes() {
+		super()
+		seccionDatosJugador.mostrar()
+		laBaraja.actualizarPosicion(159, 30)
+		game.addVisual(filaManoDeCartas)
+		filaManoDeCartas.mostrar()
+	}
+
+	override method recuperarCartaDescartada() {
+	}
+
+}
+
+object rival inherits Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, puntajeTotal = puntajeTotalRival) {
+
+	override method mostrarComponentes() {
+		super()
+		seccionDatosRival.mostrar()
+		laBaraja.actualizarPosicion(159, 68)
+	}
+
+	override method recuperarCartaDescartada() {
+	}
 
 }
 

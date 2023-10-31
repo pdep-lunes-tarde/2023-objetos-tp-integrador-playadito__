@@ -5,6 +5,7 @@ import cartas.*
 import numeros.*
 import imagen.*
 import constantes.*
+import jugador.*
 
 object tablero {
 
@@ -15,16 +16,10 @@ object tablero {
 		jugadores.put(faccion, elJugador)
 	}
 
-	method mostrar(barajaJugador, barajaRival) {
+	method mostrar() {
 		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
 		pasarDeMano.mostrarYagregarListener()
-		seccionDatosJugador.mostrar()
-		seccionDatosRival.mostrar()
-			// ver si se puede obtener de jugador, para que el metodo no 
-			// necesite recibir parametros
-		barajaJugador.actualizarPosicion(159, 30)
-		barajaRival.actualizarPosicion(159, 68)
 		jugadores.forEach({ faccion , elJugador => elJugador.mostrarComponentes()})
 	}
 
@@ -54,11 +49,6 @@ object tablero {
 		if (jugadorDeTurno.equals(rival)) {
 			self.rivalJuega()
 		}
-	}
-
-	method descartarCarta(carta) {
-		const elJugador = jugadores.get(carta.faccion())
-		elJugador.descartarCarta(carta)
 	}
 
 	method repartirManoInicial() {
@@ -135,6 +125,7 @@ class FilaDeCombate inherits Fila {
 	// 700px (70 celdas)
 	// 120px (6)
 	const claseDeCombate
+	const jugadorDeFila
 	var property climaExtremo = false
 	const imagenPuntajeFila
 	const puntajeFila = new PuntajeFila(posEnY = posEnY + 4, imagen = imagenPuntajeFila)
@@ -161,7 +152,7 @@ class FilaDeCombate inherits Fila {
 	override method removerCarta(unaCarta) {
 		unaCarta.resetearPuntaje()
 		super(unaCarta)
-		tablero.descartarCarta(unaCarta)
+		jugadorDeFila.descartarCarta(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
@@ -393,6 +384,8 @@ object pasarDeMano {
 		tablero.jugadorDeTurno(rival)
 		imagenPasoDeManoJugador.llamarMensaje()
 		game.schedule(1000, {=> tablero.rivalJuega()})
+			// cambiar esto, no va asi
+		game.schedule(2700, {=> partida.finalizarRonda()})
 	}
 
 	method rivalPasa() {

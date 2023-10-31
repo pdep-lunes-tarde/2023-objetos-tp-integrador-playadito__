@@ -5,10 +5,8 @@ import jugador.*
 import mensaje.*
 
 // ///////////////////////////// JUGADORES /////////////////////////////
-const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador)
-
-const rival = new Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, puntajeTotal = puntajeTotalRival)
-
+// const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador)
+// const rival = new Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, puntajeTotal = puntajeTotalRival)
 // ///////////////////////////// TIPOS /////////////////////////////
 const imperioNiffgardiano = new Faccion(nombre = "imperio-niffgardiano")
 
@@ -54,17 +52,17 @@ const foltest = new CartaLider(faccion = reinosDelNorte)
 const francescaFindabair = new CartaLider(faccion = scoiatael)
 
 // ///////////////////////////// FILAS /////////////////////////////
-const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, posEnY = 18, imagenPuntajeFila = "assets/PJ-01.png")
+const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, jugadorDeFila = jugador, posEnY = 18, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaArqueroJugador = new FilaDeCombate(claseDeCombate = claseArquera, posEnY = 30, imagenPuntajeFila = "assets/PJ-01.png")
+const filaArqueroJugador = new FilaDeCombate(claseDeCombate = claseArquera, jugadorDeFila = jugador, posEnY = 30, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaInfanteJugador = new FilaDeCombate(claseDeCombate = claseInfante, posEnY = 42, imagenPuntajeFila = "assets/PJ-01.png")
+const filaInfanteJugador = new FilaDeCombate(claseDeCombate = claseInfante, jugadorDeFila = jugador, posEnY = 42, imagenPuntajeFila = "assets/PJ-01.png")
 
-const filaAsedioRival = new FilaDeCombate(claseDeCombate = claseAsedio, posEnY = 80, imagenPuntajeFila = "assets/PR-01.png")
+const filaAsedioRival = new FilaDeCombate(claseDeCombate = claseAsedio, jugadorDeFila = rival, posEnY = 80, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, posEnY = 68, imagenPuntajeFila = "assets/PR-01.png")
+const filaArqueroRival = new FilaDeCombate(claseDeCombate = claseArquera, jugadorDeFila = rival, posEnY = 68, imagenPuntajeFila = "assets/PR-01.png")
 
-const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, posEnY = 56, imagenPuntajeFila = "assets/PR-01.png")
+const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, jugadorDeFila = rival, posEnY = 56, imagenPuntajeFila = "assets/PR-01.png")
 
 //const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5)
