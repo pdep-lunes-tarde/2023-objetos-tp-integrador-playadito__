@@ -66,11 +66,11 @@ object tablero {
 		jugadores.forEach({ faccion , elJugador => elJugador.asignarCartas(10)})
 	}
 
-	method sacarCartaPara(faccion) {
-//		jugadorDeTurno
+	method jugadorDeTurnoSacaCarta() {
+		jugadorDeTurno.sacarCarta()
 	}
 
-	method recuperarCartaPara(faccion) {
+	method jugadorDeTurnoRecuperaCarta() {
 	}
 
 }

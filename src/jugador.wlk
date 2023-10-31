@@ -59,6 +59,10 @@ class Jugador {
 
 	method cartasDeJuegosSobrantes() = filaManoDeCartas.cantidadCartas()
 
+	method sacarCarta() {
+		filaManoDeCartas.insertarCarta(laBaraja.obtenerCartaRandom())
+	}
+
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)
 	}

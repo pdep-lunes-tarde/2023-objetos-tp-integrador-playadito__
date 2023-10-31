@@ -134,7 +134,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 	override method tieneEfecto() = especialidad != sinHabilidad
 
 	method aplicarEfecto() {
-		especialidad.aplicar(faccion)
+		especialidad.aplicar()
 	}
 
 }
@@ -213,8 +213,8 @@ object medico {
 
 	method obtenerImagen() = imagen
 
-	method aplicar(faccion) {
-		tablero.recuperarCartaPara(faccion)
+	method aplicar() {
+		tablero.jugadorDeTurnoRecuperaCarta()
 	}
 
 }
@@ -225,8 +225,8 @@ object espia {
 
 	method obtenerImagen() = imagen
 
-	method aplicar(faccion) {
-		2.times({ n => tablero.sacarCartaPara(faccion)})
+	method aplicar() {
+		2.times({ n => tablero.jugadorDeTurnoSacaCarta()})
 	}
 
 }
@@ -237,7 +237,7 @@ object lazoEstrecho {
 
 	method obtenerImagen() = imagen
 
-	method aplicar(faccion) {
+	method aplicar() {
 	}
 
 }
