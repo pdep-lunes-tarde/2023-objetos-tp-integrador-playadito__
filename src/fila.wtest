@@ -1,0 +1,60 @@
+import fila.*
+import cartas.*
+import baraja.*
+import wollok.game.*
+
+describe "Fila" {
+
+	const unaFila = new Fila()
+	const unTipo = new Tipo(nombre = "unTipo")
+	const unaFaccion = new Faccion(nombre = "unaFaccion")
+	const unaCarta = new Carta(tipoDeCarta = unTipo, faccion = unaFaccion)
+	const carta_a = new Carta(tipoDeCarta = unTipo, faccion = unaFaccion)
+	const carta_b = new Carta(tipoDeCarta = unTipo, faccion = unaFaccion)
+	const carta_c = new Carta(tipoDeCarta = unTipo, faccion = unaFaccion)
+
+	test "Al inseratar una Carta, se agrega a Fila y se muestra" {
+		unaFila.insertarCarta(unaCarta)
+		assert.that(unaFila.listaCartas().contains(unaCarta))
+		assert.that(game.hasVisual(unaCarta))
+	}
+
+	test "Al insertar una lista de Cartas, todas se agregan a Fila y se muestran" {
+		unaFila.insertarListaDeCartas([ carta_a, carta_b, carta_c ])
+		assert.that(unaFila.listaCartas().contains(carta_a))
+		assert.that(game.hasVisual(carta_a))
+		assert.that(unaFila.listaCartas().contains(carta_b))
+		assert.that(game.hasVisual(carta_b))
+		assert.that(unaFila.listaCartas().contains(carta_c))
+		assert.that(game.hasVisual(carta_c))
+	}
+
+	test "Al remover una Carta, se esconde la visual y se lo remueve de la Fila" {
+		unaFila.insertarCarta(unaCarta)
+		unaFila.removerCarta(unaCarta)
+		assert.that(!unaFila.listaCartas().contains(unaCarta))
+		assert.that(!game.hasVisual(unaCarta))
+	}
+
+	test "Al vaciar la Fila, se esconden todas las visuales y se remueven las cartas de la Fila" {
+		unaFila.insertarListaDeCartas([ carta_a, carta_b, carta_c ])
+		unaFila.vaciarFila()
+		assert.that(!unaFila.tieneCartas())
+		assert.that(!game.hasVisual(carta_a))
+		assert.that(!game.hasVisual(carta_b))
+		assert.that(!game.hasVisual(carta_c))
+	}
+
+}
+
+describe "Fila de Combate" {
+
+	// puntaje
+	// metodos relacionados al puntaje
+	// estados de clima
+	test "algo" {
+		assert.that(true)
+	}
+
+}
+

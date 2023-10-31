@@ -45,6 +45,10 @@ class Fila {
 		self.mostrar()
 	}
 
+	method insertarListaDeCartas(muchasCartas) {
+		muchasCartas.forEach({ unaCarta => self.insertarCarta(unaCarta)})
+	}
+
 	method removerCarta(unaCarta) {
 		unaCarta.esconder()
 		cartas.remove(unaCarta)

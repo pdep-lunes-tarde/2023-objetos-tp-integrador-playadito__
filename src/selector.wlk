@@ -27,6 +27,7 @@ class Selector {
 	// comenzar
 	method setSelector(itemsList) {
 		items = itemsList.copy()
+		index = 0
 		self.mostrarEn(self.obtenerPosicionItem(index))
 	}
 
@@ -69,7 +70,6 @@ class Selector {
 		game.removeVisual(self)
 		items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
-		index = 0
 	}
 
 }

@@ -7,10 +7,11 @@ import selector.*
 
 /* TODO
  * 
+ * ///////////////////////////// TESTS /////////////////////////////
+ * FILA (falta terminar)
+ * ** Y el resto de archivos
+ * 
  * ///////////////////////////// GENERALES /////////////////////////////
- * - TESTS !!!!!!!
- * - arreglar selector 
- * 		- error cuando se selecciona la ultima carta de la fila
  * - revisar objeto partida y como se arranca, hay muchas cosas que se pueden simplificar
  * - revisar codigo (y refactorizar en caso de ser necesario):
  * 		- logica repetida
@@ -44,6 +45,7 @@ import selector.*
  * ** Modificar Nombre e Imagen de Paso de Mano (const imagenPasoDeManoJugador)
  * 
  * (logica)
+ * - implementar Fila Carta Lider
  * - revisar logica de pasaje de ronda (apaso de ronda o paso de turno), esto tiene q ver mas con regla de juego
  * - revisar el descartado de carta [tablero ln(41~44), ln(145)]
  * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
