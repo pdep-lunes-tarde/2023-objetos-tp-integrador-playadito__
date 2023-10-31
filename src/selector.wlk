@@ -1,5 +1,18 @@
 import wollok.game.*
 
+object noHaySelector {
+
+	method moveLeft() {
+	}
+
+	method moveRight() {
+	}
+
+	method select() {
+	}
+
+}
+
 class Selector {
 
 	var items = new List()

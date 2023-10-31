@@ -3,6 +3,7 @@ import menu.*
 import tablero.*
 import jugador.*
 import constantes.*
+import selector.*
 
 /* TODO
  * 
@@ -53,19 +54,6 @@ import constantes.*
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
  * 
  */
-object noHaySelector {
-
-	method moveLeft() {
-	}
-
-	method moveRight() {
-	}
-
-	method select() {
-	}
-
-}
-
 object juego {
 
 	var property selectorActual = noHaySelector
@@ -98,14 +86,11 @@ object juego {
 
 object partida {
 
-	var property barajaJugador
-	var property barajaRival
 	var property ronda = 1
 
 	method start(barajaSeleccionado) {
-		// NO ESTA LIMPIO
-		self.barajaJugador(barajaSeleccionado)
-		self.barajaRival(self.asignarBarajaRandom())
+		const barajaJugador = barajaSeleccionado
+		const barajaRival = self.asignarOtraBarajaRandom(barajaJugador)
 		jugador.asignarBaraja(barajaJugador)
 		rival.asignarBaraja(barajaRival)
 		tablero.establecerBandoJugador(barajaJugador.faccion(), jugador)
@@ -113,12 +98,10 @@ object partida {
 		self.comenzarRonda()
 	}
 
-	method asignarBarajaRandom() {
-		lasBarajas.remove(barajaJugador)
+	method asignarOtraBarajaRandom(baraja) {
+		lasBarajas.remove(baraja)
 		return lasBarajas.anyOne()
 	}
-
-	method baraja() = barajaJugador
 
 	method comenzarRonda() {
 		if (ronda == 1) {

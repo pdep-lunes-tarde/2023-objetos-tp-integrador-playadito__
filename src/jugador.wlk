@@ -2,6 +2,7 @@ import wollok.game.*
 import tablero.*
 import cartas.*
 import modalCartasDescartadas.*
+import fila.*
 import constantes.*
 
 class Jugador {

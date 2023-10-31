@@ -3,6 +3,7 @@ import selector.*
 import tablero.*
 import juego.*
 import constantes.*
+import fila.*
 
 object modalRecuperarCarta {
 

@@ -3,6 +3,7 @@ import cartas.*
 import baraja.*
 import jugador.*
 import mensaje.*
+import fila.*
 
 // ///////////////////////////// JUGADORES /////////////////////////////
 // const jugador = new Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador)
