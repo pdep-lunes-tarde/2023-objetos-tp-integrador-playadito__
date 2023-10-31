@@ -1,7 +1,7 @@
 import wollok.game.*
 import tablero.*
 import cartas.*
-import numeros.*
+import numero.*
 import constantes.*
 
 class Faccion inherits Tipo {

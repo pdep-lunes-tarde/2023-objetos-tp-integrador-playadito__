@@ -1,7 +1,7 @@
 import juego.*
 import tablero.*
 import cartas.*
-import numeros.*
+import numero.*
 import constantes.*
 
 //object listaSeleccionable {

@@ -3,7 +3,7 @@ import juego.*
 import selector.*
 import tablero.*
 import constantes.*
-import numeros.*
+import numero.*
 
 //usar times
 // ES MALO ESTO, PENSAR OTRA FORMA

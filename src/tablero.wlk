@@ -2,7 +2,7 @@ import wollok.game.*
 import juego.*
 import selector.*
 import cartas.*
-import numeros.*
+import numero.*
 import imagen.*
 import constantes.*
 import jugador.*

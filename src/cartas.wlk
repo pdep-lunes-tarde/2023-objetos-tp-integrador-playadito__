@@ -1,6 +1,6 @@
 import wollok.game.*
 import tablero.*
-import numeros.*
+import numero.*
 import constantes.*
 import fila.*
 import imagen.*
