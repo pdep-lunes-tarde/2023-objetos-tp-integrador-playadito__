@@ -12,7 +12,20 @@ import selector.*
  * ** Y el resto de archivos
  * 
  * ///////////////////////////// GENERALES /////////////////////////////
- * - revisar objeto partida y como se arranca, hay muchas cosas que se pueden simplificar
+ * - revisar flujo de programa (el orden de muestra afecta la capa del visual)
+ *   seteo de menu -> eleccion de baraja -> partida.empezar()
+ *   mostrar visuales (el tablero -> la info(seccion de datos)) -> reparto de mano inicial -> arranca el juego
+ * 
+ * - revisar metodo duplicado de insertar lista de carta a una fila y el "establecerManoDeCartas" de las filas juglables
+ * 
+ * - revisar el manejo de 'mostrar' de las cosas con visual, 
+ * 	 no es muy limpio el manejo, porque durante el flujo se hacen varios mostrar (es decir, no se tiene en cuenta el manejo de la visual)
+ *   esto se lo esta evitando con "agregar si no hay visual, y si hay no hagas nada", y no esta bueno eso
+ * 
+ * - revisar los intervalos de tiempo donde aparecen carteles, parece que el programa sigue escuchando
+ * 	 es decir, puedo jugar una carta, la accion se ejecuta, el rival juega,
+ *   las visuales de las cartas superponen al cartel y queda como el orto
+ * 
  * - revisar codigo (y refactorizar en caso de ser necesario):
  * 		- logica repetida
  * 		- faltas de encapsulamiento
@@ -20,9 +33,11 @@ import selector.*
  * 
  * ///////////////////////////// PARTIDA /////////////////////////////
  * - en general hay bastante pasaje de variables e informacion que no es necesario, se puede simplificar bastante
+ * 
  * - mejorar ganadorRonda()
- * - mejorar start
+ * 
  * - terminar de ver fin de partida
+ * 
  * - caso empate(1-1), y sin cartas sin implementar
  * 
  * ///////////////////////////// CARTAS /////////////////////////////
