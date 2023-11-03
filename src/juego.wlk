@@ -12,6 +12,9 @@ import selector.*
  * ** Y el resto de archivos
  * 
  * ///////////////////////////// GENERALES /////////////////////////////
+ * - !! hacer diferencia entre "mostrar visual" y "actualizar vista"
+ * 
+ * 
  * - revisar flujo de programa (el orden de muestra afecta la capa del visual)
  *   seteo de menu -> eleccion de baraja -> partida.empezar()
  *   mostrar visuales (el tablero -> la info(seccion de datos)) -> reparto de mano inicial -> arranca el juego
@@ -122,8 +125,8 @@ object partida {
 
 	method comenzarRonda() {
 		if (ronda == 1) {
-			tablero.repartirManoInicial()
 			tablero.mostrar()
+			tablero.repartirManoInicial()
 		}
 		tablero.resetearTablero()
 	}

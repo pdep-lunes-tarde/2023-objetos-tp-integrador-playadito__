@@ -14,7 +14,6 @@ object tablero {
 	var property jugadorDeTurno = jugador
 
 	method mostrar() {
-		game.addVisual(filaCartasClima)
 		filaCartasClima.mostrar()
 		pasarDeMano.mostrarYagregarListener()
 		jugadores.forEach({ faccion , elJugador => elJugador.mostrarComponentes()})
@@ -33,7 +32,7 @@ object tablero {
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 		self.actualizarDatosJugadores()
-		filaCartasJugador.mostrar() // refresca la vista del selector, 
+		filaCartasJugador.actualizarVisual() // refresca la vista del selector, 
 	}
 
 	method actualizarDatosJugadores() {

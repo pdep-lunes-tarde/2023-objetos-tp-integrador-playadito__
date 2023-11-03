@@ -51,15 +51,11 @@ class Carta {
 	method tieneEfecto() = false
 
 	method mostrar() {
-		if (!game.hasVisual(self)) {
-			game.addVisual(self)
-		}
+		game.addVisual(self)
 	}
 
 	method esconder() {
-		if (game.hasVisual(self)) {
-			game.removeVisual(self)
-		}
+		game.removeVisual(self)
 	}
 
 	method actualizarPosicion(x, y) {
@@ -119,6 +115,8 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 
 	method especialidad() = especialidad
 
+	override method tieneEfecto() = especialidad != sinHabilidad
+
 	override method mostrar() {
 		super()
 		imagenEspecialidad.mostrar()
@@ -133,8 +131,6 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 		super(x, y)
 		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
 	}
-
-	override method tieneEfecto() = especialidad != sinHabilidad
 
 	method aplicarEfecto() {
 		especialidad.aplicar()
@@ -174,6 +170,8 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 	method tipoDeClima() = tipoDeClima
 
+	override method tieneEfecto() = true
+
 	override method mostrar() {
 		super()
 		imagenTipoClima.mostrar()
@@ -188,8 +186,6 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 		super(x, y)
 		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
 	}
-
-	override method tieneEfecto() = true
 
 	method aplicarEfecto() {
 		// se podria meter alguna img aca

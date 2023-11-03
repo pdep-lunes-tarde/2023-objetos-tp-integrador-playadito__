@@ -29,20 +29,16 @@ class Fila {
 
 	method position() = game.at(posEnX, posEnY)
 
-	method mostrar() {
-		if (!cartas.isEmpty()) {
-			const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
-			contador.contador(posicionPrimeraCarta)
-			cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(posEnX), posEnYCarta)})
-			cartas.forEach({ carta => carta.mostrar()})
-		}
-	}
-
 	method listaCartas() = cartas.copy()
+
+	method mostrar() {
+		game.addVisual(self)
+	}
 
 	method insertarCarta(unaCarta) {
 		cartas.add(unaCarta)
-		self.mostrar()
+		unaCarta.mostrar()
+		self.actualizarVisual()
 	}
 
 	method insertarListaDeCartas(muchasCartas) {
@@ -52,6 +48,13 @@ class Fila {
 	method removerCarta(unaCarta) {
 		unaCarta.esconder()
 		cartas.remove(unaCarta)
+		self.actualizarVisual()
+	}
+
+	method actualizarVisual() {
+		const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
+		contador.contador(posicionPrimeraCarta)
+		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(posEnX), posEnYCarta)})
 	}
 
 	method vaciarFila() {
@@ -102,6 +105,7 @@ class FilaDeCombate inherits Fila {
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
+	// se digue usando este metodo??
 	method modificarPuntajeCartas(bloque) {
 		cartas.forEach(bloque)
 		puntajeFila.actualizarPuntaje(cartas.copy())
@@ -143,7 +147,7 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 
 	method image() = "assets/FC-002.png"
 
-	override method mostrar() {
+	override method actualizarVisual() {
 		super()
 		selector.setSelector(cartas)
 		juego.selectorActual(selector)
@@ -152,34 +156,33 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		}
 	}
 
-	method establecerManoDeCartas(lasCartas) {
-		lasCartas.forEach({ carta => cartas.add(carta)})
-	}
-
 	method tomarSeleccion(index) {
 		const cartaElegida = cartas.get(index)
 		self.removerCarta(cartaElegida)
 		tablero.jugarCarta(cartaElegida)
 		seccionDatosJugador.actualizarInfo()
-		self.mostrar()
 	}
 
 }
 
 object filaCartasRival inherits Fila {
 
-	method establecerManoDeCartas(lasCartas) {
-		lasCartas.forEach({ carta => cartas.add(carta)})
+	override method insertarCarta(unaCarta) {
+		cartas.add(unaCarta)
 	}
 
-	override method mostrar() {
+	override method removerCarta(unaCarta) {
+		cartas.remove(unaCarta)
+	}
+
+	override method actualizarVisual() {
 	}
 
 	method jugarCarta() {
 		try {
 			const carta = cartas.anyOne()
 			tablero.jugarCarta(carta)
-			cartas.remove(carta)
+			self.removerCarta(carta)
 			seccionDatosRival.actualizarInfo()
 		} catch e : Exception {
 			// cuando el rival no tenga mas cartas,
@@ -198,15 +201,19 @@ class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
 class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2) {
 
-//	const numeroDescartadas = new Numero(numero = 0)
 	method image() = "assets/FCL-001.png"
 
-	override method removerCarta(unaCarta) {
-		cartas.remove(unaCarta)
-		self.mostrar()
+	override method insertarCarta(unaCarta) {
+		cartas.add(unaCarta)
+		self.actualizarVisual()
 	}
 
-	override method mostrar() {
+	// / ???????????????????????
+//	override method removerCarta(unaCarta) {
+//		cartas.remove(unaCarta)
+//		self.mostrar()
+//	}
+	override method actualizarVisual() {
 		if (!cartas.isEmpty()) {
 			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
 			cartas.last().mostrar()
@@ -228,10 +235,8 @@ class PuntajeFila {
 	method image() = imagen
 
 	method mostrar() {
-		if (!game.hasVisual(self)) {
-			game.addVisual(self)
-			game.addVisualIn(numeroPuntaje, game.at(posEnX - 1, posEnY - 1))
-		}
+		game.addVisual(self)
+		game.addVisualIn(numeroPuntaje, game.at(posEnX - 1, posEnY - 1))
 	}
 
 	method actualizarPuntaje(filaDeCartas) {

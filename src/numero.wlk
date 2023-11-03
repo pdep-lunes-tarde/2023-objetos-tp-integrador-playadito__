@@ -2,9 +2,9 @@ import wollok.game.*
 
 class Numero {
 
-	var numero
-	var posEnX = 0
-	var posEnY = 0
+	var property numero
+	var property posEnX = 0
+	var property posEnY = 0
 	var property color = "000000FF"
 
 	method text() = numero.toString()
@@ -12,24 +12,22 @@ class Numero {
 	method textColor() = color
 
 	method modificarNumero(nuevoNumero) {
-		numero = nuevoNumero
+		self.numero(nuevoNumero)
 	}
 
 	method position() = game.at(posEnX, posEnY)
 
-	method actualizarPosicion(x, y) {
-		posEnX = x
-		posEnY = y
-	}
-
 	method mostrar() {
-		if (!game.hasVisual(self)) {
-			game.addVisual(self)
-		}
+		game.addVisual(self)
 	}
 
 	method esconder() {
 		game.removeVisual(self)
+	}
+
+	method actualizarPosicion(x, y) {
+		self.posEnX(x)
+		self.posEnY(y)
 	}
 
 }

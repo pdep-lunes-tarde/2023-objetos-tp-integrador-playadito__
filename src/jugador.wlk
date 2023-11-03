@@ -18,21 +18,12 @@ class Jugador {
 	const filaClima = filaCartasClima
 
 	method mostrarComponentes() {
-		// mostrar filas de combate
-		filasDeCombate.forEach({ filaCombate => game.addVisual(filaCombate)})
 		filasDeCombate.forEach({ filaCombate => filaCombate.mostrar()})
-			// mostrar seccion carta lider
-		game.addVisual(filaCartaLider)
 		filaCartaLider.mostrar()
-			// mostrar seccion cartas descartadas
-		game.addVisual(cartasDescartadas)
-			// mostrar puntaje total
+		cartasDescartadas.mostrar()
 		puntajeTotal.mostrar()
-			// mostrar baraja
 		laBaraja.mostrar()
 	}
-
-	method puntajeTotal() = puntajeTotal.puntajeTotal()
 
 	method oponente() = elRival
 
@@ -40,9 +31,7 @@ class Jugador {
 		self.laBaraja(baraja)
 	}
 
-	method repartirCartaLider() {
-		filaCartaLider.insertarCarta(laBaraja.lider())
-	}
+	method puntajeTotal() = puntajeTotal.puntajeTotal()
 
 	method pierdeRonda() {
 		rondasPerdidas++
@@ -50,8 +39,12 @@ class Jugador {
 
 	method perdioPartida() = rondasPerdidas == 2
 
+	method repartirCartaLider() {
+		filaCartaLider.insertarCarta(laBaraja.lider())
+	}
+
 	method asignarCartas(numeroDeCartas) {
-		filaManoDeCartas.establecerManoDeCartas(laBaraja.obtenerCartas(numeroDeCartas))
+		filaManoDeCartas.insertarListaDeCartas(laBaraja.obtenerCartas(numeroDeCartas))
 	}
 
 	method cartasDeJuegosSobrantes() = filaManoDeCartas.cantidadCartas()
@@ -96,7 +89,6 @@ object jugador inherits Jugador(elRival = rival, filaManoDeCartas = filaCartasJu
 		super()
 		seccionDatosJugador.mostrar()
 		laBaraja.actualizarPosicion(159, 30)
-		game.addVisual(filaManoDeCartas)
 		filaManoDeCartas.mostrar()
 	}
 
