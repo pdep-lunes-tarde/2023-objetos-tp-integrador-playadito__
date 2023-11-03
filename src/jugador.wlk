@@ -1,7 +1,6 @@
 import wollok.game.*
 import tablero.*
 import cartas.*
-import modalCartasDescartadas.*
 import fila.*
 import constantes.*
 
@@ -53,7 +52,14 @@ class Jugador {
 		filaManoDeCartas.insertarCarta(laBaraja.obtenerCartaRandom())
 	}
 
-	method recuperarUnaCartaDescartada()
+	method recuperarUnaCartaDescartada() {
+		try {
+			const cartaARecuperar = cartasDescartadas.listaCartas().anyOne()
+			cartasDescartadas.removerCarta(cartaARecuperar)
+			filaManoDeCartas.insertarCarta(cartaARecuperar)
+		} catch err : Exception {
+		}
+	}
 
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)
@@ -92,12 +98,6 @@ object jugador inherits Jugador(elRival = rival, filaManoDeCartas = filaCartasJu
 		filaManoDeCartas.mostrar()
 	}
 
-	override method recuperarUnaCartaDescartada() {
-		if (cartasDescartadas.tieneCartas()) {
-			modalRecuperarCarta.mostrarModal(cartasDescartadas.listaCartas())
-		}
-	}
-
 }
 
 object rival inherits Jugador(elRival = jugador, filaManoDeCartas = filaCartasRival, filaCartaLider = filaCartaLiderRival, filasDeCombate = [ filaInfanteRival, filaArqueroRival, filaAsedioRival ], cartasDescartadas = filaDescartadosRival, puntajeTotal = puntajeTotalRival) {
@@ -106,9 +106,6 @@ object rival inherits Jugador(elRival = jugador, filaManoDeCartas = filaCartasRi
 		super()
 		seccionDatosRival.mostrar()
 		laBaraja.actualizarPosicion(159, 68)
-	}
-
-	override method recuperarUnaCartaDescartada() {
 	}
 
 }

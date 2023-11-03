@@ -51,14 +51,14 @@ class Fila {
 		self.actualizarVisual()
 	}
 
+	method vaciarFila() {
+		cartas.forEach({ carta => self.removerCarta(carta)})
+	}
+
 	method actualizarVisual() {
 		const posicionPrimeraCarta = centroFila - (8 * cartas.size()) / 2
 		contador.contador(posicionPrimeraCarta)
 		cartas.forEach({ carta => carta.actualizarPosicion(self.calcularAbscisaDeCarta(posEnX), posEnYCarta)})
-	}
-
-	method vaciarFila() {
-		cartas.forEach({ carta => self.removerCarta(carta)})
 	}
 
 	method calcularAbscisaDeCarta(filaEnX) = (filaEnX - 6) + contador.contar(8)
@@ -105,7 +105,6 @@ class FilaDeCombate inherits Fila {
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
-	// se digue usando este metodo??
 	method modificarPuntajeCartas(bloque) {
 		cartas.forEach(bloque)
 		puntajeFila.actualizarPuntaje(cartas.copy())
@@ -125,7 +124,7 @@ class FilaDeCombate inherits Fila {
 
 object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43, centroFila = 26 / 2 - 2) {
 
-	method image() = "assets/FCC-001.png" // una img donde quepa 3 cartas unicamente
+	method image() = "assets/FCC-001.png"
 
 	override method insertarCarta(unaCarta) {
 		const cartasEnFila = cartas.map({ carta => carta.tipoDeClima() })
@@ -203,21 +202,8 @@ class FilaCartasDescartadas inherits Fila(posEnX = 147, centroFila = 10 / 2 - 2)
 
 	method image() = "assets/FCL-001.png"
 
-	override method insertarCarta(unaCarta) {
-		cartas.add(unaCarta)
-		self.actualizarVisual()
-	}
-
-	// / ???????????????????????
-//	override method removerCarta(unaCarta) {
-//		cartas.remove(unaCarta)
-//		self.mostrar()
-//	}
 	override method actualizarVisual() {
-		if (!cartas.isEmpty()) {
-			cartas.last().actualizarPosicion(posEnX + 1, posEnYCarta)
-			cartas.last().mostrar()
-		}
+		cartas.forEach({ carta => carta.actualizarPosicion(posEnX + 1, posEnYCarta)})
 	}
 
 }

@@ -165,3 +165,7 @@ object pasarDeMano {
 
 }
 
+object pasarDeRonda {
+
+}
+
