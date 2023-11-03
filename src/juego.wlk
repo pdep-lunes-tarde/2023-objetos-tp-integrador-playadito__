@@ -158,9 +158,9 @@ object partida {
 
 	method finDePartida() {
 		if (rival.perdioPartida()) {
-			game.schedule(1200, { => imagenPartidaGanada.llamarMensaje()})
+			game.schedule(2200, { => imagenPartidaGanada.llamarMensaje()})
 		} else if (jugador.perdioPartida()) {
-			game.schedule(1200, { => imagenPartidaPerdida.llamarMensaje()})
+			game.schedule(2200, { => imagenPartidaPerdida.llamarMensaje()})
 		}
 	}
 

@@ -105,6 +105,11 @@ class CartaDeCombate inherits Carta {
 		numeroPuntaje.modificarNumero(puntaje)
 	}
 
+	method duplicarPuntaje() {
+		self.puntaje(puntaje * 2)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
 }
 
 class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
@@ -133,7 +138,7 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 	}
 
 	method aplicarEfecto() {
-		especialidad.aplicar()
+		especialidad.aplicar(tablero.jugadorDeTurno().filaParaCarta(self))
 	}
 
 }
@@ -143,6 +148,9 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 	const imagenNumeroHeroe = new Imagen(imagen = "assets/numeroHeroe.png")
 
 	override method modificarPuntajeA(num) {
+	}
+
+	override method duplicarPuntaje() {
 	}
 
 	override method mostrar() {
@@ -212,7 +220,7 @@ object medico {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(fila) {
 		tablero.jugadorDeTurnoRecuperaCarta()
 	}
 
@@ -224,7 +232,7 @@ object espia {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(fila) {
 		2.times({ n => tablero.jugadorDeTurnoSacaCarta()})
 	}
 
@@ -236,7 +244,8 @@ object lazoEstrecho {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(fila) {
+		fila.lazoEstrecho()
 	}
 
 }
@@ -248,7 +257,7 @@ object sinHabilidad {
 
 	method obtenerImagen() = imagen
 
-	method aplicar() {
+	method aplicar(fila) {
 	}
 
 }

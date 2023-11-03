@@ -76,6 +76,7 @@ class FilaDeCombate inherits Fila {
 	const claseDeCombate
 	const jugadorDeFila
 	var property climaExtremo = false
+	var property hayLazoEstrecho = false
 	const imagenPuntajeFila
 	const puntajeFila = new PuntajeFila(posEnY = posEnY + 4, imagen = imagenPuntajeFila)
 
@@ -93,6 +94,9 @@ class FilaDeCombate inherits Fila {
 	override method insertarCarta(unaCarta) {
 		if (climaExtremo) {
 			unaCarta.modificarPuntajeA(1)
+		}
+		if (hayLazoEstrecho) {
+			unaCarta.duplicarPuntaje()
 		}
 		super(unaCarta)
 		puntajeFila.actualizarPuntaje(cartas.copy())
@@ -118,6 +122,11 @@ class FilaDeCombate inherits Fila {
 	method diaDespejado() {
 		self.climaExtremo(false)
 		self.modificarPuntajeCartas({ carta => carta.resetearPuntaje()})
+	}
+
+	method lazoEstrecho() {
+		self.hayLazoEstrecho(true)
+		self.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
 	}
 
 }
