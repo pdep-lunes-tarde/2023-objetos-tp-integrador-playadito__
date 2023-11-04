@@ -43,6 +43,8 @@ import selector.*
  * 
  * - caso empate(1-1), y sin cartas sin implementar
  * 
+ * - cuando termina la ronda, y esta el cartel, puedo seguir metiendo cartas (esta mal)
+ * 
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
