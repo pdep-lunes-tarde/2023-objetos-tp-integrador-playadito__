@@ -208,10 +208,13 @@ object filaCartasRival inherits Fila {
 			tablero.jugarCarta(carta)
 			self.removerCarta(carta)
 			seccionDatosRival.actualizarInfo()
-		} catch e : Exception {
-			// cuando el rival no tenga mas cartas,
-			// habra excepcion, se atrapa y pasa de mano
-			pasarDeMano.rivalPasa()
+		} catch e : Exception { // cuando el rival no tenga mas cartas,
+		// habra excepcion, se atrapa y pasa de mano
+			if (filaCartaLiderRival.cartaLiderUsada()) { // tiene carta lider
+				filaCartaLiderRival.jugarCartaLider()
+			} else {
+				pasarDeMano.rivalPasa()
+			}
 		}
 	}
 
@@ -219,7 +222,23 @@ object filaCartasRival inherits Fila {
 
 class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
+	var property cartaLiderUsada = false
+	const texto
+
 	method image() = "assets/FCL-001.png"
+
+	method text() = texto
+
+	method textColor() = "F2F2D9FF"
+
+	override method mostrar() {
+		super()
+		self.agregarListener()
+	}
+
+	method agregarListener() {
+		keyboard.l().onPressDo{ self.jugarCartaLider()}
+	}
 
 	method jugarCartaLider() {
 	// .. mover a una parte del tablero
