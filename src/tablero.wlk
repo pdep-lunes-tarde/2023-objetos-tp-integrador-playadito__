@@ -33,6 +33,7 @@ object tablero {
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 		self.actualizarDatosJugadores()
 		filaCartasJugador.actualizarVisual() // refresca la vista del selector, 
+		pasarDeMano.jugadorPaso(false)
 	}
 
 	method actualizarDatosJugadores() {
@@ -42,7 +43,9 @@ object tablero {
 
 	method rivalJuega() {
 		game.schedule(700, { => filaCartasRival.jugarCarta()})
-		game.schedule(1200, { => imagenTurno.llamarMensaje()})
+		if (!pasarDeMano.jugadorPaso()) {
+			game.schedule(1200, { => imagenTurno.llamarMensaje()})
+		}
 	}
 
 	method jugarCarta(unaCarta) {

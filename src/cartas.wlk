@@ -110,6 +110,11 @@ class CartaDeCombate inherits Carta {
 		numeroPuntaje.modificarNumero(puntaje)
 	}
 
+	method aumentarPuntaje(num) {
+		self.puntaje(puntaje + num)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
 }
 
 class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
@@ -151,6 +156,9 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 	}
 
 	override method duplicarPuntaje() {
+	}
+
+	override method aumentarPuntaje(num) {
 	}
 
 	override method mostrar() {
@@ -211,6 +219,38 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 }
 
 class CartaLider inherits Carta(tipoDeCarta = cartaLider) {
+
+	method aplicarEfecto(jugador)
+
+}
+
+object emhyrVarEmreis inherits CartaLider(faccion = imperioNiffgardiano) {
+
+	override method aplicarEfecto(jugador) {
+		try {
+			const cartasDescartadasRival = jugador.rival().cartasDescartadas()
+			const carta = cartasDescartadasRival.listaCartas().anyOne()
+			cartasDescartadasRival.removerCarta(carta)
+		} catch error : Exception {
+			
+		}
+	}
+
+}
+
+object francescaFindabair inherits CartaLider(faccion = scoiatael) {
+
+	override method aplicarEfecto(jugador) {
+		jugador.filasDeCombate().forEach({ fila => fila.modificarPuntajeCartas({ { carta => carta.aumentarPuntaje(3)}})})
+	}
+
+}
+
+object foltest inherits CartaLider(faccion = reinosDelNorte) {
+
+	override method aplicarEfecto(jugador) {
+	
+	}
 
 }
 

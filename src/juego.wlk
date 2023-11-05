@@ -15,7 +15,6 @@ import selector.*
  * ///////////////////////////// GENERALES /////////////////////////////
  * - !! hacer diferencia entre "mostrar visual" y "actualizar vista"
  * 
- * 
  * - revisar flujo de programa (el orden de muestra afecta la capa del visual)
  *   mostrar visuales (el tablero -> la info(seccion de datos)) -> reparto de mano inicial -> arranca el juego
  * 
@@ -26,33 +25,18 @@ import selector.*
  * 
  * ///////////////////////////// PARTIDA /////////////////////////////
  * - mejorar ganadorRonda
- *  
- * - TU TURNO NO
  * 
  * ///////////////////////////// CARTAS /////////////////////////////
  * 
  * (logica)
- * - Efecto de LazoEstrecho (modificarlo a otro efecto)
  * - implementar cartaLider (caso particular de carta jugable, efecto)
- * - implementar o sacar efectos de baraja
- * 
- * (visual)
- * - imagen particular para carta lider
  * 
  * ///////////////////////////// TABLERO /////////////////////////////
- * 
- * ** Modificar Nombre e Imagen de Paso de Mano (const imagenPasoDeManoJugador)
- * 
- * (logica)
- * - implementar Fila Carta Lider
- * - revisar logica de pasaje de ronda (apaso de ronda o paso de turno), esto tiene q ver mas con regla de juego
- * - revisar el descartado de carta [tablero ln(41~44), ln(145)]
- * - IMPLEMENTACION TEMPORAL CUANDO JUGADOR SE QUEDA SIN CARTAS(revisar y cambiar, actualizar gemas, primero un mensaje, etc)
- * 
  * 
  * ///////////////////////////// OTRO /////////////////////////////
  * 
  * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
+ * fin de juego, volver a jugar
  * 
  */
 object juego {

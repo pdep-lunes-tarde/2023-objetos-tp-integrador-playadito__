@@ -45,13 +45,6 @@ const tiposDeClima = [ buenTiempo, escarcha, niebla, lluvia ]
 
 const especialidades = [ medico, espia, lazoEstrecho, sinHabilidad ]
 
-// ///////////////////////////// CARTAS /////////////////////////////
-const emhyrVarEmreis = new CartaLider(faccion = imperioNiffgardiano)
-
-const foltest = new CartaLider(faccion = reinosDelNorte)
-
-const francescaFindabair = new CartaLider(faccion = scoiatael)
-
 // ///////////////////////////// FILAS /////////////////////////////
 const filaAsedioJugador = new FilaDeCombate(claseDeCombate = claseAsedio, jugadorDeFila = jugador, posEnY = 18, imagenPuntajeFila = "assets/PJ-01.png")
 

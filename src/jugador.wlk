@@ -30,6 +30,8 @@ class Jugador {
 		self.laBaraja(baraja)
 	}
 
+	method filasDeCombate() = filasDeCombate.copy()
+
 	method puntajeTotal() = puntajeTotal.puntajeTotal()
 
 	method pierdeRonda() {
@@ -61,6 +63,14 @@ class Jugador {
 		}
 	}
 
+	method recuperarUnaCartaDescartadaRival() {
+		try {
+			const carta = elRival.cartasDescartadas().listaCartas().anyOne()
+			elRival.cartasDescartadas().removerCarta(carta)
+		} catch error : Exception {
+		}
+	}
+
 	method jugarCarta(carta) {
 		self.filaParaCarta(carta).insertarCarta(carta)
 	}
@@ -86,6 +96,8 @@ class Jugador {
 	}
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
+
+	method cartasDescartadas() = cartasDescartadas
 
 }
 
