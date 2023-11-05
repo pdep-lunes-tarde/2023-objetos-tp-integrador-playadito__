@@ -129,6 +129,11 @@ class FilaDeCombate inherits Fila {
 		self.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
 	}
 
+	override method vaciarFila() {
+		super()
+		self.hayLazoEstrecho(false)
+	}
+
 }
 
 object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43, centroFila = 26 / 2 - 2) {
