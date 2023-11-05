@@ -139,6 +139,7 @@ class SeccionDatos {
 
 object pasarDeMano {
 
+	var property jugadorPaso = false
 	const posEnX = 136
 	const posEnY = -1
 
@@ -152,7 +153,9 @@ object pasarDeMano {
 	}
 
 	method jugadorPasa() {
+		self.jugadorPaso(true)
 		tablero.jugadorDeTurno(rival)
+		filaCartasJugador.anularSelector()
 		imagenPasoDeManoJugador.llamarMensaje()
 		game.schedule(1000, {=> tablero.rivalJuega()})
 		game.schedule(2700, {=> partida.finalizarRonda()}) // cambiar esto, no va asi
@@ -162,10 +165,6 @@ object pasarDeMano {
 		tablero.jugadorDeTurno(jugador)
 		imagenPasoDeManoRival.llamarMensaje()
 	}
-
-}
-
-object pasarDeRonda {
 
 }
 

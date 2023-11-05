@@ -175,6 +175,10 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		tablero.jugarCarta(cartaElegida)
 		seccionDatosJugador.actualizarInfo()
 	}
+	
+	method anularSelector(){
+		selector.esconder()
+	}
 
 }
 
