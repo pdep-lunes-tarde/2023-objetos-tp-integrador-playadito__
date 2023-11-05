@@ -161,6 +161,16 @@ object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43,
 
 }
 
+object filaCombateLider inherits Fila(posEnX = 150, posEnY = 50, posEnYCarta = 51, centroFila = 10 / 2 - 2) {
+
+	override method insertarCarta(unaCarta) {
+		super(unaCarta)
+		game.schedule(500, {=> unaCarta.aplicarEfecto()})
+		game.schedule(2000, {=> self.removerCarta(unaCarta)})
+	}
+
+}
+
 object filaCartasJugador inherits Fila(posEnY = 4) {
 
 	const selector = new Selector(imagen = "assets/S-03.png", catcher = self)
@@ -208,9 +218,10 @@ object filaCartasRival inherits Fila {
 			tablero.jugarCarta(carta)
 			self.removerCarta(carta)
 			seccionDatosRival.actualizarInfo()
-		} catch e : Exception { // cuando el rival no tenga mas cartas,
-		// habra excepcion, se atrapa y pasa de mano
-			if (filaCartaLiderRival.cartaLiderUsada()) { // tiene carta lider
+		} catch e : Exception {
+			// cuando el rival no tenga mas cartas,
+			// habra excepcion, se atrapa y pasa de mano o juga carta lider
+			if (!filaCartaLiderRival.cartaLiderUsada()) { // tiene carta lider
 				filaCartaLiderRival.jugarCartaLider()
 			} else {
 				pasarDeMano.rivalPasa()
@@ -231,19 +242,13 @@ class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
 	method textColor() = "F2F2D9FF"
 
-	override method mostrar() {
-		super()
-		self.agregarListener()
-	}
-
-	method agregarListener() {
-		keyboard.l().onPressDo{ self.jugarCartaLider()}
-	}
-
 	method jugarCartaLider() {
-	// .. mover a una parte del tablero
-	// .. aplicar el efecto
-	// .. borrar la visual
+		try {
+			const cartaElegida = cartas.get(0)
+			self.removerCarta(cartaElegida)
+			tablero.jugarCarta(cartaElegida)
+		} catch err : Exception {
+		}
 	}
 
 }

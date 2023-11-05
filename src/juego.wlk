@@ -63,6 +63,7 @@ object juego {
 		keyboard.left().onPressDo{ self.seApretoIzquierda()}
 		keyboard.right().onPressDo{ self.seApretoDerecha()}
 		keyboard.enter().onPressDo{ self.seApretoSelect()}
+		keyboard.l().onPressDo{ filaCartaLiderJugador.jugarCartaLider()}
 		menu.mostrarMenu()
 		game.start()
 	}

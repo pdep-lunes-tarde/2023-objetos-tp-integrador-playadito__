@@ -93,9 +93,11 @@ class Jugador {
 		}
 		if (tipo.equals(cartaDeUnidad) && carta.especialidad().equals(espia)) {
 			return elRival.filaParaEspia(carta)
-		} else {
-			return filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
 		}
+		if (tipo.equals(cartaLider)) {
+			return filaCombateLider
+		}
+		return filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
 	}
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
