@@ -2,7 +2,7 @@ import wollok.game.*
 import tablero.*
 import numero.*
 import constantes.*
-import fila.*
+import filas.*
 import imagen.*
 
 class Tipo {

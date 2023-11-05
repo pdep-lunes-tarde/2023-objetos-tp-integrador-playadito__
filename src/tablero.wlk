@@ -6,7 +6,7 @@ import numero.*
 import imagen.*
 import constantes.*
 import jugador.*
-import fila.*
+import filas.*
 
 object tablero {
 

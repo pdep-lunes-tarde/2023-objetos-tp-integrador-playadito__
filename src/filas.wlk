@@ -221,7 +221,9 @@ class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 	method image() = "assets/FCL-001.png"
 
 	method jugarCartaLider() {
-	// .. hacer algo aca
+	// .. mover a una parte del tablero
+	// .. aplicar el efecto
+	// .. borrar la visual
 	}
 
 }

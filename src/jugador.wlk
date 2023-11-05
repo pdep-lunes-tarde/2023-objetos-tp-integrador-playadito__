@@ -1,7 +1,7 @@
 import wollok.game.*
 import tablero.*
 import cartas.*
-import fila.*
+import filas.*
 import constantes.*
 
 class Jugador {

@@ -1,4 +1,4 @@
-import fila.*
+import filas.*
 import cartas.*
 import baraja.*
 import wollok.game.*

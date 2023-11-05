@@ -1,0 +1,5 @@
+import tablero.*
+
+test "testX" {
+	assert.that(true)
+}
