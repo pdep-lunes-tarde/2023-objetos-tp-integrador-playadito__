@@ -126,6 +126,7 @@ class FilaDeCombate inherits Fila {
 		if (hayLiderBoost) {
 			self.modificarPuntajeCartas({ carta => carta.aumentarPuntaje(3)})
 		}
+		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
 	method tiempoFeo() {

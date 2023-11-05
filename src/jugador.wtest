@@ -5,17 +5,9 @@ import baraja.*
 import jugador.*
 import constantes.*
 
-describe "tablero" {
+describe "Jugador" {
 
-	test "una cosa" {
-		assert.that(true)
-	}
-
-}
-
-describe "Efecto de cartas" {
-
-	test "una cosa" {
+	test "Si un jugador juega una Carta, la Carta se inserta en la Fila correspondiente" {
 		assert.that(true)
 	}
 

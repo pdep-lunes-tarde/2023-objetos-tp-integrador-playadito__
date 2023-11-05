@@ -1,7 +1,10 @@
+import wollok.game.*
+import tablero.*
 import filas.*
 import cartas.*
 import baraja.*
-import wollok.game.*
+import jugador.*
+import constantes.*
 
 describe "Fila" {
 
@@ -49,11 +52,101 @@ describe "Fila" {
 
 describe "Fila de Combate" {
 
-	// puntaje
-	// metodos relacionados al puntaje
-	// estados de clima
-	test "algo" {
-		assert.that(true)
+	const unaFila = new FilaDeCombate(claseDeCombate = claseInfante, jugadorDeFila = jugador, posEnY = 0, imagenPuntajeFila = "assets/PJ-01.png")
+	const cartaHeroe_a = new CartaHeroe(claseDeCombate = claseInfante, valor = 12, faccion = imperioNiffgardiano)
+	const cartaHeroe_b = new CartaHeroe(claseDeCombate = claseInfante, valor = 15, faccion = imperioNiffgardiano)
+	const cartaUnidad_a = new CartaDeUnidad(especialidad = sinHabilidad, claseDeCombate = claseInfante, valor = 7, faccion = imperioNiffgardiano)
+	const cartaUnidad_b = new CartaDeUnidad(especialidad = sinHabilidad, claseDeCombate = claseInfante, valor = 8, faccion = imperioNiffgardiano)
+
+	method setUp() {
+		tablero.establecerBandoJugador(imperioNiffgardiano, jugador)
+	}
+
+	test "Al insertar Cartas en la Fila, el punteje de la Carta se suma al puntaje total de la Fila" {
+		self.setUp()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b, cartaUnidad_a, cartaUnidad_b ])
+		assert.equals(42, unaFila.puntajeDeFila())
+	}
+
+	test "Al remover Cartas de la Fila, se resta el punteje de la Carta al puntaje total de la Fila" {
+		self.setUp()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b, cartaUnidad_a, cartaUnidad_b ])
+		unaFila.removerCarta(cartaHeroe_a)
+		unaFila.removerCarta(cartaHeroe_b)
+		assert.equals(15, unaFila.puntajeDeFila())
+	}
+
+	test "Si una fila tiene Tiempo Feo, las Cartas de Unidad disminuyen su valor a 1, las Cartas Heroe no se modifican" {
+		self.setUp()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b, cartaUnidad_a, cartaUnidad_b ])
+		assert.equals(42, unaFila.puntajeDeFila())
+		unaFila.tiempoFeo()
+		assert.equals(29, unaFila.puntajeDeFila())
+	}
+
+	test "Si se Despeja el Tiempo, las Carta vuelven a su valor original" {
+		self.setUp()
+		unaFila.tiempoFeo()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b, cartaUnidad_a, cartaUnidad_b ])
+		assert.equals(29, unaFila.puntajeDeFila())
+		unaFila.diaDespejado()
+		assert.equals(42, unaFila.puntajeDeFila())
+	}
+
+}
+
+describe "Fila de Cartas Clima" {
+
+	const cartaEscarcha = new CartaClima(tipoDeClima = escarcha, faccion = imperioNiffgardiano)
+	const otraCartaEscarcha = new CartaClima(tipoDeClima = escarcha, faccion = scoiatael)
+	const cartaNiebla = new CartaClima(tipoDeClima = niebla, faccion = imperioNiffgardiano)
+	const cartaLluvia = new CartaClima(tipoDeClima = lluvia, faccion = imperioNiffgardiano)
+	const cartaSol = new CartaClima(tipoDeClima = buenTiempo, faccion = imperioNiffgardiano)
+
+	method setUp() {
+		tablero.establecerBandoJugador(imperioNiffgardiano, jugador)
+		tablero.establecerBandoJugador(scoiatael, rival)
+	}
+
+	test "Al insertar una Carta Escarcha Heladora, las Filas de Combate de Clase de Infanteria se ponen en Tiempo Feo" {
+		self.setUp()
+		filaCartasClima.insertarCarta(cartaEscarcha)
+		assert.that(filaInfanteJugador.climaExtremo())
+		assert.that(filaInfanteRival.climaExtremo())
+	}
+
+	test "Al insertar una Carta Niebla Impenetrable, las Filas de Combate de Clase de Arqueria se ponen en Tiempo Feo" {
+		self.setUp()
+		filaCartasClima.insertarCarta(cartaNiebla)
+		assert.that(filaArqueroJugador.climaExtremo())
+		assert.that(filaArqueroRival.climaExtremo())
+	}
+
+	test "Al insertar una Carta Lluvia Torrencial, las Filas de Combate de Clase de Asedio se ponen en Tiempo Feo" {
+		self.setUp()
+		filaCartasClima.insertarCarta(cartaLluvia)
+		assert.that(filaAsedioJugador.climaExtremo())
+		assert.that(filaAsedioRival.climaExtremo())
+	}
+
+	test "Al insertar una Carta de Buen Tiempo, las Cartas Clima se remueven de la Fila y todas las Filas de Combate se ponen en Buen Tiempo" {
+		self.setUp()
+		filaCartasClima.insertarCarta(cartaEscarcha)
+		filaCartasClima.insertarCarta(cartaNiebla)
+		filaCartasClima.insertarCarta(cartaLluvia)
+		const climaFeo = lasFilasDeCombate.map({ fila => fila.climaExtremo() }).fold(true, { acum , each => acum and each })
+		assert.that(climaFeo)
+		filaCartasClima.insertarCarta(cartaSol)
+		const climaLindo = lasFilasDeCombate.map({ fila => fila.climaExtremo() }).fold(false, { acum , each => acum or each })
+		assert.that(!climaLindo)
+		assert.that(!filaCartasClima.tieneCartas())
+	}
+
+	test "Al jugar una Carta Clima, si ya existe otra Carta del mismo Clima en la Fila, esta no se inserta" {
+		self.setUp()
+		filaCartasClima.insertarCarta(cartaEscarcha)
+		filaCartasClima.insertarCarta(otraCartaEscarcha)
+		assert.equals(1, filaCartasClima.cantidadCartas())
 	}
 
 }
