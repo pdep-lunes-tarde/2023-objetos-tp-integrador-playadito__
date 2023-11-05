@@ -163,7 +163,7 @@ object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43,
 
 object filaCartasJugador inherits Fila(posEnY = 4) {
 
-	const selector = new Selector(imagen = "assets/S-05.png", catcher = self)
+	const selector = new Selector(imagen = "assets/S-03.png", catcher = self)
 
 	method image() = "assets/FC-002.png"
 
