@@ -75,10 +75,11 @@ class FilaDeCombate inherits Fila {
 	// 120px (6)
 	const claseDeCombate
 	const jugadorDeFila
-	var property climaExtremo = false
-	var property hayLazoEstrecho = false
 	const imagenPuntajeFila
 	const puntajeFila = new PuntajeFila(posEnY = posEnY + 4, imagen = imagenPuntajeFila)
+	var property climaExtremo = false
+	var property hayLazoEstrecho = false
+	var property hayLiderBoost = false
 
 	method image() = "assets/FC-002.png"
 
@@ -92,21 +93,17 @@ class FilaDeCombate inherits Fila {
 	}
 
 	override method insertarCarta(unaCarta) {
-		if (climaExtremo) {
-			unaCarta.modificarPuntajeA(1)
-		}
-		if (hayLazoEstrecho) {
-			unaCarta.duplicarPuntaje()
-		}
 		super(unaCarta)
-		puntajeFila.actualizarPuntaje(cartas.copy())
+		unaCarta.aplicarEfecto()
+		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 	override method removerCarta(unaCarta) {
+		unaCarta.removerEfecto()
 		unaCarta.resetearPuntaje()
 		super(unaCarta)
 		jugadorDeFila.descartarCarta(unaCarta)
-		puntajeFila.actualizarPuntaje(cartas.copy())
+		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 	method modificarPuntajeCartas(bloque) {
@@ -114,24 +111,27 @@ class FilaDeCombate inherits Fila {
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
+	method actualizarPuntajeCartasSegunEfecto() {
+		if (climaExtremo) {
+			self.modificarPuntajeCartas({ carta => carta.modificarPuntajeA(1)})
+		}
+		if (hayLazoEstrecho) {
+			self.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
+		}
+		if (hayLiderBoost) {
+			self.modificarPuntajeCartas({ carta => carta.aumentarPuntaje(3)})
+		}
+	}
+
 	method tiempoFeo() {
 		self.climaExtremo(true)
-		self.modificarPuntajeCartas({ carta => carta.modificarPuntajeA(1)})
+		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 	method diaDespejado() {
 		self.climaExtremo(false)
 		self.modificarPuntajeCartas({ carta => carta.resetearPuntaje()})
-	}
-
-	method lazoEstrecho() {
-		self.hayLazoEstrecho(true)
-		self.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
-	}
-
-	override method vaciarFila() {
-		super()
-		self.hayLazoEstrecho(false)
+		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 }
@@ -145,6 +145,7 @@ object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43,
 		if (!cartasEnFila.contains(unaCarta.tipoDeClima())) {
 			super(unaCarta)
 		}
+		unaCarta.aplicarEfecto()
 	}
 
 	override method removerCarta(unaCarta) {
@@ -175,8 +176,8 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		tablero.jugarCarta(cartaElegida)
 		seccionDatosJugador.actualizarInfo()
 	}
-	
-	method anularSelector(){
+
+	method anularSelector() {
 		selector.esconder()
 	}
 

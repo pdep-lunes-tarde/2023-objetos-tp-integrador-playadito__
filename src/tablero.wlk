@@ -13,6 +13,10 @@ object tablero {
 	const jugadores = new Dictionary()
 	var property jugadorDeTurno = jugador
 
+	method jugadorDeFaccion(faccion) {
+		return jugadores.get(faccion)
+	}
+
 	method mostrar() {
 		filaCartasClima.mostrar()
 		pasarDeMano.mostrarYagregarListener()
@@ -50,9 +54,6 @@ object tablero {
 
 	method jugarCarta(unaCarta) {
 		jugadorDeTurno.jugarCarta(unaCarta)
-		if (unaCarta.tieneEfecto()) {
-			unaCarta.aplicarEfecto()
-		}
 		self.jugadorDeTurno(jugadorDeTurno.oponente())
 			// logica para la disparar el juego de la computadora
 		if (jugadorDeTurno.equals(rival)) {
@@ -161,7 +162,7 @@ object pasarDeMano {
 		filaCartasJugador.anularSelector()
 		imagenPasoDeManoJugador.llamarMensaje()
 		game.schedule(1000, {=> tablero.rivalJuega()})
-		game.schedule(2700, {=> partida.finalizarRonda()}) // cambiar esto, no va asi
+		game.schedule(2700, {=> partida.finalizarRonda()})
 	}
 
 	method rivalPasa() {

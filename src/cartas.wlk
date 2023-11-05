@@ -46,6 +46,8 @@ class Carta {
 
 	method faccion() = faccion
 
+	method jugador() = tablero.jugadorDeFaccion(faccion)
+
 	method baraja() = lasBarajas.find({ baraja => baraja.faccion().equals(faccion) })
 
 	method tieneEfecto() = false
@@ -61,6 +63,12 @@ class Carta {
 	method actualizarPosicion(x, y) {
 		self.posEnX(x)
 		self.posEnY(y)
+	}
+
+	method aplicarEfecto() {
+	}
+
+	method removerEfecto() {
 	}
 
 }
@@ -95,23 +103,14 @@ class CartaDeCombate inherits Carta {
 		numeroPuntaje.actualizarPosicion(x - 1, y + 6)
 	}
 
-	method modificarPuntajeA(num) {
-		self.puntaje(num)
-		numeroPuntaje.modificarNumero(puntaje)
-	}
+	method modificarPuntajeA(num)
+
+	method duplicarPuntaje()
+
+	method aumentarPuntaje(num)
 
 	method resetearPuntaje() {
 		self.puntaje(valor)
-		numeroPuntaje.modificarNumero(puntaje)
-	}
-
-	method duplicarPuntaje() {
-		self.puntaje(puntaje * 2)
-		numeroPuntaje.modificarNumero(puntaje)
-	}
-
-	method aumentarPuntaje(num) {
-		self.puntaje(puntaje + num)
 		numeroPuntaje.modificarNumero(puntaje)
 	}
 
@@ -142,8 +141,27 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 		imagenEspecialidad.actualizarPosicion(x + 2, y + 1)
 	}
 
-	method aplicarEfecto() {
-		especialidad.aplicar(tablero.jugadorDeTurno().filaParaCarta(self))
+	override method aplicarEfecto() {
+		especialidad.aplicar(self.jugador().filaParaCarta(self))
+	}
+
+	override method removerEfecto() {
+		especialidad.removerEfecto(self.jugador().filaParaCarta(self))
+	}
+
+	override method modificarPuntajeA(num) {
+		self.puntaje(num)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
+	override method duplicarPuntaje() {
+		self.puntaje(puntaje * 2)
+		numeroPuntaje.modificarNumero(puntaje)
+	}
+
+	override method aumentarPuntaje(num) {
+		self.puntaje(puntaje + num)
+		numeroPuntaje.modificarNumero(puntaje)
 	}
 
 }
@@ -151,15 +169,6 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 
 	const imagenNumeroHeroe = new Imagen(imagen = "assets/numeroHeroe.png")
-
-	override method modificarPuntajeA(num) {
-	}
-
-	override method duplicarPuntaje() {
-	}
-
-	override method aumentarPuntaje(num) {
-	}
 
 	override method mostrar() {
 		super()
@@ -174,6 +183,15 @@ class CartaHeroe inherits CartaDeCombate(tipoDeCarta = cartaHeroe) {
 	override method actualizarPosicion(x, y) {
 		super(x, y)
 		imagenNumeroHeroe.actualizarPosicion(x, y + 8)
+	}
+
+	override method modificarPuntajeA(num) {
+	}
+
+	override method duplicarPuntaje() {
+	}
+
+	override method aumentarPuntaje(num) {
 	}
 
 }
@@ -203,7 +221,7 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 		imagenTipoClima.actualizarPosicion(x + 1, y + 8)
 	}
 
-	method aplicarEfecto() {
+	override method aplicarEfecto() {
 		// se podria meter alguna img aca
 		if (tipoDeClima.equals(buenTiempo)) {
 			filaCartasClima.vaciarFila()
@@ -212,7 +230,7 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 		}
 	}
 
-	method removerEfecto() {
+	override method removerEfecto() {
 		filasDeEfecto.forEach({ fila => fila.diaDespejado()})
 	}
 
@@ -220,36 +238,27 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 class CartaLider inherits Carta(tipoDeCarta = cartaLider) {
 
-	method aplicarEfecto(jugador)
-
 }
 
 object emhyrVarEmreis inherits CartaLider(faccion = imperioNiffgardiano) {
 
-	override method aplicarEfecto(jugador) {
-		try {
-			const cartasDescartadasRival = jugador.rival().cartasDescartadas()
-			const carta = cartasDescartadasRival.listaCartas().anyOne()
-			cartasDescartadasRival.removerCarta(carta)
-		} catch error : Exception {
-			
-		}
+	override method aplicarEfecto() {
+		self.jugador().recuperarUnaCartaDescartadaRival()
 	}
 
 }
 
 object francescaFindabair inherits CartaLider(faccion = scoiatael) {
 
-	override method aplicarEfecto(jugador) {
-		jugador.filasDeCombate().forEach({ fila => fila.modificarPuntajeCartas({ { carta => carta.aumentarPuntaje(3)}})})
+	override method aplicarEfecto() {
+		self.jugador().filasDeCombate().forEach({ fila => fila.modificarPuntajeCartas({ { carta => carta.aumentarPuntaje(3)}})})
 	}
 
 }
 
 object foltest inherits CartaLider(faccion = reinosDelNorte) {
 
-	override method aplicarEfecto(jugador) {
-	
+	override method aplicarEfecto() {
 	}
 
 }
@@ -264,6 +273,9 @@ object medico {
 		tablero.jugadorDeTurnoRecuperaCarta()
 	}
 
+	method removerEfecto(fila) {
+	}
+
 }
 
 object espia {
@@ -276,6 +288,9 @@ object espia {
 		2.times({ n => tablero.jugadorDeTurnoSacaCarta()})
 	}
 
+	method removerEfecto(fila) {
+	}
+
 }
 
 object lazoEstrecho {
@@ -285,7 +300,11 @@ object lazoEstrecho {
 	method obtenerImagen() = imagen
 
 	method aplicar(fila) {
-		fila.lazoEstrecho()
+		fila.hayLazoEstrecho(true)
+	}
+
+	method removerEfecto(fila) {
+		fila.hayLazoEstrecho(false)
 	}
 
 }
@@ -298,6 +317,9 @@ object sinHabilidad {
 	method obtenerImagen() = imagen
 
 	method aplicar(fila) {
+	}
+
+	method removerEfecto(fila) {
 	}
 
 }

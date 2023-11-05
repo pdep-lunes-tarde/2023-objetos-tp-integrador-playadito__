@@ -73,7 +73,6 @@ class Selector {
 		game.removeVisual(self)
 		items.remove(items.get(index))
 		catcher.tomarSeleccion(index)
-	// self.esconder()
 	}
 
 }
