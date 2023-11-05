@@ -238,6 +238,8 @@ class CartaClima inherits Carta(tipoDeCarta = cartaDeClima) {
 
 class CartaLider inherits Carta(tipoDeCarta = cartaLider) {
 
+	override method image() = "assets/" + faccion.nombre() + "-lider.png"
+
 }
 
 object emhyrVarEmreis inherits CartaLider(faccion = imperioNiffgardiano) {
@@ -251,7 +253,7 @@ object emhyrVarEmreis inherits CartaLider(faccion = imperioNiffgardiano) {
 object francescaFindabair inherits CartaLider(faccion = scoiatael) {
 
 	override method aplicarEfecto() {
-		self.jugador().filasDeCombate().forEach({ fila => fila.modificarPuntajeCartas({ { carta => carta.aumentarPuntaje(3)}})})
+		self.jugador().filasDeCombate().forEach({ fila => fila.hayLiderBoost(true)})
 	}
 
 }

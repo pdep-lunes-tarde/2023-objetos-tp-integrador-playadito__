@@ -106,6 +106,11 @@ class FilaDeCombate inherits Fila {
 		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
+	override method vaciarFila() {
+		super()
+		self.hayLiderBoost(false)
+	}
+
 	method modificarPuntajeCartas(bloque) {
 		cartas.forEach(bloque)
 		puntajeFila.actualizarPuntaje(cartas.copy())
@@ -214,6 +219,10 @@ object filaCartasRival inherits Fila {
 class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
 	method image() = "assets/FCL-001.png"
+
+	method jugarCartaLider() {
+	// .. hacer algo aca
+	}
 
 }
 
