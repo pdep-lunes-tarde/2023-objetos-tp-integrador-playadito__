@@ -90,9 +90,9 @@ const imagenRondaPerdida = new Mensaje(imagen = "assets/message-rondaperdida.png
 
 const imagenRondaGanada = new Mensaje(imagen = "assets/message-rondaganada.png")
 
-const imagenPartidaGanada = new MensajeFinPartida(imagen = "assets/message-victoria.png")
+const imagenPartidaGanada = new MensajeFinPartida(imagen = "assets/message-victoria-02.png")
 
-const imagenPartidaPerdida = new MensajeFinPartida(imagen = "assets/message-fracaso.png")
+const imagenPartidaPerdida = new MensajeFinPartida(imagen = "assets/message-derrota-02.png")
 
 ///////////////////////////// SECCION DATOS /////////////////////////////
 const seccionDatosJugador = new SeccionDatos(posEnY = 25, elJugador = jugador)
