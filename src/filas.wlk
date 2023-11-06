@@ -94,8 +94,8 @@ class FilaDeCombate inherits Fila {
 
 	override method insertarCarta(unaCarta) {
 		super(unaCarta)
+		self.actualizarPuntajeCartasSegunEfecto(unaCarta)
 		unaCarta.aplicarEfecto()
-		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 	override method removerCarta(unaCarta) {
@@ -103,7 +103,7 @@ class FilaDeCombate inherits Fila {
 		unaCarta.resetearPuntaje()
 		super(unaCarta)
 		jugadorDeFila.descartarCarta(unaCarta)
-		self.actualizarPuntajeCartasSegunEfecto()
+		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
 	override method vaciarFila() {
@@ -116,28 +116,27 @@ class FilaDeCombate inherits Fila {
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
-	method actualizarPuntajeCartasSegunEfecto() {
+	method actualizarPuntajeCartasSegunEfecto(carta) {
 		if (climaExtremo) {
-			self.modificarPuntajeCartas({ carta => carta.modificarPuntajeA(1)})
+			carta.modificarPuntajeA(1)
 		}
 		if (hayLazoEstrecho) {
-			self.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
+			carta.duplicarPuntaje()
 		}
 		if (hayLiderBoost) {
-			self.modificarPuntajeCartas({ carta => carta.aumentarPuntaje(3)})
+			carta.aumentarPuntaje(3)
 		}
 		puntajeFila.actualizarPuntaje(cartas.copy())
 	}
 
 	method tiempoFeo() {
 		self.climaExtremo(true)
-		self.actualizarPuntajeCartasSegunEfecto()
+		self.modificarPuntajeCartas({ carta => carta.modificarPuntajeA(1)})
 	}
 
 	method diaDespejado() {
 		self.climaExtremo(false)
 		self.modificarPuntajeCartas({ carta => carta.resetearPuntaje()})
-		self.actualizarPuntajeCartasSegunEfecto()
 	}
 
 }
@@ -181,9 +180,6 @@ object filaCartasJugador inherits Fila(posEnY = 4) {
 		super()
 		selector.setSelector(cartas)
 		juego.selectorActual(selector)
-		if (cartas.isEmpty()) {
-			pasarDeMano.jugadorPasa()
-		}
 	}
 
 	method tomarSeleccion(index) {
@@ -219,9 +215,7 @@ object filaCartasRival inherits Fila {
 			self.removerCarta(carta)
 			seccionDatosRival.actualizarInfo()
 		} catch e : Exception {
-			// cuando el rival no tenga mas cartas,
-			// habra excepcion, se atrapa y pasa de mano o juga carta lider
-			if (!filaCartaLiderRival.cartaLiderUsada()) { // tiene carta lider
+			if (filaCartaLiderRival.tieneCartas()) {
 				filaCartaLiderRival.jugarCartaLider()
 			} else {
 				pasarDeMano.rivalPasa()
@@ -233,7 +227,6 @@ object filaCartasRival inherits Fila {
 
 class FilaCartaLider inherits Fila(posEnX = 11, centroFila = 10 / 2 - 2) {
 
-	var property cartaLiderUsada = false
 	const texto
 
 	method image() = "assets/FCL-001.png"

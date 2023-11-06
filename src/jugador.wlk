@@ -91,11 +91,11 @@ class Jugador {
 		if (tipo.equals(cartaDeClima)) {
 			return filaClima
 		}
-		if (tipo.equals(cartaDeUnidad) && carta.especialidad().equals(espia)) {
-			return elRival.filaParaEspia(carta)
-		}
 		if (tipo.equals(cartaLider)) {
 			return filaCombateLider
+		}
+		if (tipo.equals(cartaDeUnidad) and carta.especialidad().equals(espia)) {
+			return elRival.filaParaEspia(carta)
 		}
 		return filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
 	}

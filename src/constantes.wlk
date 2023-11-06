@@ -57,7 +57,7 @@ const filaInfanteRival = new FilaDeCombate(claseDeCombate = claseInfante, jugado
 
 const lasFilasDeCombate = [ filaAsedioJugador, filaArqueroJugador, filaInfanteJugador, filaAsedioRival, filaArqueroRival, filaInfanteRival ]
 
-const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5, texto = "\n \n \n           Utilizar Carta Lider (l)")
+const filaCartaLiderJugador = new FilaCartaLider(posEnY = 4, posEnYCarta = 5, texto = "\n \n \n           Utilizar Carta Lider (L)")
 
 const filaCartaLiderRival = new FilaCartaLider(posEnY = 79, posEnYCarta = 80, texto = "")
 

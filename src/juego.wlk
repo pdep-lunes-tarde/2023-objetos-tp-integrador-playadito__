@@ -10,34 +10,9 @@ import selector.*
  * ///////////////////////////// TESTS /////////////////////////////
  * FILA (falta terminar)
  * ** Y el resto de archivos
- * - caso empate(1-1), y sin cartas ni jugador ni rival, juego estancado
- * 
- * ///////////////////////////// GENERALES /////////////////////////////
- * - !! hacer diferencia entre "mostrar visual" y "actualizar vista"
- * 
- * - revisar flujo de programa (el orden de muestra afecta la capa del visual)
- *   mostrar visuales (el tablero -> la info(seccion de datos)) -> reparto de mano inicial -> arranca el juego
- * 
- * - revisar codigo (y refactorizar en caso de ser necesario):
- * 		- logica repetida
- * 		- faltas de encapsulamiento
- * 		- funciones estilo C
- * 
- * ///////////////////////////// PARTIDA /////////////////////////////
- * - mejorar ganadorRonda
  * 
  * ///////////////////////////// CARTAS /////////////////////////////
- * 
- * (logica)
- * - implementar cartaLider (caso particular de carta jugable, efecto)
- * 
- * ///////////////////////////// TABLERO /////////////////////////////
- * 
- * ///////////////////////////// OTRO /////////////////////////////
- * 
- * ver implementacion para futuro de un scoreboard con los puntajes del jugador (nuevo objeto)
- * fin de juego, volver a jugar
- * 
+ * - implementar efecto foltest
  */
 object juego {
 
@@ -64,7 +39,7 @@ object juego {
 		keyboard.right().onPressDo{ self.seApretoDerecha()}
 		keyboard.enter().onPressDo{ self.seApretoSelect()}
 		keyboard.l().onPressDo{ filaCartaLiderJugador.jugarCartaLider()}
-		menu.mostrarMenu()
+		menuInicio.mostrarMenu()
 		game.start()
 	}
 
@@ -73,6 +48,7 @@ object juego {
 object partida {
 
 	var property ronda = 1
+	var property noHayTablero = true
 
 	method start(barajaSeleccionado) {
 		const barajaJugador = barajaSeleccionado
@@ -85,20 +61,23 @@ object partida {
 	}
 
 	method asignarOtraBarajaRandom(baraja) {
-		lasBarajas.remove(baraja)
-		return lasBarajas.anyOne()
+		const barajasSobrates = lasBarajas.copy()
+		barajasSobrates.remove(baraja)
+		return barajasSobrates.anyOne()
 	}
 
 	method comenzarRonda() {
-		if (ronda == 1) {
+		if (noHayTablero) {
 			tablero.mostrar()
+			self.noHayTablero(false)
+		}
+		if (ronda == 1) {
 			tablero.repartirManoInicial()
 		}
 		tablero.resetearTablero()
 	}
 
 	method finalizarRonda() {
-		// deberian ir los efectos de baraja 
 		self.ganadorRonda()
 		if (jugador.perdioPartida() or rival.perdioPartida()) {
 			self.finDePartida()
@@ -128,11 +107,45 @@ object partida {
 	}
 
 	method finDePartida() {
+		var mensaje
 		if (rival.perdioPartida()) {
-			game.schedule(2200, { => imagenPartidaGanada.llamarMensaje()})
+			mensaje = imagenPartidaGanada
 		} else if (jugador.perdioPartida()) {
-			game.schedule(2200, { => imagenPartidaPerdida.llamarMensaje()})
+			mensaje = imagenPartidaPerdida
 		}
+		game.schedule(2200, { => menuFinal.mostrar(mensaje)})
+	}
+
+}
+
+object menuFinal {
+
+	var mensajeFinDePartida
+
+	method image() = "assets/opcion-fin-de-juego-02.png"
+
+	method mostrar(mensaje) {
+		mensajeFinDePartida = mensaje
+		mensaje.llamarMensaje()
+		game.addVisualIn(self, game.at(0, 0))
+		keyboard.r().onPressDo{ self.reiniciarJuego()}
+		keyboard.q().onPressDo{ game.stop()}
+	}
+
+	method esconder() {
+		keyboard.r().onPressDo{ self.noHacerNada()}
+		game.removeVisual(self)
+		mensajeFinDePartida.esconder()
+	}
+
+	method reiniciarJuego() {
+	// ... deberia resetear todo
+	// partida.ronda(1)
+	// self.esconder()
+	// menuInicio.mostrarMenu()
+	}
+
+	method noHacerNada() {
 	}
 
 }

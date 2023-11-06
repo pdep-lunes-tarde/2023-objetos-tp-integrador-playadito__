@@ -18,7 +18,7 @@ const cartaReinosDelNorte = new CartaMenu(faccion = reinosDelNorte, posEnX = 76,
 
 const cartaScoiatael = new CartaMenu(faccion = scoiatael, posEnX = 106, posEnY = 13)
 
-object menu {
+object menuInicio {
 
 	// se puede meter los new directamente, pero se hace un re choclo
 	const cartasMenu = [ cartaImperioNiffgardiano, cartaReinosDelNorte, cartaScoiatael ]
@@ -37,7 +37,7 @@ object menu {
 
 	method esconder() {
 		game.removeVisual(self)
-		selectorMenu.esconder() // solucion temporal
+		selectorMenu.esconder()
 		cartasMenu.forEach({ baraja => game.removeVisual(baraja)})
 	}
 

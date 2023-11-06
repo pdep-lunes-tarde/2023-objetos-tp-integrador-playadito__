@@ -142,10 +142,12 @@ class CartaDeUnidad inherits CartaDeCombate(tipoDeCarta = cartaDeUnidad) {
 	}
 
 	override method aplicarEfecto() {
+		// ////// hay un caso particular que no cumple //////
 		especialidad.aplicar(self.jugador().filaParaCarta(self))
 	}
 
 	override method removerEfecto() {
+		// ////// hay un caso particular que no cumple //////
 		especialidad.removerEfecto(self.jugador().filaParaCarta(self))
 	}
 
@@ -303,15 +305,16 @@ object lazoEstrecho {
 
 	method aplicar(fila) {
 		fila.hayLazoEstrecho(true)
+		fila.modificarPuntajeCartas({ carta => carta.duplicarPuntaje()})
 	}
 
 	method removerEfecto(fila) {
 		fila.hayLazoEstrecho(false)
+		fila.modificarPuntajeCartas({ carta => fila.actualizarPuntajeCartasSegunEfecto(carta)})
 	}
 
 }
 
-//ver que hacer con la imagen
 object sinHabilidad {
 
 	const imagen = "assets/transparente.png"

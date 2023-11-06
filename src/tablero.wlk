@@ -13,13 +13,15 @@ object tablero {
 	const jugadores = new Dictionary()
 	var property jugadorDeTurno = jugador
 
+	// method image() = "assets/GAME-BG.png"
 	method jugadorDeFaccion(faccion) {
 		return jugadores.get(faccion)
 	}
 
 	method mostrar() {
+		// game.addVisualIn(self, game.at(0, 0))
 		filaCartasClima.mostrar()
-		pasarDeMano.mostrarYagregarListener()
+		pasarDeMano.mostrarYAgregarListener()
 		jugadores.forEach({ faccion , elJugador => elJugador.mostrarComponentes()})
 	}
 
@@ -33,6 +35,7 @@ object tablero {
 	}
 
 	method resetearTablero() {
+		self.jugadorDeTurno(jugador)
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 		self.actualizarDatosJugadores()
@@ -147,13 +150,13 @@ object pasarDeMano {
 	const posEnX = 136
 	const posEnY = -1
 
-	method text() = "Pasar de Mano (r)"
+	method text() = "Pasar de Mano (P)"
 
 	method textColor() = "F2F2D9FF"
 
-	method mostrarYagregarListener() {
+	method mostrarYAgregarListener() {
 		game.addVisualIn(self, game.at(posEnX, posEnY))
-		keyboard.r().onPressDo{ self.jugadorPasa()}
+		keyboard.p().onPressDo{ self.jugadorPasa()}
 	}
 
 	method jugadorPasa() {
