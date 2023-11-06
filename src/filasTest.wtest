@@ -93,6 +93,22 @@ describe "Fila de Combate" {
 		assert.equals(42, unaFila.puntajeDeFila())
 	}
 
+	test "Al Destruir las Cartas de mayor puntaje, todas las Cartas de Unidad de mayor puntaje se remueven" {
+		self.setUp()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b, cartaUnidad_a, cartaUnidad_b ])
+		assert.equals(42, unaFila.puntajeDeFila())
+		unaFila.destruirCartasMayorPuntaje()
+		assert.equals(34, unaFila.puntajeDeFila())
+	}
+
+	test "Si la Fila no contiene Cartas de Unidad, ninguna sera destruida" {
+		self.setUp()
+		unaFila.insertarListaDeCartas([ cartaHeroe_a, cartaHeroe_b ])
+		assert.equals(27, unaFila.puntajeDeFila())
+		unaFila.destruirCartasMayorPuntaje()
+		assert.equals(27, unaFila.puntajeDeFila())
+	}
+
 }
 
 describe "Fila de Cartas Clima" {

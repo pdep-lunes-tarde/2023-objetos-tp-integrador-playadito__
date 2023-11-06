@@ -267,8 +267,9 @@ object francescaFindabair inherits CartaLider(faccion = scoiatael) {
 object foltest inherits CartaLider(faccion = reinosDelNorte) {
 
 	override method aplicarEfecto() {
-		const puntajeFilaArqueraRival = self.jugador().filaRival(claseArquera).puntajeDeFila()
-		if (puntajeFilaArqueraRival > 10) {
+		const filaArqueraRival = self.jugador().filaRival(claseArquera)
+		if (filaArqueraRival.puntajeDeFila() > 10) {
+			filaArqueraRival.destruirCartasMayorPuntaje()
 		}
 	}
 

@@ -140,7 +140,7 @@ class FilaDeCombate inherits Fila {
 	}
 
 	method destruirCartasMayorPuntaje() {
-		const puntajeMayor = cartas.filter({ carta => carta.esCartaDeUnidad() }).map({ carta => carta.puntaje() }).maxIfEmpty(0)
+		const puntajeMayor = cartas.filter({ carta => carta.esCartaDeUnidad() }).map({ carta => carta.puntaje() }).maxIfEmpty({ 0 })
 		const cartasADestruir = cartas.filter({ carta => carta.esCartaDeUnidad() and carta.puntaje().equals(puntajeMayor) })
 		cartasADestruir.forEach({ carta => self.removerCarta(carta)})
 	}
