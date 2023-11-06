@@ -12,6 +12,8 @@ object tablero {
 
 	const jugadores = new Dictionary()
 	var property jugadorDeTurno = jugador
+	var property listenerTeclaL = filaCartaLiderJugador
+	var property listenerTeclaP = pasarDeMano
 
 	// method image() = "assets/GAME-BG.png"
 	method jugadorDeFaccion(faccion) {
@@ -21,8 +23,10 @@ object tablero {
 	method mostrar() {
 		// game.addVisualIn(self, game.at(0, 0))
 		filaCartasClima.mostrar()
-		pasarDeMano.mostrarYAgregarListener()
+		pasarDeMano.mostrar()
 		jugadores.forEach({ faccion , elJugador => elJugador.mostrarComponentes()})
+		keyboard.l().onPressDo{ listenerTeclaL.jugarCartaLider()}
+		keyboard.p().onPressDo{ listenerTeclaP.jugadorPasa()}
 	}
 
 	method establecerBandoJugador(faccion, elJugador) {
@@ -70,6 +74,11 @@ object tablero {
 
 	method jugadorDeTurnoRecuperaCarta() {
 		jugadorDeTurno.recuperarUnaCartaDescartada()
+	}
+
+	method bloquearTeclas() {
+		self.listenerTeclaL(bloqueoDeTecla)
+		self.listenerTeclaP(bloqueoDeTecla)
 	}
 
 }
@@ -154,9 +163,8 @@ object pasarDeMano {
 
 	method textColor() = "F2F2D9FF"
 
-	method mostrarYAgregarListener() {
+	method mostrar() {
 		game.addVisualIn(self, game.at(posEnX, posEnY))
-		keyboard.p().onPressDo{ self.jugadorPasa()}
 	}
 
 	method jugadorPasa() {
@@ -171,6 +179,16 @@ object pasarDeMano {
 	method rivalPasa() {
 		tablero.jugadorDeTurno(jugador)
 		imagenPasoDeManoRival.llamarMensaje()
+	}
+
+}
+
+object bloqueoDeTecla {
+
+	method jugadorPasa() {
+	}
+
+	method jugarCartaLider() {
 	}
 
 }

@@ -38,7 +38,6 @@ object juego {
 		keyboard.left().onPressDo{ self.seApretoIzquierda()}
 		keyboard.right().onPressDo{ self.seApretoDerecha()}
 		keyboard.enter().onPressDo{ self.seApretoSelect()}
-		keyboard.l().onPressDo{ filaCartaLiderJugador.jugarCartaLider()}
 		menuInicio.mostrarMenu()
 		game.start()
 	}
@@ -107,6 +106,7 @@ object partida {
 	}
 
 	method finDePartida() {
+		tablero.bloquearTeclas()
 		var mensaje
 		if (rival.perdioPartida()) {
 			mensaje = imagenPartidaGanada
@@ -122,30 +122,13 @@ object menuFinal {
 
 	var mensajeFinDePartida
 
-	method image() = "assets/opcion-fin-de-juego-02.png"
+	method image() = "assets/opcion-fin-de-juego-03.png"
 
 	method mostrar(mensaje) {
 		mensajeFinDePartida = mensaje
 		mensaje.llamarMensaje()
 		game.addVisualIn(self, game.at(0, 0))
-		keyboard.r().onPressDo{ self.reiniciarJuego()}
 		keyboard.q().onPressDo{ game.stop()}
-	}
-
-	method esconder() {
-		keyboard.r().onPressDo{ self.noHacerNada()}
-		game.removeVisual(self)
-		mensajeFinDePartida.esconder()
-	}
-
-	method reiniciarJuego() {
-	// ... deberia resetear todo
-	// partida.ronda(1)
-	// self.esconder()
-	// menuInicio.mostrarMenu()
-	}
-
-	method noHacerNada() {
 	}
 
 }
