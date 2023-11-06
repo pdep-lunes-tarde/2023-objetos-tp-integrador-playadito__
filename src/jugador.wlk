@@ -102,14 +102,6 @@ class Jugador {
 
 	method filaParaEspia(carta) = filasDeCombate.find({ fila => fila.claseDeCombate() == carta.claseDeCombate() })
 
-	method resetearJugador() {
-		self.cartasDescartadas().removeAllSuchThat(self.cartasDescartadas().isEmpty()) // ver si hay algo mas simple  
-		self.laBaraja(null)
-		self.rondasPerdidas(0)
-		self.puntajeTotal().resetearPuntaje()
-		filaCartasJugador.actualizarVisual()
-	}
-
 }
 
 object jugador inherits Jugador(elRival = rival, filaManoDeCartas = filaCartasJugador, filaCartaLider = filaCartaLiderJugador, filasDeCombate = [ filaInfanteJugador, filaArqueroJugador, filaAsedioJugador ], cartasDescartadas = filaDescartadosJugador, puntajeTotal = puntajeTotalJugador) {
