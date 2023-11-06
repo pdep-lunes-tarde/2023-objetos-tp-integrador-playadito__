@@ -139,6 +139,12 @@ class FilaDeCombate inherits Fila {
 		self.modificarPuntajeCartas({ carta => carta.resetearPuntaje()})
 	}
 
+	method destruirCartasMayorPuntaje() {
+		const puntajeMayor = cartas.filter({ carta => carta.esCartaDeUnidad() }).map({ carta => carta.puntaje() }).maxIfEmpty(0)
+		const cartasADestruir = cartas.filter({ carta => carta.esCartaDeUnidad() and carta.puntaje().equals(puntajeMayor) })
+		cartasADestruir.forEach({ carta => self.removerCarta(carta)})
+	}
+
 }
 
 object filaCartasClima inherits Fila(posEnX = 11, posEnY = 42, posEnYCarta = 43, centroFila = 26 / 2 - 2) {

@@ -85,6 +85,10 @@ class CartaDeCombate inherits Carta {
 
 	method claseDeCombate() = claseDeCombate
 
+	method esCartaHeroe() = self.tipoDeCarta().equals(cartaHeroe)
+
+	method esCartaDeUnidad() = self.tipoDeCarta().equals(cartaDeUnidad)
+
 	override method mostrar() {
 		super()
 		imagenTipoDeCombate.mostrar()
@@ -263,6 +267,9 @@ object francescaFindabair inherits CartaLider(faccion = scoiatael) {
 object foltest inherits CartaLider(faccion = reinosDelNorte) {
 
 	override method aplicarEfecto() {
+		const puntajeFilaArqueraRival = self.jugador().filaRival(claseArquera).puntajeDeFila()
+		if (puntajeFilaArqueraRival > 10) {
+		}
 	}
 
 }

@@ -118,18 +118,3 @@ object partida {
 
 }
 
-object menuFinal {
-
-	var mensajeFinDePartida
-
-	method image() = "assets/opcion-fin-de-juego-03.png"
-
-	method mostrar(mensaje) {
-		mensajeFinDePartida = mensaje
-		mensaje.llamarMensaje()
-		game.addVisualIn(self, game.at(0, 0))
-		keyboard.q().onPressDo{ game.stop()}
-	}
-
-}
-

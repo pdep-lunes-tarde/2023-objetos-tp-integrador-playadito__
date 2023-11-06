@@ -32,6 +32,8 @@ class Jugador {
 
 	method filasDeCombate() = filasDeCombate.copy()
 
+	method filaRival(claseCombate) = elRival.filasDeCombate().find({ fila => fila.claseDeCombate() === claseCombate })
+
 	method cartasDescartadas() = cartasDescartadas
 
 	method puntajeTotal() = puntajeTotal.puntajeTotal()
