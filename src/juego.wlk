@@ -47,10 +47,15 @@ object juego {
 
 object partida {
 
+	var property primeraPartida = true
 	var property ronda = 1
 	var property noHayTablero = true
 
 	method start(barajaSeleccionado) {
+		if (!self.primeraPartida()) {
+			tablero.resetearTableroPartida()
+			juego.selectorActual()
+		}
 		const barajaJugador = barajaSeleccionado
 		const barajaRival = self.asignarOtraBarajaRandom(barajaJugador)
 		jugador.asignarBaraja(barajaJugador)
@@ -74,7 +79,7 @@ object partida {
 		if (ronda == 1) {
 			tablero.repartirManoInicial()
 		}
-		tablero.resetearTablero()
+		tablero.resetearTableroRonda()
 	}
 
 	method finalizarRonda() {
@@ -139,10 +144,10 @@ object menuFinal {
 	}
 
 	method reiniciarJuego() {
-	// ... deberia resetear todo
-	// partida.ronda(1)
-	// self.esconder()
-	// menuInicio.mostrarMenu()
+		// ... deberia resetear todo
+		partida.ronda(1)
+		self.esconder()
+		menuInicio.mostrarMenu()
 	}
 
 	method noHacerNada() {

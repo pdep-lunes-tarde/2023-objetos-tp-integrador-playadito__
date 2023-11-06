@@ -34,13 +34,28 @@ object tablero {
 		jugadores.forEach({ faccion , elJugador => elJugador.asignarCartas(10)})
 	}
 
-	method resetearTablero() {
+	method resetearTableroRonda() {
 		self.jugadorDeTurno(jugador)
 		filaCartasClima.vaciarFila()
 		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
 		self.actualizarDatosJugadores()
 		filaCartasJugador.actualizarVisual() // refresca la vista del selector, 
 		pasarDeMano.jugadorPaso(false)
+	}
+
+	method resetearTableroPartida() {
+		self.jugadorDeTurno(jugador)
+		filaCartasClima.vaciarFila()
+		jugadores.forEach({ faccion , elJugador => elJugador.vaciarFilasDeCombate()})
+		self.resetearInfoJugadores()
+		pasarDeMano.jugadorPaso(false)
+	}
+
+	method resetearInfoJugadores() {
+		jugador.resetearJugador()
+		rival.resetearJugador()
+		seccionDatosJugador.resetearInfo()
+		seccionDatosRival.resetearInfo()
 	}
 
 	method actualizarDatosJugadores() {
@@ -97,6 +112,11 @@ class PuntajeTotal {
 		numeroPuntaje.modificarNumero(puntajeTotal)
 	}
 
+	method resetearPuntaje() {
+		self.puntajeTotal(0)
+		numeroPuntaje.modificarNumero(puntajeTotal)
+	}
+
 }
 
 class Gema inherits Imagen (imagen = "assets/gema.png") {
@@ -106,6 +126,11 @@ class Gema inherits Imagen (imagen = "assets/gema.png") {
 	method apagar() {
 		self.estado(false)
 		self.imagen("assets/gemaPerdida.png")
+	}
+
+	method prender() {
+		self.estado(true)
+		self.imagen("assets/gema.png")
 	}
 
 }
@@ -140,6 +165,11 @@ class SeccionDatos {
 	method actualizarInfo() {
 		self.manoDeCartasRestantes()
 		self.mostrarGemasSegunRondas()
+	}
+
+	method resetearInfo() {
+		2.times({ i => gemas.get(i - 1).prender()})
+		self.manoDeCartasRestantes()
 	}
 
 }
